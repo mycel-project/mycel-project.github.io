@@ -134,7 +134,7 @@ class SiteNavbar extends HTMLElement {
     async connectedCallback() {
 	const rootPaths = ['/', '/index.html', '/docs/', '/docs/index.html', '/download.html', '/docs/download.html'];
 	const isRoot = rootPaths.includes(window.location.pathname);
-        const delay = isRoot ? new Promise(r => setTimeout(r, 400)) : Promise.resolve();
+        const delay = isRoot ? new Promise(r => setTimeout(r, 200)) : Promise.resolve();
 
         try {
             const [res] = await Promise.all([

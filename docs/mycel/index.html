@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <base href="/">
+    <script>
+      const base = document.createElement('base');
+      base.href = (location.hostname === 'localhost' || location.hostname === '127.0.0.1') 
+    ? '/docs/' : '/';
+      document.head.prepend(base);
+    </script>
     <link rel="icon" href="assets/full.svg" type="image/svg+xml">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,6 +19,8 @@
 </head>
 <body>
   <site-navbar></site-navbar>
-  <h1>coming soon</h1>
+  <main>
+    <h1>coming soon</h1>
+  </main>
 </body>
 </html>
