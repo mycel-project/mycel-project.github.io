@@ -1,4 +1,4 @@
-const BASE = "/docs/";
+const BASE = window.location.hostname === 'localhost' ? '/docs/' : '/';
 
 const REPO = 'mycel-project/mycelium';
 const API = `https://api.github.com/repos/${REPO}/releases`;
@@ -95,6 +95,8 @@ async function load() {
     const stableEl = document.getElementById('stable-container');
     const preEl = document.getElementById('pre-container');
 
+    if (!stableEl || !preEl) return; 
+
     try {
 	const res = await fetch(`${API}?per_page=20`);
 	if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
@@ -130,19 +132,23 @@ window.addEventListener("load", () => {
 
 class SiteNavbar extends HTMLElement {
     async connectedCallback() {
-        const isRoot = window.location.pathname === '/docs/index.html' || window.location.pathname === '/';
+        const isRoot = window.location.pathname === '/' || window.location.pathname === '/index.html';
         const delay = isRoot ? new Promise(r => setTimeout(r, 400)) : Promise.resolve();
 
-        const [res] = await Promise.all([
-            fetch(`${BASE}components/navbar.html`),
-            delay
-        ]);
-        this.innerHTML = await res.text();
-
-        if (isRoot) {
-            const loader = document.getElementById('loader');
-            loader?.classList.add('fade-out');
-            setTimeout(() => loader?.remove(), 400);
+        try {
+            const [res] = await Promise.all([
+                fetch(`${BASE}components/navbar.html`),
+                delay
+            ]);
+            this.innerHTML = await res.text();
+        } catch (e) {
+            console.error('navbar fetch failed', e);
+        } finally {
+            if (isRoot) {
+                const loader = document.getElementById('loader');
+                loader?.classList.add('fade-out');
+                setTimeout(() => loader?.remove(), 400);
+            }
         }
     }
 }
