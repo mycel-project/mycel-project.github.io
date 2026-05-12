@@ -370,3 +370,31 @@ main {
     font-size: 24px;
 }
 
+@media (max-width: 768px) {
+    .hide-phone {
+        display: none;
+    }
+
+    .navbar .content .right {
+	gap: 12px;
+    }
+
+    .navbar .content .left img {
+	width: 40px;
+	height: 40px;
+    }
+
+    .btn {
+	padding: 6px 10px;
+    }
+
+    h1 {
+	padding-top: 12px;
+    }
+
+    #loader img {
+	width: 128px;
+	height: 128px;
+	animation: spin 4s linear infinite;
+}
+}

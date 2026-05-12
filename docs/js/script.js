@@ -1,4 +1,4 @@
-const BASE = window.location.hostname === 'localhost' ? '/docs/' : '/';
+const BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? '/docs/' : '/';
 
 const REPO = 'mycel-project/mycelium';
 const API = `https://api.github.com/repos/${REPO}/releases`;
@@ -132,7 +132,8 @@ window.addEventListener("load", () => {
 
 class SiteNavbar extends HTMLElement {
     async connectedCallback() {
-        const isRoot = window.location.pathname === '/' || window.location.pathname === '/index.html';
+	const rootPaths = ['/', '/index.html', '/docs/', '/docs/index.html', '/download.html', '/docs/download.html'];
+	const isRoot = rootPaths.includes(window.location.pathname);
         const delay = isRoot ? new Promise(r => setTimeout(r, 400)) : Promise.resolve();
 
         try {
