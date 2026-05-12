@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Download — Mycelium</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="./css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="./js/script.js"></script>
+  <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+  
+  <site-navbar></site-navbar>
+
+  <main>
+    <h1>
+      <a href="./mycelium" class="wordmark">Mycelium</a>
+    </h1>
+
+    <p class="subtitle">Get the latest version for your platform.</p>
+
+    <div id="stable-section">
+      <div class="section-label">Stable release</div>
+      <div id="stable-container"><span class="loading"><span class="spinner"></span>Fetching releases…</span></div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div id="pre-section">
+      <div class="section-label">Pre-release</div>
+      <div id="pre-container"><span class="loading"><span class="spinner"></span>Fetching releases…</span></div>
+    </div>
+    
+    <h1>
+      <a href="./mycel" class="wordmark">Mycel</a>
+    </h1>
+
+    <p class="subtitle">Releases comming soon...</p>
+  </main>
+
+  <site-footer></site-footer>
+
+</body>
+
+<template id="card-template">
+  <div class="card">
+    <div class="top-section">
+      <div class="card-header">
+	<div class="card-meta">
+          <div class="version-row">
+            <span class="version"></span>
+            <span class="badge"></span>
+          </div>
+          <div class="release-date"></div>
+	</div>
+      </div>
+      <div class="release-link">
+	<a class="btn">
+	  <i class="fa-brands fa-github"></i>
+	</a>
+      </div>
+    </div>
+    <div class="platforms"></div>
+    <button class="changelog-toggle">+ show changelog</button>
+    <div class="changelog"></div>
+  </div>
+</template>
+
+</html>
