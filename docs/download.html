@@ -2,74 +2,84 @@
 <html lang="en">
   <head>
     <link rel="icon" href="./assets/full.svg" type="image/svg+xml">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Download — Mycelium</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="stylesheet" href="./css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <script src="./js/script.js"></script>
-  <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-</head>
-<body>
-  <div class="loader" id="loader">
-    <img src="./assets/full.svg" alt="">
-  </div>
-  <site-navbar></site-navbar>
-
-  <main>
-    <h1>
-      <a href="./mycelium" class="wordmark">Mycelium</a>
-    </h1>
-
-    <p class="subtitle">Get the latest version for your platform.</p>
-
-    <div id="stable-section">
-      <div class="section-label">Stable release</div>
-      <div id="stable-container"><span class="loading"><span class="spinner"></span>Fetching releases…</span></div>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Download — Mycelium</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <script src="./js/script.js"></script>
+    <link rel="stylesheet"
+	  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  </head>
+  <body>
+    <div class="loader" id="loader">
+      <img src="./assets/full.svg" alt="">
     </div>
+    <site-navbar></site-navbar>
 
-    <div class="separator"></div>
+    <main>
+      <div class="tabs">
+	<button class="tab-btn active" onclick="switchTab('mycelium-repo', this)">MYCELIUM</button>
+	<button class="tab-btn" onclick="switchTab('mycel-repo', this)">MYCEL</button>
+      </div>
 
-    <div id="pre-section">
-      <div class="section-label">Pre-release</div>
-      <div id="pre-container"><span class="loading"><span class="spinner"></span>Fetching releases…</span></div>
-    </div>
-    
-    <h1>
-      <a href="./mycel" class="wordmark">Mycel</a>
-    </h1>
+      <div id="mycelium-repo" class="repo-content active">
+	<h1>
+          <a href="./mycelium" class="wordmark">Mycelium</a>
+	</h1>
+	<p class="subtitle">See all Mycelium versions on <a href="https://github.com/mycel-project/mycelium/releases">Github</a></p>
 
-    <p class="subtitle">Releases comming soon...</p>
-  </main>
+	<div class="section-label">Stable release</div>
+	<div id="mycelium-stable-container"><span class="loading"><span class="spinner"></span>Fetching releases…</span></div>
 
-  <site-footer></site-footer>
+	<div class="separator"></div>
 
-</body>
+	<div class="section-label">Pre-release</div>
+	<div id="mycelium-pre-container"><span class="loading"><span class="spinner"></span>Fetching releases…</span></div>
+      </div>
 
-<template id="card-template">
-  <div class="card">
-    <div class="top-section">
-      <div class="card-header">
-	<div class="card-meta">
-          <div class="version-row">
-            <span class="version"></span>
-            <span class="badge"></span>
-          </div>
-          <div class="release-date"></div>
+      <div id="mycel-repo" class="repo-content">
+	<h1>
+          <a href="./mycel" class="wordmark">Mycel</a>
+	</h1>
+	<p class="subtitle">See all Mycel versions on <a href="https://github.com/mycel-project/mycel/releases">Github</a></p>
+
+	<div class="section-label">Stable release</div>
+	<div id="mycel-stable-container"><span class="loading"><span class="spinner"></span>Fetching releases…</span></div>
+
+	<div class="separator"></div>
+
+	<div class="section-label">Pre-release</div>
+	<div id="mycel-pre-container"><span class="loading"><span class="spinner"></span>Fetching releases…</span></div>
+      </div>
+    </main>
+    <site-footer></site-footer>
+
+  </body>
+
+  <template id="card-template">
+    <div class="card">
+      <div class="top-section">
+	<div class="card-header">
+	  <div class="card-meta">
+            <div class="version-row">
+              <span class="version"></span>
+              <span class="badge"></span>
+            </div>
+            <div class="release-date"></div>
+	  </div>
+	</div>
+	<div class="release-link">
+	  <a class="gh-btn">
+	    <i class="fa-brands fa-github"></i>
+	  </a>
 	</div>
       </div>
-      <div class="release-link">
-	<a class="gh-btn">
-	  <i class="fa-brands fa-github"></i>
-	</a>
-      </div>
+      <div class="platforms"></div>
+      <button class="changelog-toggle">+ show changelog</button>
+      <div class="changelog"></div>
     </div>
-    <div class="platforms"></div>
-    <button class="changelog-toggle">+ show changelog</button>
-    <div class="changelog"></div>
-  </div>
-</template>
+  </template>
 
 </html>

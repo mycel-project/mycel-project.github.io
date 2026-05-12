@@ -1,8 +1,5 @@
 const BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? '/docs/' : '/';
 
-const REPO = 'mycel-project/mycelium';
-const API = `https://api.github.com/repos/${REPO}/releases`;
-
 const PLATFORM_ICONS = {
     apk: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M8 12h8M12 8v8"/></svg>`,
     default: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`,
@@ -91,38 +88,63 @@ function emptyState(message) {
   </div>`;
 }
 
+function switchTab(repoId, btn) {
+    document.querySelectorAll('.repo-content').forEach(content => {
+        content.classList.remove('active');
+    });
+    document.querySelectorAll('.tab-btn').forEach(tab => {
+        tab.classList.remove('active');
+    });
+
+    document.getElementById(repoId).classList.add('active');
+    btn.classList.add('active');
+}
+
 async function load() {
-    const stableEl = document.getElementById('stable-container');
-    const preEl = document.getElementById('pre-container');
+    const projects = [
+        {
+            repo: "mycel-project/mycelium",
+            stableEl: document.getElementById('mycelium-stable-container'),
+            preEl: document.getElementById('mycelium-pre-container')
+        },
+        {
+            repo: "mycel-project/mycel",
+            stableEl: document.getElementById('mycel-stable-container'),
+            preEl: document.getElementById('mycel-pre-container')
+        }
+    ];
 
-    if (!stableEl || !preEl) return; 
+    for (const project of projects) {
+        const { repo, stableEl, preEl } = project;
 
-    try {
-	const res = await fetch(`${API}?per_page=20`);
-	if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
-	const releases = await res.json();
+        if (!stableEl || !preEl) continue;
 
-	const stable = releases.find(r => !r.prerelease && !r.draft);
-	const prerelease = releases.find(r => r.prerelease && !r.draft);
+        try {
+            const res = await fetch(`https://api.github.com/repos/${repo}/releases?per_page=20`);
+            if (!res.ok) throw new Error(`${res.status}`);
+            const releases = await res.json();
 
-	stableEl.innerHTML = '';
-	if (stable) {
-	    stableEl.appendChild(buildCard(stable));
-	} else {
-	    stableEl.innerHTML = emptyState('<strong>No stable release yet.</strong><br>The project is in active development. Try a pre-release below.');
-	}
+            const stable = releases.find(r => !r.prerelease && !r.draft);
+            const prerelease = releases.find(r => r.prerelease && !r.draft);
 
-	preEl.innerHTML = '';
-	if (prerelease) {
-	    preEl.appendChild(buildCard(prerelease));
-	} else {
-	    preEl.innerHTML = emptyState('No pre-release available.');
-	}
+            stableEl.innerHTML = '';
+            if (stable) {
+                stableEl.appendChild(buildCard(stable));
+            } else {
+                stableEl.innerHTML = emptyState('<strong>No stable release yet.</strong>');
+            }
 
-    } catch (err) {
-	const msg = `<div class="error-msg">Could not fetch releases — ${err.message}. <a href="https://github.com/${REPO}/releases" style="color:inherit;text-decoration:underline">Browse on GitHub ↗</a></div>`;
-	stableEl.innerHTML = msg;
-	preEl.innerHTML = '';
+            preEl.innerHTML = '';
+            if (prerelease) {
+                preEl.appendChild(buildCard(prerelease));
+            } else {
+                preEl.innerHTML = emptyState('No pre-release available.');
+            }
+
+        } catch (err) {
+            stableEl.innerHTML = `<div class="error-msg">Error: ${err.message}. <a href="https://github.com/${repo}/releases">GitHub ↗</a></div>`;
+            preEl.innerHTML = '';
+        }
     }
 }
 
