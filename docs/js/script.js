@@ -38,7 +38,7 @@ function buildCard(release) {
     const platforms = card.querySelector('.platforms');
     const toggle = card.querySelector('.changelog-toggle');
     const log = card.querySelector('.changelog');
-    const releaseLink = card.querySelector(".release-link .btn")
+    const releaseLink = card.querySelector(".release-link .gh-btn")
 
     version.textContent = release.tag_name;
 
