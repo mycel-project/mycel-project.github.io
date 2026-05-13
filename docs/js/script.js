@@ -131,7 +131,7 @@ async function load() {
             if (stable) {
                 stableEl.appendChild(buildCard(stable));
             } else {
-                stableEl.innerHTML = emptyState('<strong>No stable release yet.</strong>');
+                stableEl.innerHTML = emptyState('No stable release yet.');
             }
 
             preEl.innerHTML = '';
