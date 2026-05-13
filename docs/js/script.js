@@ -53,11 +53,11 @@ function buildCard(release) {
             platforms.appendChild(a);
         });
     } else {
-        platforms.innerHTML = `
-            <span style="font-size:13px;color:var(--muted)">
-                No downloadable assets for this release.
-            </span>
-        `;
+	const a = document.createElement('a');
+        a.href = release.zipball_url;
+        a.className = 'dl-btn';
+        a.innerHTML = `${PLATFORM_ICONS.default} Source Code (.zip)`;
+        platforms.appendChild(a);
     }
 
     if (release.body && release.body.trim()) {
