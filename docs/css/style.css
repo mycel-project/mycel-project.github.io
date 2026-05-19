@@ -44,11 +44,8 @@ a {
 
 h1 {
     font-size: 32px;
-
     font-weight: 300;
-    max-width: 720px;
     color: var(--primary);
-    margin: 0 auto;
     width: 100%;
     padding-top: 12px;
     text-decoration: None;
@@ -64,10 +61,10 @@ h1 {
 
 main {
     flex: 1;
-    max-width: 720px;
+    max-width: 1000px;
     margin: 0 auto;
     width: 100%;
-    padding: 1rem 2rem 4rem;
+    padding: 1rem 0rem 4rem;
 }
 
 .subtitle {
@@ -224,6 +221,11 @@ main {
     color: var(--on-primary);
 }
 
+.btn-lowkey {
+    color: var(--primary);
+    background: var(--bg);
+}
+
 .dl-btn {
     display: inline-flex;
     align-items: center;
@@ -356,6 +358,143 @@ main {
     to { transform: rotate(360deg); }
 }
 
+
+.main-title {
+    font-size: 3.5rem;
+    font-weight: 600;
+    line-height: 1em;
+    margin: 32px 0;
+   
+}
+
+.main-subtitle {
+    font-size: 1.3rem;
+    max-width: 480px;
+    line-height: 1.4em;
+}
+
+.main-btn {
+    font-size: 20px;
+    padding: 12px 20px;
+}
+
+/* Index */
+
+.main-button-section {
+    margin-top: 48px;
+}
+
+.major-points-section {
+    display: flex;
+    height: 400px;
+    margin-top: 64px;
+    padding: 0 32px;
+    gap: 128px;
+    align-items: center;
+}
+
+.major-points {
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+}
+
+h2 {
+    font-size: 28px;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.major-points > div {
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+}
+
+.major-points > div:last-child {
+    border-bottom: 0;
+}
+
+.logo {
+    width: 35%;
+}
+
+.logo img {
+    width: 100%;
+}
+
+.grid-section {
+    margin-top: 128px;
+}
+
+.grid-section .header {
+    margin: 0 180px;
+}
+
+.grid-section .main-subtitle {
+    max-width: 100%;
+}
+
+.grid-section .grid {
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: repeat(2, 500px);
+    justify-content: center;
+    align-items: start;
+    gap: 24px;
+}
+
+.grid-section .grid > div:nth-child(1) { grid-column: 1; grid-row: 1; }
+.grid-section .grid > div:nth-child(2) { grid-column: 2; grid-row: 1; margin-top: 48px; }
+.grid-section .grid > div:nth-child(3) { grid-column: 1; grid-row: 2; }
+.grid-section .grid > div:nth-child(4) { grid-column: 2; grid-row: 2; margin-top: 48px; }
+
+
+.grid-section .grid > div:nth-child(even) {
+    margin-top: 24px;
+}
+
+.grid-section .grid > div {
+    width: 500px;
+    height: auto;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background-color: var(--bg2);
+    padding: 16px;
+}
+
+.grid-section h2 {
+    color: var(--primary)
+}
+
+.coming-soon {
+    font-style: italic;
+    color: var(--muted);
+    cursor: default;
+    position: relative;
+}
+
+.coming-soon::after {
+    content: "Coming soon";
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--bg2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+}
+
+.coming-soon:hover::after {
+    opacity: 1;
+}
+
 /* Navbar */
 .navbar {
     display: flex;
@@ -366,7 +505,7 @@ main {
 }
 
 .navbar .content {
-    width: 900px;
+    width: 1000px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -422,5 +561,9 @@ main {
 	width: 128px;
 	height: 128px;
 	animation: spin 4s linear infinite;
+    }
+
+    .main-title {
+	text-align: center;
     }
 }
