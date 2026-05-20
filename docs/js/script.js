@@ -173,6 +173,18 @@ class SiteNavbar extends HTMLElement {
                 setTimeout(() => loader?.remove(), 400);
             }
         }
+	const navbar = document.querySelector(".navbar");
+	const burger = document.querySelector(".hamburger");
+
+	burger.addEventListener("click", () => {
+	    navbar.classList.toggle("mobile-open");
+	});
+
+	window.addEventListener("resize", () => {
+	    if (window.innerWidth > 700) {
+		navbar.classList.remove("mobile-open");
+	    }
+	});
     }
 }
 
@@ -186,3 +198,5 @@ class SiteFooter extends HTMLElement {
 }
 
 customElements.define('site-footer', SiteFooter);
+
+
