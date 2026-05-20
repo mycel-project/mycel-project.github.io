@@ -35,6 +35,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 a {
@@ -495,13 +496,115 @@ h2 {
     opacity: 1;
 }
 
+.advantages-section {
+    margin-left: calc(-50vw + 50%); /* Hacky, solution would be to give main full width et put content div inside each sections */
+    margin-right: calc(-50vw + 50%);
+    padding-left: calc(50vw - 50%);
+    padding-right: calc(50vw - 50%);
+    padding-bottom: 64px;
+    margin-top: 104px;
+    background-color: var(--primary-soft);
+    padding-top: 64px;
+}
+
+.advantages-section h1 {
+    margin-top: 0;
+    padding-top: 0;
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.advantages-section .advantages {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+}
+
+.advantages-section .advantages .advantage {
+    margin: 12px;
+    padding: 12px;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+.advantages-section .advantages > div:nth-child(1) { grid-column: 1 / 3; }
+.advantages-section .advantages > div:nth-child(2) { grid-column: 3 / 5; }
+.advantages-section .advantages > div:nth-child(3) { grid-column: 5 / 7; }
+.advantages-section .advantages > div:nth-child(4) { grid-column: 2 / 4; grid-row: 2; }
+.advantages-section .advantages > div:nth-child(5) { grid-column: 4 / 6; grid-row: 2; }
+
+.cta {
+    margin-top: 96px;
+}
+
+.cta .cards {
+    margin-top: 32px;
+    display: flex;
+    gap: 24px;
+}
+
+.cta .cards > div {
+    flex: 1;
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.cta .cards > div:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary);
+}
+
+.cta .cards h2 {
+    margin-bottom: 16px;
+    font-size: 18px;
+}
+
+.cta .cards .links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cta .cards .links > a {
+    padding: 6px 0;
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    transition: opacity 0.2s ease;
+}
+
+.cta .cards .links > a:hover {
+    opacity: 0.6;
+}
+
+
 /* Navbar */
+
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+site-navbar {
+    z-index: 1000;
+    top: 0;
+    position: sticky;
+    border-bottom: 1px solid var(--border);
+}
+
 .navbar {
     display: flex;
     justify-content: center;
-    padding: 16px;
+    padding: 8px;
     gap: 16px;
     background-color: var(--bg);
+    width: 100%;
 }
 
 .navbar .content {
@@ -523,8 +626,8 @@ h2 {
 }
 
 .navbar .content .left img {
-    width: 56px;
-    height: 56px;
+    width: 48px;
+    height: 48px;
 }
 
 .navbar .content .right {
@@ -539,13 +642,113 @@ h2 {
     font-size: 24px;
 }
 
-@media (max-width: 768px) {
-    .hide-phone {
-        display: none;
+.navbar.mobile-open .right {
+    position: absolute;
+    top: 48px;
+    right: 0;
+    left: 0;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 12px;
+}
+
+.navbar.mobile-open .right a {
+    display: block;
+}
+
+.fa-bars {
+    color: var(--text);
+}
+
+@media (max-width: 1100px) {
+
+    main {
+	max-width: 720px;
+    }
+    .major-points-section {
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	height: auto;
+    }
+    
+    .major-points-section .logo {
+	display: none;
     }
 
-    .navbar .content .right {
-	gap: 12px;
+    .grid-section .grid {
+	display: flex;
+	flex-direction: column;
+    }
+
+    .grid-section {
+	margin-top: 80px;
+    }
+
+    .grid-section .grid > div {
+	width: 100%;
+	margin-top: 0 !important;
+    }
+
+    .grid-section .header {
+	margin: 0;
+    }
+
+    .grid-section .main-subtitle {
+	max-width: 700px;
+    }
+
+    .cta .cards {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    .main-title {
+	font-size: 3rem;
+    }
+
+    main {
+	max-width: 90%;
+    }
+
+    .main-button-section {
+	text-align: center;
+	display: flex;
+	gap: 16px;
+	flex-direction: column;
+	margin-top: 80px;
+    }
+
+    .main-button-section button {
+	padding: 16px;
+	font-size: 20px;
+    }
+
+    .major-points-section {
+	padding: 0px;
+    }
+
+    .major-points {
+	width: 90%;
+    }
+
+    .advantages-section .advantages {
+	display: flex;
+	flex-direction: column;
+    }
+
+    .cta .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .navbar {
+	padding: 8px 16px;
     }
 
     .navbar .content .left img {
@@ -566,4 +769,13 @@ h2 {
     .main-title {
 	text-align: center;
     }
+
+    .navbar .right a {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
 }
