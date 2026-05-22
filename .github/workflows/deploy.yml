@@ -1,0 +1,42 @@
+name: Deploy Mycel docs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'mycel-docs/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install mkdocs-material
+
+      - name: Build docs
+        working-directory: mycel-docs
+        run: mkdocs build
+
+      - name: Copy build output
+        run: |
+          rm -rf docs/docs/mycel
+          mkdir -p docs/docs/mycel
+          cp -r mycel-docs/site/. docs/docs/mycel/
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/docs/mycel/
+          git commit -m "docs(mycel): deploy from @${{ github.sha }}" || echo "Nothing to commit"
+          git push
