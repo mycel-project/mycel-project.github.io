@@ -1,21 +1,23 @@
-name: Deploy docs
+name: Deploy site
 
 on:
   push:
     branches:
       - main
-    paths:
-      - 'mycel-docs/**'
-      - 'mycelium-docs/**'
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
 
 jobs:
-  deploy-mycel:
+  deploy:
     runs-on: ubuntu-latest
-    if: contains(github.event.commits[0].modified, 'mycel-docs/') || contains(github.event.commits[0].added, 'mycel-docs/')
 
     steps:
-      - name: Checkout
+      - name: Checkout main
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -25,54 +27,55 @@ jobs:
       - name: Install dependencies
         run: pip install mkdocs-material
 
-      - name: Build docs
+      - name: Check mycel-docs changes
+        id: mycel_changed
+        run: |
+          if git diff --name-only HEAD~1 HEAD | grep -q '^mycel-docs/'; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check mycelium-docs changes
+        id: mycelium_changed
+        run: |
+          if git diff --name-only HEAD~1 HEAD | grep -q '^mycelium-docs/'; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build mycel docs
+        if: steps.mycel_changed.outputs.changed == 'true'
         working-directory: mycel-docs
-        run: mkdocs build
+        run: mkdocs build --site-dir ../docs/docs/mycel
 
-      - name: Copy build output
-        run: |
-          rm -rf docs/docs/mycel
-          mkdir -p docs/docs/mycel
-          cp -r mycel-docs/site/. docs/docs/mycel/
-
-      - name: Commit and push
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/docs/mycel/
-          git commit -m "docs(mycel): deploy from @${{ github.sha }}" || echo "Nothing to commit"
-          git push
-
-  deploy-mycelium:
-    runs-on: ubuntu-latest
-    if: contains(github.event.commits[0].modified, 'mycelium-docs/') || contains(github.event.commits[0].added, 'mycelium-docs/')
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Install dependencies
-        run: pip install mkdocs-material
-
-      - name: Build docs
+      - name: Build mycelium docs
+        if: steps.mycelium_changed.outputs.changed == 'true'
         working-directory: mycelium-docs
-        run: mkdocs build
+        run: mkdocs build --site-dir ../docs/docs/mycelium
 
-      - name: Copy build output
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Sync to gh-pages
         run: |
-          rm -rf docs/docs/mycelium
-          mkdir -p docs/docs/mycelium
-          cp -r mycelium-docs/site/. docs/docs/mycelium/
+          rsync -av --delete --exclude='docs/mycel' --exclude='docs/mycelium' docs/ gh-pages/
+          if [ "${{ steps.mycel_changed.outputs.changed }}" == "true" ]; then
+            rsync -av --delete docs/docs/mycel/ gh-pages/docs/mycel/
+          fi
+          if [ "${{ steps.mycelium_changed.outputs.changed }}" == "true" ]; then
+            rsync -av --delete docs/docs/mycelium/ gh-pages/docs/mycelium/
+          fi
 
-      - name: Commit and push
+      - name: Commit and push to gh-pages
+        working-directory: gh-pages
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/docs/mycelium/
-          git commit -m "docs(mycelium): deploy from @${{ github.sha }}" || echo "Nothing to commit"
+          git add -A
+          git commit -m "deploy from @${{ github.sha }}" || echo "Nothing to commit"
           git push
