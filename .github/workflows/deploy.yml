@@ -1,4 +1,4 @@
-name: Deploy Mycel docs
+name: Deploy docs
 
 on:
   push:
@@ -6,10 +6,12 @@ on:
       - main
     paths:
       - 'mycel-docs/**'
+      - 'mycelium-docs/**'
 
 jobs:
-  deploy:
+  deploy-mycel:
     runs-on: ubuntu-latest
+    if: contains(github.event.commits[0].modified, 'mycel-docs/') || contains(github.event.commits[0].added, 'mycel-docs/')
 
     steps:
       - name: Checkout
@@ -39,4 +41,38 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/docs/mycel/
           git commit -m "docs(mycel): deploy from @${{ github.sha }}" || echo "Nothing to commit"
+          git push
+
+  deploy-mycelium:
+    runs-on: ubuntu-latest
+    if: contains(github.event.commits[0].modified, 'mycelium-docs/') || contains(github.event.commits[0].added, 'mycelium-docs/')
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install mkdocs-material
+
+      - name: Build docs
+        working-directory: mycelium-docs
+        run: mkdocs build
+
+      - name: Copy build output
+        run: |
+          rm -rf docs/docs/mycelium
+          mkdir -p docs/docs/mycelium
+          cp -r mycelium-docs/site/. docs/docs/mycelium/
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/docs/mycelium/
+          git commit -m "docs(mycelium): deploy from @${{ github.sha }}" || echo "Nothing to commit"
           git push
