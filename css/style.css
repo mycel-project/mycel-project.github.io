@@ -583,6 +583,15 @@ h3 {
     opacity: 0.6;
 }
 
+/* Docs */
+
+.hub-buttons {
+    margin-top: 16px;
+    display: flex;
+    gap: 16px;
+	     
+}
+
 
 /* Navbar */
 
