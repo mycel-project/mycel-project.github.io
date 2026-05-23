@@ -332,10 +332,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#mycel-v010-coming-soon" class="md-nav__link">
+  <a href="#mycel-v010" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mycel v0.1.0 (Coming-soon)
+        Mycel v0.1.0
       
     </span>
   </a>
@@ -423,10 +423,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#mycel-v010-coming-soon" class="md-nav__link">
+  <a href="#mycel-v010" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mycel v0.1.0 (Coming-soon)
+        Mycel v0.1.0
       
     </span>
   </a>
@@ -464,8 +464,34 @@
 <h1 id="scheduling-algorithms">Scheduling algorithms</h1>
 <p>This section describe the fundamental logic behind the schedulding logic regarding every type of node.
 Each version documents changes only. Omitted behavior is unchanged from the prior version.</p>
-<h2 id="mycel-v010-coming-soon">Mycel v0.1.0 (Coming-soon)</h2>
-<p>This update aims to handle fragments with a better logic to avoid accumulation.</p>
+<p>If no additional explanation is provided for a specific component, it means the implementation and its docstring are considered sufficiently self-explanatory.</p>
+<h2 id="mycel-v010"><a href="https://github.com/mycel-project/mycel/releases/tag/v0.1.0">Mycel v0.1.0</a></h2>
+<p>This update introduces a dedicated scheduling logic for fragments to reduce review accumulation.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">compute_fragment_next_interval</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">rep_index</span><span class="p">,</span> <span class="n">rep_mult</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">depth_midpoint</span><span class="o">=</span><span class="mf">4.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="sd">    Computes the interval in days before the next review of a fragment.</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="sd">    Deeper fragments grow faster toward long intervals (exponential growth),</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="sd">    while shallow fragments stay closer to a linear, regular review pace.</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="sd">    The transition between linear and exponential behavior is controlled by depth_midpoint.</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="sd">    depth: depth in the node tree (0 = root, 1 = first child, ...)</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="sd">    rep_index: repetition index (0 = creation, 1 = first review, ...)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="sd">    rep_mult: how aggressively intervals grow for deep fragments</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="sd">    depth_midpoint: nesting level at which growth is halfway between linear and exponential</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="sd">    returns interval in days (capped at 365).</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="n">initial</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">depth</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span> <span class="c1"># initial value at creation clamped to avoid too long intervals between creation and first review</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="n">exp_weight</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">depth</span> <span class="o">/</span> <span class="n">depth_midpoint</span><span class="p">)</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="n">interval</span> <span class="o">=</span> <span class="n">initial</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rep_index</span><span class="p">):</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        <span class="n">additive_step</span> <span class="o">=</span> <span class="n">initial</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>        <span class="n">multiplicative_step</span> <span class="o">=</span> <span class="n">interval</span> <span class="o">*</span> <span class="p">(</span><span class="n">rep_mult</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>        <span class="n">step</span> <span class="o">=</span> <span class="n">additive_step</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">exp_weight</span><span class="p">)</span> <span class="o">+</span> <span class="n">multiplicative_step</span> <span class="o">*</span> <span class="n">exp_weight</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>        <span class="n">interval</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">interval</span> <span class="o">+</span> <span class="n">step</span><span class="p">,</span> <span class="mi">365</span><span class="p">))</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>    <span class="k">return</span> <span class="n">interval</span>
+</code></pre></div>
 <h2 id="mycel-v004"><a href="https://github.com/mycel-project/mycel/releases/tag/v0.0.4">Mycel v0.0.4</a></h2>
 <ul>
 <li>When creating a node (whether by importing or extracting), the first review is scheduled for the next day.</li>
