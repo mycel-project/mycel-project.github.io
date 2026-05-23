@@ -728,6 +728,8 @@ site-navbar {
 
     .main-title {
 	font-size: 3rem;
+	margin-top: 64px;
+	margin-bottom: 64px;
     }
 
     main {
