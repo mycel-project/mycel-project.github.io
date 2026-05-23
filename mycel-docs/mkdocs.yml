@@ -1,2 +1,7 @@
 site_name: Mycel Manual
 theme: material
+nav:
+  - Manual:
+    - Overview: manual/index.md
+    - Scheduling algorithms: manual/scheduling-algorithms.md
+  - Glossary: glossary.md
