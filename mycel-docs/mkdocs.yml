@@ -5,3 +5,8 @@ nav:
   - Manual:
     - Scheduling algorithms: manual/scheduling-algorithms.md
   - Glossary: glossary.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
