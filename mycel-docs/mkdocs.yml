@@ -4,6 +4,7 @@ nav:
   - Overview: index.md
   - Manual:
     - Scheduling algorithms: manual/scheduling-algorithms.md
+    - Implement Mycel: manual/implement-mycel.md
   - Glossary: glossary.md
 extra:
   homepage: https://mycel-project.com/
