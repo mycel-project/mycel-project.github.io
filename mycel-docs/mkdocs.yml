@@ -6,7 +6,7 @@ nav:
     - Scheduling algorithms: manual/scheduling-algorithms.md
   - Glossary: glossary.md
 extra:
-  homepage: https://mycel-project.github.io/
+  homepage: https://mycel-project.com/
 
 markdown_extensions:
   - pymdownx.highlight:
