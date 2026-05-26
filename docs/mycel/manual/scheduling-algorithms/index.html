@@ -12,7 +12,7 @@
         <link rel="prev" href="../..">
       
       
-        <link rel="next" href="../../glossary/">
+        <link rel="next" href="../implement-mycel/">
       
       
         
@@ -332,6 +332,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#mycel-v011" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mycel v0.1.1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#mycel-v010" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -357,6 +368,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../implement-mycel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implement Mycel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -423,6 +462,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#mycel-v011" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mycel v0.1.1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#mycel-v010" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -465,6 +515,8 @@
 <p>This section describe the fundamental logic behind the schedulding logic regarding every type of node.
 Each version documents changes only. Omitted behavior is unchanged from the prior version.</p>
 <p>If no additional explanation is provided for a specific component, it means the implementation and its docstring are considered sufficiently self-explanatory.</p>
+<h2 id="mycel-v011"><a href="https://github.com/mycel-project/mycel/releases/tag/v0.1.1">Mycel v0.1.1</a></h2>
+<p>Introduce two pools for the current day's reviews: nodes whose due time has already passed, and nodes due later in the day. This prevents a freshly-reviewed spore from immediately resurfacing just because it falls within the current day. When the first pool is non-empty, the second is ignored and the normal priority and fragment/spore ratio apply. When the first pool is empty, nodes from the second pool are surfaced early so the session is never left empty this behavior is togglable in configuration.</p>
 <h2 id="mycel-v010"><a href="https://github.com/mycel-project/mycel/releases/tag/v0.1.0">Mycel v0.1.0</a></h2>
 <p>This update introduces a dedicated scheduling logic for fragments to reduce review accumulation.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">compute_fragment_next_interval</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">rep_index</span><span class="p">,</span> <span class="n">rep_mult</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">depth_midpoint</span><span class="o">=</span><span class="mf">4.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -498,7 +550,10 @@ Each version documents changes only. Omitted behavior is unchanged from the prio
 <li>Fragments are scheduled on each encounter to the day matching their total repetition count (1st encounter → next day, 2nd encounter → 2 days, etc.). This is problematic as extracted fragments accumulate quickly and bloat review sessions.</li>
 <li>Spores strictly follow the unmodified FSRS algorithm.</li>
 <li>Priority only determines the order in which elements are presented within a review session.</li>
+<li>We respect a spore/fragment ratio of 1/4 when possible.</li>
+<li>When there are overdue nodes, Mycel uses a "day sweep" approach: it processes missed review days chronologically, one day at a time.</li>
 </ul>
+<p>See more details directly into the code</p>
 
 
 
