@@ -4,6 +4,10 @@ Each version documents changes only. Omitted behavior is unchanged from the prio
 
 If no additional explanation is provided for a specific component, it means the implementation and its docstring are considered sufficiently self-explanatory.
 
+## [Mycel v0.1.1](https://github.com/mycel-project/mycel/releases/tag/v0.1.1) (coming-soon)
+
+Introduce two pools for the current day's reviews: nodes whose due time has already passed, and nodes due later in the day. This prevents a freshly-reviewed spore from immediately resurfacing just because it falls within the current day. When the first pool is non-empty, the second is ignored and the normal priority and fragment/spore ratio apply. When the first pool is empty, nodes from the second pool are surfaced early so the session is never left empty this behavior is togglable in configuration.
+
 ## [Mycel v0.1.0](https://github.com/mycel-project/mycel/releases/tag/v0.1.0)
 This update introduces a dedicated scheduling logic for fragments to reduce review accumulation.
 
@@ -41,3 +45,7 @@ def compute_fragment_next_interval(depth, rep_index, rep_mult=1.5, depth_midpoin
 - Fragments are scheduled on each encounter to the day matching their total repetition count (1st encounter → next day, 2nd encounter → 2 days, etc.). This is problematic as extracted fragments accumulate quickly and bloat review sessions.
 - Spores strictly follow the unmodified FSRS algorithm.
 - Priority only determines the order in which elements are presented within a review session.
+- We respect a spore/fragment ratio of 1/4 when possible.
+- When there are overdue nodes, Mycel uses a "day sweep" approach: it processes missed review days chronologically, one day at a time.
+
+See more details directly into the code
