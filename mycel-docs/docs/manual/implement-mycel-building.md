@@ -31,7 +31,11 @@ First, some conditions must be checked by your environment to allow implementing
 
 ## Implentation guide
 
-## Handle settings
+
+### Rescheduling
+- After rescheduling, check whether the rescheduled node is the one currently being reviewed. If so, clear its review state. 
+
+### Handle settings
 Mycel handles user settings dynamically by exposing a /schema route that returns the full settings structure. Parse the returned JSON (see user_conf.py for the detailed structure) by handling 3 field types:
 
 - int/float — typically rendered as a slider
