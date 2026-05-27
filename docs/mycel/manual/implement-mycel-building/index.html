@@ -434,9 +434,21 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Implentation guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rescheduling" class="md-nav__link">
+    <span class="md-ellipsis">
       
-        <li class="md-nav__item">
+        Rescheduling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#handle-settings" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -445,8 +457,7 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Handle settings">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#handle-timezones" class="md-nav__link">
@@ -534,7 +545,11 @@
 <li>A text/file caching system.</li>
 </ul>
 <h2 id="implentation-guide">Implentation guide</h2>
-<h2 id="handle-settings">Handle settings</h2>
+<h3 id="rescheduling">Rescheduling</h3>
+<ul>
+<li>After rescheduling, check whether the rescheduled node is the one currently being reviewed. If so, clear its review state. </li>
+</ul>
+<h3 id="handle-settings">Handle settings</h3>
 <p>Mycel handles user settings dynamically by exposing a /schema route that returns the full settings structure. Parse the returned JSON (see user_conf.py for the detailed structure) by handling 3 field types:</p>
 <ul>
 <li>int/float — typically rendered as a slider</li>
