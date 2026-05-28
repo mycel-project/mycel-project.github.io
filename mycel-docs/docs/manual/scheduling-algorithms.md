@@ -4,6 +4,10 @@ Each version documents changes only. Omitted behavior is unchanged from the prio
 
 If no additional explanation is provided for a specific component, it means the implementation and its docstring are considered sufficiently self-explanatory.
 
+## [Mycel v0.1.2](https://github.com/mycel-project/mycel/releases/tag/v0.1.2)
+
+- When splitting a node, the due date of created fragments is set to the next day. This way, newly created fragments are scheduled for a first review soon, since they have not been studied yet.
+
 ## [Mycel v0.1.1](https://github.com/mycel-project/mycel/releases/tag/v0.1.1)
 
 Introduce two pools for the current day's reviews: nodes whose due time has already passed, and nodes due later in the day. This prevents a freshly-reviewed spore from immediately resurfacing just because it falls within the current day. When the first pool is non-empty, the second is ignored and the normal priority and fragment/spore ratio apply. When the first pool is empty, nodes from the second pool are surfaced early so the session is never left empty this behavior is togglable in configuration.

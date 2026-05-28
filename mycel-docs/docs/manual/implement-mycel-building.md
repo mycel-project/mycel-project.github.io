@@ -33,7 +33,7 @@ First, some conditions must be checked by your environment to allow implementing
 
 ## Implementation guide
 ### Node edition
-#### Spore dition
+#### Spore edition
 Unlike fragments, spores require special error handling. When sending updated content to Mycel to be saved, the backend validates that spore content contains at least one cloze field. If not, it returns a NO_CLOZE_FIELD_ERROR and rejects the update. The previously saved state is preserved.
 This prevents users from accidentally deleting all cloze patterns while editing.
 Recommended behavior:
@@ -44,6 +44,12 @@ Recommended behavior:
 - Remove the visual indicator when the backend returns a successful save response
 
 If your implementation has a "discard changes" flow when leaving a node with unsaved content, it should cover this case naturally since the content remains dirty until a valid save goes through.
+
+#### Fragment edition
+##### Split node
+This option is important for handling long nodes, which can become heavy and cause performance issues on some devices. It provides a way to quickly decompose a node while preserving all content and context: the node is split by heading level.
+
+Implement a previewer so the user can see how the outline will be decomposed is not required but a good idea. If you already have an outline view, it's straightforward: parse the outline with the level selected by the user (via a slider, text field, etc.) and send that level to Mycel when the user confirms. Note that an outline view is not strictly necessary for this feature, but makes for a convenient way to visualize the result.
 
 ### Rescheduling
 - After rescheduling, check whether the rescheduled node is the one currently being reviewed. If so, clear its review state. 
