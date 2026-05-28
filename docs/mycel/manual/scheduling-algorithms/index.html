@@ -332,6 +332,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#mycel-v012" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mycel v0.1.2
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#mycel-v011" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -462,6 +473,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#mycel-v012" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mycel v0.1.2
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#mycel-v011" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -515,6 +537,10 @@
 <p>This section describe the fundamental logic behind the schedulding logic regarding every type of node.
 Each version documents changes only. Omitted behavior is unchanged from the prior version.</p>
 <p>If no additional explanation is provided for a specific component, it means the implementation and its docstring are considered sufficiently self-explanatory.</p>
+<h2 id="mycel-v012"><a href="https://github.com/mycel-project/mycel/releases/tag/v0.1.2">Mycel v0.1.2</a></h2>
+<ul>
+<li>When splitting a node, the due date of created fragments is set to the next day. This way, newly created fragments are scheduled for a first review soon, since they have not been studied yet.</li>
+</ul>
 <h2 id="mycel-v011"><a href="https://github.com/mycel-project/mycel/releases/tag/v0.1.1">Mycel v0.1.1</a></h2>
 <p>Introduce two pools for the current day's reviews: nodes whose due time has already passed, and nodes due later in the day. This prevents a freshly-reviewed spore from immediately resurfacing just because it falls within the current day. When the first pool is non-empty, the second is ignored and the normal priority and fragment/spore ratio apply. When the first pool is empty, nodes from the second pool are surfaced early so the session is never left empty this behavior is togglable in configuration.</p>
 <h2 id="mycel-v010"><a href="https://github.com/mycel-project/mycel/releases/tag/v0.1.0">Mycel v0.1.0</a></h2>
