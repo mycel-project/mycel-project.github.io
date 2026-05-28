@@ -14,6 +14,8 @@ This page describes how to create a Mycel implementation in existing tools and a
 
 - Try to stick as much as possible to classical and standard ways of integrating your implementation with Mycel features. The more standard it is, the easier it will be to handle updates and breaking changes (and especially to avoid requiring changes unless Mycel explicitly introduces a breaking change).
 
+- You can check whether a Mycel implementation already exists in your language of choice on the [Awesome Mycel repository](https://github.com/mycel-project/awesome-mycel) repository. It could be a source of inspiration or a place to reuse code from.
+
 For any question or suggestion, feel free to ask (on Mycel repository, on project's reddit, ...)!
 
 ## Prerequisites
@@ -29,8 +31,19 @@ First, some conditions must be checked by your environment to allow implementing
 - A Markdown viewer/editor as Mycel is, at the moment, Markdown-only. (If you see value in extending beyond it, don’t hesitate to bring it up. This behavior could be changed without modifying everything, so it’s open for discussion.)
 - A text/file caching system.
 
-## Implentation guide
+## Implementation guide
+### Node edition
+#### Spore dition
+Unlike fragments, spores require special error handling. When sending updated content to Mycel to be saved, the backend validates that spore content contains at least one cloze field. If not, it returns a NO_CLOZE_FIELD_ERROR and rejects the update. The previously saved state is preserved.
+This prevents users from accidentally deleting all cloze patterns while editing.
+Recommended behavior:
 
+- On first NO_CLOZE_FIELD_ERROR, toast the user once to inform them that at least one cloze field is required
+- Show a persistent visual indicator (e.g. red background on the text field) until the error is resolved
+- No changes needed to autosave logic: the backend will keep rejecting invalid content, simply ignore repeated errors after the first toast
+- Remove the visual indicator when the backend returns a successful save response
+
+If your implementation has a "discard changes" flow when leaving a node with unsaved content, it should cover this case naturally since the content remains dirty until a valid save goes through.
 
 ### Rescheduling
 - After rescheduling, check whether the rescheduled node is the one currently being reviewed. If so, clear its review state. 
