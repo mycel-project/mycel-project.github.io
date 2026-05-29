@@ -9,10 +9,8 @@
       
       
       
-        <link rel="prev" href="../manual/implement-mycel/">
+        <link rel="prev" href="../glossary/">
       
-      
-        <link rel="next" href="../api/">
       
       
         
@@ -23,7 +21,7 @@
     
     
       
-        <title>Glossary - Mycel Manual</title>
+        <title>API Reference - Mycel Manual</title>
       
     
     
@@ -63,11 +61,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#glossary" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -100,7 +93,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Glossary
+              API Reference
             
           </span>
         </div>
@@ -330,37 +323,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Glossary
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
         
   
   
@@ -376,59 +342,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#node-types" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Node types
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#scheduling" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scheduling
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tree-terminology" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tree terminology
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -437,10 +350,17 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../api/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -456,6 +376,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -477,49 +398,6 @@
   
   
   
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#node-types" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Node types
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#scheduling" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scheduling
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tree-terminology" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tree terminology
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -536,26 +414,14 @@
 
 
 
-<h1 id="glossary">Glossary</h1>
-<p>This project draws heavily from the work of Piotr Wozniak and <a href="https://www.super-memory.com/">SuperMemo</a>. Where concepts overlap, links to the SuperMemo wiki are provided for reference, though definitions may diverge. </p>
-<h2 id="node-types">Node types</h2>
-<ul>
-<li><strong>Fragment</strong> — Node containing learning material to be recursively broken down, with the goal of extracting all content worth retaining into spores. Transitional nodes meant to be dismissed once their content has been fully extracted. (<a href="https://supermemo.guru/wiki/Topic">Topic</a> in SM)</li>
-<li><strong>Spore</strong> — Node containing small, testable units of knowledge, designed to be retained long-term. Permanent elements of the collection. (<a href="https://supermemopedia.com/wiki/Item">Item</a> in SM)</li>
-<li><strong>Extract</strong> — child node (fragment/spore) created from a portion of a parent node.</li>
-</ul>
-<h2 id="scheduling">Scheduling</h2>
-<ul>
-<li><strong>Priority</strong> — A value (0–100%) representing the importance assigned to a node. Every node has a priority. Lower values indicate higher priority (0% = least important, 100% = most important). (<a href="https://supermemopedia.com/wiki/Priority">Priority</a> in SM). Note: unlike SuperMemo, where 0% means highest priority, Mycel uses the inverse convention: 100% is highest priority. (⚠️ At the time of writing, the implementation still follows SuperMemo's convention. This note documents intended behavior, not current behavior. Delete this warning once the inversion is shipped.)</li>
-<li><strong>Overdue</strong> — A node whose due date has passed without being reviewed.</li>
-</ul>
-<h2 id="tree-terminology">Tree terminology</h2>
-<ul>
-<li><strong>Parent</strong> — node from which an extract was made</li>
-<li><strong>Child</strong> — extracted node</li>
-<li><strong>Root</strong> — topmost ancestor of a nested chain</li>
-<li><strong>Depth</strong> — number of levels from the root (root = 0)</li>
-</ul>
+  <h1>API Reference</h1>
+
+<div id="swagger-ui"></div>
+<script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
+<p><link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css"></p>
+<script>
+SwaggerUIBundle({ url: "./openapi.json", dom_id: '#swagger-ui' })
+</script>
 
 
 
