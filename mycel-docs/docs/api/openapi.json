@@ -1,0 +1,1864 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "FastAPI",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Root",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Check Reachability",
+        "operationId": "check_reachability_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/version": {
+      "get": {
+        "summary": "Version",
+        "operationId": "version_version_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/config/node-types": {
+      "get": {
+        "summary": "Get Node Types",
+        "operationId": "get_node_types_config_node_types_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/config/cloze-regex": {
+      "get": {
+        "summary": "Get Cloze Regex",
+        "operationId": "get_cloze_regex_config_cloze_regex_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{col_id}/nodes": {
+      "get": {
+        "summary": "Get Nodes",
+        "operationId": "get_nodes_collections__col_id__nodes_get",
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Col Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Node",
+        "operationId": "create_node_collections__col_id__nodes_post",
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Col Id"
+            }
+          },
+          {
+            "name": "tz_offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Tz Offset"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/NodeCreateFromUrl"
+                  },
+                  {
+                    "$ref": "#/components/schemas/NodeCreateFromText"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "url": "#/components/schemas/NodeCreateFromUrl",
+                    "text": "#/components/schemas/NodeCreateFromText"
+                  }
+                },
+                "title": "Data"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{col_id}/nodes/priorities": {
+      "get": {
+        "summary": "Get Priorities",
+        "operationId": "get_priorities_collections__col_id__nodes_priorities_get",
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Col Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{col_id}/nodes/deleted": {
+      "get": {
+        "summary": "Get Deleted Nodes",
+        "operationId": "get_deleted_nodes_collections__col_id__nodes_deleted_get",
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Col Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{col_id}/nodes/{node_id}": {
+      "get": {
+        "summary": "Get Node Metrics",
+        "operationId": "get_node_metrics_collections__col_id__nodes__node_id__get",
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Col Id"
+            }
+          },
+          {
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Node Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Node",
+        "description": "Deletes the node and its entire subtree.",
+        "operationId": "delete_node_collections__col_id__nodes__node_id__delete",
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Col Id"
+            }
+          },
+          {
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Node Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Node",
+        "operationId": "update_node_collections__col_id__nodes__node_id__patch",
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Col Id"
+            }
+          },
+          {
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Node Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NodeUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{col_id}/nodes/{node_id}/root": {
+      "get": {
+        "summary": "Get Root Node",
+        "description": "For convenience\nGet the highest parent node for the given node_id.\nUseful when the frontend is not using a cache and the node tree is deeply nested.\nAllows quickly reaching the root without having to traverse manually through multiple calls.",
+        "operationId": "get_root_node_collections__col_id__nodes__node_id__root_get",
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Col Id"
+            }
+          },
+          {
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Node Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{col_id}/nodes/{node_id}/outline": {
+      "get": {
+        "summary": "Get Outline Node",
+        "operationId": "get_outline_node_collections__col_id__nodes__node_id__outline_get",
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Col Id"
+            }
+          },
+          {
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Node Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{col_id}/nodes/{node_id}/reschedule": {
+      "post": {
+        "summary": "Reschedule Node",
+        "operationId": "reschedule_node_collections__col_id__nodes__node_id__reschedule_post",
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Col Id"
+            }
+          },
+          {
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Node Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RescheduleNodeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{col_id}/nodes/{node_id}/restore": {
+      "post": {
+        "summary": "Restore Nodes",
+        "description": "Restore a node, optionally including its parents and/or children.",
+        "operationId": "restore_nodes_collections__col_id__nodes__node_id__restore_post",
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Col Id"
+            }
+          },
+          {
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Node Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RestoreNodeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{col_id}/nodes/{node_id}/extracts": {
+      "post": {
+        "summary": "Create Node Extract",
+        "operationId": "create_node_extract_collections__col_id__nodes__node_id__extracts_post",
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Col Id"
+            }
+          },
+          {
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Node Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NodeExtract"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{col_id}/nodes/{node_id}/reprioritise": {
+      "post": {
+        "summary": "Reprioritise Node",
+        "operationId": "reprioritise_node_collections__col_id__nodes__node_id__reprioritise_post",
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Col Id"
+            }
+          },
+          {
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Node Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReprioritiseNode"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{col_id}/nodes/{node_id}/remove-links": {
+      "post": {
+        "summary": "Remove Links",
+        "operationId": "remove_links_collections__col_id__nodes__node_id__remove_links_post",
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Col Id"
+            }
+          },
+          {
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Node Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SelectionData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections": {
+      "get": {
+        "summary": "Get Collections",
+        "operationId": "get_collections_collections_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Collection",
+        "operationId": "create_collection_collections_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CollectionCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{colId}": {
+      "get": {
+        "summary": "Get Collection Details",
+        "operationId": "get_collection_details_collections__colId__get",
+        "parameters": [
+          {
+            "name": "colId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Colid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{collection_id}": {
+      "delete": {
+        "summary": "Delete Collection",
+        "operationId": "delete_collection_collections__collection_id__delete",
+        "parameters": [
+          {
+            "name": "collection_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Collection Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{col_id}": {
+      "patch": {
+        "summary": "Update Collections",
+        "operationId": "update_collections_collections__col_id__patch",
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Col Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CollectionUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{col_id}/nodes/{node_id}/spore-review": {
+      "post": {
+        "summary": "Review Spore",
+        "operationId": "review_spore_collections__col_id__nodes__node_id__spore_review_post",
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Col Id"
+            }
+          },
+          {
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Node Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{col_id}/nodes/{node_id}/fragment-review": {
+      "post": {
+        "summary": "Review Fragment",
+        "operationId": "review_fragment_collections__col_id__nodes__node_id__fragment_review_post",
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Col Id"
+            }
+          },
+          {
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Node Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{col_id}/reviews/calendar": {
+      "get": {
+        "summary": "Get Calendar",
+        "operationId": "get_calendar_collections__col_id__reviews_calendar_get",
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Col Id"
+            }
+          },
+          {
+            "name": "tz_offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Tz Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{col_id}/reviews/undo": {
+      "post": {
+        "summary": "Undo Review",
+        "operationId": "undo_review_collections__col_id__reviews_undo_post",
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Col Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{col_id}/reviews/next": {
+      "get": {
+        "summary": "Get Next Review",
+        "operationId": "get_next_review_collections__col_id__reviews_next_get",
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Col Id"
+            }
+          },
+          {
+            "name": "tz_offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Tz Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/me": {
+      "get": {
+        "summary": "Get Current User",
+        "operationId": "get_current_user_users_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/me/settings": {
+      "patch": {
+        "summary": "Update User Conf",
+        "operationId": "update_user_conf_users_me_settings_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserConfUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/settings/schema": {
+      "get": {
+        "summary": "User Config Schema",
+        "operationId": "user_config_schema_users_settings_schema_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CollectionCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "CollectionCreate"
+      },
+      "CollectionUpdate": {
+        "properties": {
+          "newName": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Newname"
+          },
+          "config": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ConfigUpdate"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "title": "CollectionUpdate"
+      },
+      "ConfigUpdate": {
+        "properties": {
+          "collection": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Collection"
+          },
+          "fsrs": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fsrs"
+          }
+        },
+        "type": "object",
+        "title": "ConfigUpdate",
+        "description": "API schema used to update configuration sections of a collection.\n\nAttributes:\n    collection: Optional updates for collection configuration.\n    fsrs: Optional updates for FSRS configuration."
+      },
+      "FragmentData": {
+        "properties": {
+          "dismiss": {
+            "type": "boolean",
+            "title": "Dismiss",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "FragmentData"
+      },
+      "FragmentReviewData": {
+        "properties": {},
+        "type": "object",
+        "title": "FragmentReviewData"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "NodeContent": {
+        "properties": {
+          "fields": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Fields"
+          }
+        },
+        "type": "object",
+        "title": "NodeContent"
+      },
+      "NodeCreateFromText": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "text",
+            "title": "Type"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "content"
+        ],
+        "title": "NodeCreateFromText"
+      },
+      "NodeCreateFromUrl": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "url",
+            "title": "Type"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "url"
+        ],
+        "title": "NodeCreateFromUrl"
+      },
+      "NodeData": {
+        "properties": {
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "src": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Src"
+          }
+        },
+        "type": "object",
+        "title": "NodeData"
+      },
+      "NodeExtract": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "field": {
+            "type": "integer",
+            "title": "Field"
+          },
+          "start_index": {
+            "type": "integer",
+            "title": "Start Index"
+          },
+          "end_index": {
+            "type": "integer",
+            "title": "End Index"
+          },
+          "extract_type": {
+            "$ref": "#/components/schemas/NodeType"
+          },
+          "tz_offset": {
+            "type": "integer",
+            "title": "Tz Offset",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "text",
+          "field",
+          "start_index",
+          "end_index",
+          "extract_type"
+        ],
+        "title": "NodeExtract"
+      },
+      "NodeType": {
+        "type": "integer",
+        "enum": [
+          1,
+          2
+        ],
+        "title": "NodeType"
+      },
+      "NodeUpdate": {
+        "properties": {
+          "parent_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent Id"
+          },
+          "content": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NodeContent"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NodeData"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "type": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          },
+          "due": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Due"
+          },
+          "position": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Position"
+          },
+          "last_review": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Review"
+          },
+          "type_data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SporeData"
+              },
+              {
+                "$ref": "#/components/schemas/FragmentData"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type Data"
+          },
+          "deleted_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deleted At"
+          }
+        },
+        "type": "object",
+        "title": "NodeUpdate",
+        "description": "Partial update model for Node.\n\nOnly include fields that you explicitly want to modify.\nAny field provided in this model including fields set to None will be applied\nand will overwrite the existing value on the node.\n\nFields not included in the update will remain unchanged."
+      },
+      "ReprioritiseNode": {
+        "properties": {
+          "priority": {
+            "type": "number",
+            "title": "Priority"
+          }
+        },
+        "type": "object",
+        "required": [
+          "priority"
+        ],
+        "title": "ReprioritiseNode"
+      },
+      "RescheduleNodeRequest": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "title": "Date"
+          },
+          "tz_offset": {
+            "type": "integer",
+            "title": "Tz Offset"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "tz_offset"
+        ],
+        "title": "RescheduleNodeRequest"
+      },
+      "RestoreNodeRequest": {
+        "properties": {
+          "restore_ancestors": {
+            "type": "boolean",
+            "title": "Restore Ancestors",
+            "default": false
+          },
+          "restore_descendants": {
+            "type": "boolean",
+            "title": "Restore Descendants",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "RestoreNodeRequest"
+      },
+      "ReviewData": {
+        "properties": {
+          "duration": {
+            "type": "integer",
+            "title": "Duration"
+          },
+          "type_review_data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SporeReviewData"
+              },
+              {
+                "$ref": "#/components/schemas/FragmentReviewData"
+              }
+            ],
+            "title": "Type Review Data"
+          },
+          "tz_offset": {
+            "type": "integer",
+            "title": "Tz Offset",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "duration",
+          "type_review_data"
+        ],
+        "title": "ReviewData"
+      },
+      "SelectionData": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "field": {
+            "type": "integer",
+            "title": "Field"
+          },
+          "start_index": {
+            "type": "integer",
+            "title": "Start Index"
+          },
+          "end_index": {
+            "type": "integer",
+            "title": "End Index"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text",
+          "field",
+          "start_index",
+          "end_index"
+        ],
+        "title": "SelectionData"
+      },
+      "SporeData": {
+        "properties": {
+          "state": {
+            "type": "integer",
+            "title": "State",
+            "default": 1
+          },
+          "stability": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stability"
+          },
+          "difficulty": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Difficulty"
+          },
+          "step": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Step"
+          }
+        },
+        "type": "object",
+        "title": "SporeData"
+      },
+      "SporeReviewData": {
+        "properties": {
+          "rating": {
+            "type": "integer",
+            "title": "Rating"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rating"
+        ],
+        "title": "SporeReviewData"
+      },
+      "UserConfUpdate": {
+        "properties": {
+          "undo_review_max_age": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Undo Review Max Age"
+          },
+          "delete_max_age": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delete Max Age"
+          },
+          "ping_frequency": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ping Frequency"
+          },
+          "add_extract_to_nav": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Add Extract To Nav"
+          },
+          "wait_for_due_time": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wait For Due Time"
+          }
+        },
+        "type": "object",
+        "title": "UserConfUpdate"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
