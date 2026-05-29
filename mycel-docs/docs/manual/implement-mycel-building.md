@@ -4,6 +4,8 @@ This page describes how to create a Mycel implementation in existing tools and a
 
 **Please note that the Mycel API is not stable at the moment and that things can evolve quickly, introducing frequent breaking changes. If you want to start an implementation now, please keep in mind that it may require significant maintenance effort.**
 
+**The API contract is considered stable starting from Mycel 1.0.0. Prior to that, breaking changes may occur at any time.**
+
 ## Before you start
 
 - From now on, the term **environment** refers to the tool of your choice in which you want to bring Mycel to life.
