@@ -607,16 +607,16 @@ site-navbar {
     z-index: 1000;
     top: 0;
     position: sticky;
-    border-bottom: 1px solid var(--border);
 }
 
 .navbar {
     display: flex;
     justify-content: center;
-    padding: 8px;
+    padding: 12px;
     gap: 16px;
     background-color: var(--bg);
     width: 100%;
+
 }
 
 .navbar .content {
@@ -656,7 +656,7 @@ site-navbar {
 
 .navbar.mobile-open .right {
     position: absolute;
-    top: 48px;
+    top: 56px;
     right: 0;
     left: 0;
     background: var(--bg);
@@ -668,6 +668,16 @@ site-navbar {
 
 .navbar.mobile-open .right a {
     display: block;
+}
+
+
+.wordmark {
+    font-family: var(--mono);
+    font-size: 14px !important;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--primary);
+    font-weight: 500;
 }
 
 .fa-bars {
