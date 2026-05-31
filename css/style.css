@@ -670,6 +670,16 @@ site-navbar {
     display: block;
 }
 
+
+.wordmark {
+    font-family: var(--mono);
+    font-size: 14px !important;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--primary);
+    font-weight: 500;
+}
+
 .fa-bars {
     color: var(--text);
 }
