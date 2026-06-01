@@ -224,11 +224,21 @@ main {
     background: var(--primary);
     color: var(--on-primary);
 }
+.btn-primary:hover { background: hsl(170, 42%, 30%); }
+
 
 .btn-lowkey {
     color: var(--primary);
     background: var(--bg);
 }
+
+.btn-outline {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+.btn-outline:hover { background: var(--primary-soft); }
+
 
 .dl-btn {
     display: inline-flex;
@@ -670,6 +680,9 @@ site-navbar {
     display: block;
 }
 
+.nav-cloud {
+    color: var(--accent);
+}
 
 .wordmark {
     font-family: var(--mono);
