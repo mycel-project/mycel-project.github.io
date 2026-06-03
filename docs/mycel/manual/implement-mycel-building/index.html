@@ -275,6 +275,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contribution-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contribution Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -421,20 +449,120 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Implementation guide">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#node-edition" class="md-nav__link">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#update-disclaimer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Node edition
+        Update disclaimer
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Node edition">
+    <nav class="md-nav" aria-label="Update disclaimer">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Versioning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-configuration-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using configuration values
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Node
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#update-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update node
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#spore-edition" class="md-nav__link">
@@ -481,10 +609,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#rescheduling" class="md-nav__link">
+  <a href="#outline" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Rescheduling
+        Outline
       
     </span>
   </a>
@@ -492,10 +620,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#handle-settings" class="md-nav__link">
+  <a href="#rescheduling" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Handle settings
+        Rescheduling
       
     </span>
   </a>
@@ -578,6 +706,9 @@
 <li>
 <p>You can check whether a Mycel implementation already exists in your language of choice on the <a href="https://github.com/mycel-project/awesome-mycel">Awesome Mycel repository</a> repository. It could be a source of inspiration or a place to reuse code from.</p>
 </li>
+<li>
+<p>While it is possible to develop your implementation using MycelCloud, it is highly recommended to use a <a href="https://mycel-project.com/mycel#self-hosting">self-hosted</a> instance of Mycel to have full control over the infrastructure and access complete logs.</p>
+</li>
 </ul>
 <p>For any question or suggestion, feel free to ask (on Mycel repository, on project's reddit, ...)!</p>
 <h2 id="prerequisites">Prerequisites</h2>
@@ -592,7 +723,37 @@
 <li>A text/file caching system.</li>
 </ul>
 <h2 id="implementation-guide">Implementation guide</h2>
-<h3 id="node-edition">Node edition</h3>
+<h2 id="update-disclaimer">Update disclaimer</h2>
+<p>When implementing update logic (for users, nodes or collections), be aware that all fields explicitly passed in <code>UserUpdate</code>, <code>NodeUpdate</code> or <code>CollectionUpdate</code>, including fields set to <code>null</code>, will overwrite the existing value. Note that setting a field to <code>null</code> may raise a validation error if the underlying model (User, Node, Collection) does not accept <code>None</code> for that field. <strong>Omit a field entirely to leave it unchanged.</strong></p>
+<p>See the API reference for Update User, Update Node and Update Collection for details.</p>
+<h3 id="base">Base</h3>
+<p>Hardcode nodeTypes: </p>
+<h3 id="user">User</h3>
+<h4 id="configuration">Configuration</h4>
+<p>Mycel exposes its user settings schema dynamically via <code>GET /schemas/user-settings</code>. This means implementations never need to hardcode specific field names or values: the schema is the source of truth.</p>
+<h5 id="how-it-works">How it works</h5>
+<p>Each field in the schema includes metadata that implementations can use to render the appropriate UI:
+- <code>type</code>: the field type (<code>integer</code>, <code>boolean</code>, <code>string</code>, etc.) - render as slider, checkbox, or text field accordingly
+- <code>description</code>: human-readable explanation of the setting - display it to the user
+- <code>default</code>: the default value - use it to offer a per-field reset button
+- <code>minimum</code> / <code>maximum</code> / <code>step</code>: bounds and increment for numeric fields - use these to configure sliders
+- <code>category</code>: logical grouping for display (e.g. <code>review</code>, <code>network</code>) — use it to group fields into sections
+- <code>unit</code>: display unit (e.g. <code>min</code>, <code>d</code>, <code>s</code>)
+- <code>warning</code>: optional message to display whenever the user modifies that field - used to flag potentially destructive or disruptive behavior</p>
+<p>Implementations should parse the schema at runtime and render each field based on its type and metadata, without branching on specific field names.</p>
+<p>Some fields are primarily intended for Mycel's internal behavior and are not necessarily relevant to expose in your UI (e.g. <code>delete_max_age</code>, <code>wait_for_due_time</code>). Others may be directly useful, such as <code>add_extract_to_nav</code> or <code>ping_frequency</code>.</p>
+<p>Mycel does not currently support implementation-specific settings. If you need custom settings, handle them directly in your environment, and feel free to open a discussion, it may well be worth adding.</p>
+<h5 id="versioning">Versioning</h5>
+<p>Each field carries a <code>version</code> property indicating when it was introduced (e.g. <code>"1.0"</code>, <code>"1.2"</code>).</p>
+<p>Implementations declare the config version they explicitly support. Fields introduced after that version should still be displayed, but with a warning indicating that the behavior has not been explicitly implemented. This ensures:
+- Implementations stay functional as new fields are added
+- Users are informed when a setting is not fully supported by their client
+- No implementation becomes fully outdated just because a single field was added</p>
+<h5 id="using-configuration-values">Using configuration values</h5>
+<p>To access a user's current configuration, fetch the user via <code>GET /users/{user_id}</code>. The response includes the user config object with all current values, ready to use in your implementation.</p>
+<h3 id="node">Node</h3>
+<h4 id="update-node">Update node</h4>
+<p>Renvoyer vers <a href="#update-disclaimer">Update disclaimer</a> sur les updates partagé avec collection notamment</p>
 <h4 id="spore-edition">Spore edition</h4>
 <p>Unlike fragments, spores require special error handling. When sending updated content to Mycel to be saved, the backend validates that spore content contains at least one cloze field. If not, it returns a NO_CLOZE_FIELD_ERROR and rejects the update. The previously saved state is preserved.
 This prevents users from accidentally deleting all cloze patterns while editing.
@@ -608,28 +769,11 @@ Recommended behavior:</p>
 <h5 id="split-node">Split node</h5>
 <p>This option is important for handling long nodes, which can become heavy and cause performance issues on some devices. It provides a way to quickly decompose a node while preserving all content and context: the node is split by heading level.</p>
 <p>Implement a previewer so the user can see how the outline will be decomposed is not required but a good idea. If you already have an outline view, it's straightforward: parse the outline with the level selected by the user (via a slider, text field, etc.) and send that level to Mycel when the user confirms. Note that an outline view is not strictly necessary for this feature, but makes for a convenient way to visualize the result.</p>
+<h3 id="outline">Outline</h3>
 <h3 id="rescheduling">Rescheduling</h3>
 <ul>
 <li>After rescheduling, check whether the rescheduled node is the one currently being reviewed. If so, clear its review state. </li>
 </ul>
-<h3 id="handle-settings">Handle settings</h3>
-<p>Mycel handles user settings dynamically by exposing a /schema route that returns the full settings structure. Parse the returned JSON (see user_conf.py for the detailed structure) by handling 3 field types:</p>
-<ul>
-<li>int/float — typically rendered as a slider</li>
-<li>bool — rendered as a checkbox</li>
-<li>string — rendered as a text field</li>
-</ul>
-<p>The schema provides the following metadata for each field:</p>
-<ul>
-<li>default — use it to offer a per-field reset button</li>
-<li>description — display it to the user</li>
-<li>min/max/step — use these to configure sliders</li>
-<li>category — use it to group fields into sections</li>
-</ul>
-<p>Some fields also include a warning message to display whenever the user modifies that field. This is used to flag potentially destructive or disruptive behavior.</p>
-<p><strong>Note: you do not need to hardcode each settings field individually, the schema is intentionally standardized so your UI can be built dynamically from it.</strong></p>
-<p>You can then use these settings fields in your environment : they are attached to the User object. Some are primarily intended for Mycel's internal behavior and are not necessarily relevant to expose in your UI (e.g. delete_max_age, wait_for_due_time). Others may be directly useful, such as add_extract_to_nav or ping_frequency.</p>
-<p>Mycel does not currently support implementation-specific settings. If you need custom settings, you can handle them directly in your environment, and feel free to open a discussion, it may well be worth adding.</p>
 <h3 id="handle-timezones">Handle Timezones</h3>
 <p>To ensure your implementation is robust to timezone changes, pass the user's current local timezone offset in minutes with every request that involves time or scheduling.</p>
 <h2 id="share-your-implementation">Share your implementation</h2>
