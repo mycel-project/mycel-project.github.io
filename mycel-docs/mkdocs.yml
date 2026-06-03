@@ -5,6 +5,7 @@ nav:
   - Manual:
     - Scheduling algorithms: manual/scheduling-algorithms.md
     - Implement Mycel: manual/implement-mycel.md
+    - Contribution Guide: manual/contribution-guide.md
   - Glossary: glossary.md
   - API Reference: api/index.md
 extra:

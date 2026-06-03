@@ -18,6 +18,8 @@ This page describes how to create a Mycel implementation in existing tools and a
 
 - You can check whether a Mycel implementation already exists in your language of choice on the [Awesome Mycel repository](https://github.com/mycel-project/awesome-mycel) repository. It could be a source of inspiration or a place to reuse code from.
 
+- While it is possible to develop your implementation using MycelCloud, it is highly recommended to use a [self-hosted](https://mycel-project.com/mycel#self-hosting) instance of Mycel to have full control over the infrastructure and access complete logs.
+
 For any question or suggestion, feel free to ask (on Mycel repository, on project's reddit, ...)!
 
 ## Prerequisites
@@ -34,7 +36,51 @@ First, some conditions must be checked by your environment to allow implementing
 - A text/file caching system.
 
 ## Implementation guide
-### Node edition
+## Update disclaimer
+
+When implementing update logic (for users, nodes or collections), be aware that all fields explicitly passed in `UserUpdate`, `NodeUpdate` or `CollectionUpdate`, including fields set to `null`, will overwrite the existing value. Note that setting a field to `null` may raise a validation error if the underlying model (User, Node, Collection) does not accept `None` for that field. **Omit a field entirely to leave it unchanged.**
+
+See the API reference for Update User, Update Node and Update Collection for details.
+
+### Base
+Hardcode nodeTypes: 
+
+### User
+#### Configuration
+Mycel exposes its user settings schema dynamically via `GET /schemas/user-settings`. This means implementations never need to hardcode specific field names or values: the schema is the source of truth.
+
+##### How it works
+Each field in the schema includes metadata that implementations can use to render the appropriate UI:
+- `type`: the field type (`integer`, `boolean`, `string`, etc.) - render as slider, checkbox, or text field accordingly
+- `description`: human-readable explanation of the setting - display it to the user
+- `default`: the default value - use it to offer a per-field reset button
+- `minimum` / `maximum` / `step`: bounds and increment for numeric fields - use these to configure sliders
+- `category`: logical grouping for display (e.g. `review`, `network`) — use it to group fields into sections
+- `unit`: display unit (e.g. `min`, `d`, `s`)
+- `warning`: optional message to display whenever the user modifies that field - used to flag potentially destructive or disruptive behavior
+
+Implementations should parse the schema at runtime and render each field based on its type and metadata, without branching on specific field names.
+
+Some fields are primarily intended for Mycel's internal behavior and are not necessarily relevant to expose in your UI (e.g. `delete_max_age`, `wait_for_due_time`). Others may be directly useful, such as `add_extract_to_nav` or `ping_frequency`.
+
+Mycel does not currently support implementation-specific settings. If you need custom settings, handle them directly in your environment, and feel free to open a discussion, it may well be worth adding.
+
+##### Versioning
+Each field carries a `version` property indicating when it was introduced (e.g. `"1.0"`, `"1.2"`).
+
+Implementations declare the config version they explicitly support. Fields introduced after that version should still be displayed, but with a warning indicating that the behavior has not been explicitly implemented. This ensures:
+- Implementations stay functional as new fields are added
+- Users are informed when a setting is not fully supported by their client
+- No implementation becomes fully outdated just because a single field was added
+
+##### Using configuration values
+To access a user's current configuration, fetch the user via `GET /users/{user_id}`. The response includes the user config object with all current values, ready to use in your implementation.
+
+### Node 
+
+#### Update node
+Renvoyer vers [Update disclaimer](#update-disclaimer) sur les updates partagé avec collection notamment
+
 #### Spore edition
 Unlike fragments, spores require special error handling. When sending updated content to Mycel to be saved, the backend validates that spore content contains at least one cloze field. If not, it returns a NO_CLOZE_FIELD_ERROR and rejects the update. The previously saved state is preserved.
 This prevents users from accidentally deleting all cloze patterns while editing.
@@ -53,30 +99,11 @@ This option is important for handling long nodes, which can become heavy and cau
 
 Implement a previewer so the user can see how the outline will be decomposed is not required but a good idea. If you already have an outline view, it's straightforward: parse the outline with the level selected by the user (via a slider, text field, etc.) and send that level to Mycel when the user confirms. Note that an outline view is not strictly necessary for this feature, but makes for a convenient way to visualize the result.
 
+### Outline
+
 ### Rescheduling
+
 - After rescheduling, check whether the rescheduled node is the one currently being reviewed. If so, clear its review state. 
-
-### Handle settings
-Mycel handles user settings dynamically by exposing a /schema route that returns the full settings structure. Parse the returned JSON (see user_conf.py for the detailed structure) by handling 3 field types:
-
-- int/float — typically rendered as a slider
-- bool — rendered as a checkbox
-- string — rendered as a text field
-
-The schema provides the following metadata for each field:
-
-- default — use it to offer a per-field reset button
-- description — display it to the user
-- min/max/step — use these to configure sliders
-- category — use it to group fields into sections
-
-Some fields also include a warning message to display whenever the user modifies that field. This is used to flag potentially destructive or disruptive behavior.
-
-**Note: you do not need to hardcode each settings field individually, the schema is intentionally standardized so your UI can be built dynamically from it.**
-
-You can then use these settings fields in your environment : they are attached to the User object. Some are primarily intended for Mycel's internal behavior and are not necessarily relevant to expose in your UI (e.g. delete_max_age, wait_for_due_time). Others may be directly useful, such as add_extract_to_nav or ping_frequency.
-
-Mycel does not currently support implementation-specific settings. If you need custom settings, you can handle them directly in your environment, and feel free to open a discussion, it may well be worth adding.
 
 ### Handle Timezones
 
