@@ -449,9 +449,10 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="Implementation guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#update-disclaimer" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -460,8 +461,35 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Update disclaimer">
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rest-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rest communication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rest communication">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#idempotency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Idempotency
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#base" class="md-nav__link">
@@ -723,9 +751,18 @@
 <li>A text/file caching system.</li>
 </ul>
 <h2 id="implementation-guide">Implementation guide</h2>
-<h2 id="update-disclaimer">Update disclaimer</h2>
+<h3 id="update-disclaimer">Update disclaimer</h3>
 <p>When implementing update logic (for users, nodes or collections), be aware that all fields explicitly passed in <code>UserUpdate</code>, <code>NodeUpdate</code> or <code>CollectionUpdate</code>, including fields set to <code>null</code>, will overwrite the existing value. Note that setting a field to <code>null</code> may raise a validation error if the underlying model (User, Node, Collection) does not accept <code>None</code> for that field. <strong>Omit a field entirely to leave it unchanged.</strong></p>
 <p>See the API reference for Update User, Update Node and Update Collection for details.</p>
+<h3 id="rest-communication">Rest communication</h3>
+<h4 id="idempotency">Idempotency</h4>
+<p>Mycel implements server-side idempotency for non-idempotent endpoints. These are marked in the API reference.</p>
+<p>To benefit from this protection, include an <code>Idempotency-Key</code> header with a unique UUID per user action:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="err">POST /collections/{col_id}/reviews/undo</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="err">Idempotency-Key: 550e8400-e29b-41d4-a716-446655440000</span>
+</code></pre></div>
+<p>If the same key is sent again within 1 hour, Mycel returns the original response without re-executing the operation.</p>
+<p>This header is optional but strongly recommended for non-idempotent endpoints: omitting it exposes your implementation to instability caused by network retries or accidental double calls. The simplest approach is to wrap all your POST and PATCH calls with a generated UUID header by default, rather than tracking which endpoints require it.</p>
 <h3 id="base">Base</h3>
 <p>Hardcode nodeTypes: </p>
 <h3 id="user">User</h3>
