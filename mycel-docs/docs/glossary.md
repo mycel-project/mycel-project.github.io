@@ -9,7 +9,7 @@ This project draws heavily from the work of Piotr Wozniak and [SuperMemo](https:
 
 ## Scheduling
 
-- **Priority** — A value (0–100%) representing the importance assigned to a node. Every node has a priority. Lower values indicate higher priority (0% = least important, 100% = most important). ([Priority](https://supermemopedia.com/wiki/Priority) in SM). Note: unlike SuperMemo, where 0% means highest priority, Mycel uses the inverse convention: 100% is highest priority. (⚠️ At the time of writing, the implementation still follows SuperMemo's convention. This note documents intended behavior, not current behavior. Delete this warning once the inversion is shipped.)
+- **Priority** — A value (0–100%) representing the importance assigned to a node. Every node has a priority. Lower values indicate higher priority (0% = least important, 100% = most important). ([Priority](https://supermemopedia.com/wiki/Priority) in SM). Note: unlike SuperMemo, where 0% means highest priority, Mycel uses the inverse convention: 100% is highest priority. 
 - **Overdue** — A node whose due date has passed without being reviewed.
 
 ## Tree terminology
