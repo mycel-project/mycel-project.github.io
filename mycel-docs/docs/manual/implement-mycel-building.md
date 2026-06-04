@@ -36,11 +36,27 @@ First, some conditions must be checked by your environment to allow implementing
 - A text/file caching system.
 
 ## Implementation guide
-## Update disclaimer
+### Update disclaimer
 
 When implementing update logic (for users, nodes or collections), be aware that all fields explicitly passed in `UserUpdate`, `NodeUpdate` or `CollectionUpdate`, including fields set to `null`, will overwrite the existing value. Note that setting a field to `null` may raise a validation error if the underlying model (User, Node, Collection) does not accept `None` for that field. **Omit a field entirely to leave it unchanged.**
 
 See the API reference for Update User, Update Node and Update Collection for details.
+
+### Rest communication
+#### Idempotency
+
+Mycel implements server-side idempotency for non-idempotent endpoints. These are marked in the API reference.
+
+To benefit from this protection, include an `Idempotency-Key` header with a unique UUID per user action:
+
+```http
+POST /collections/{col_id}/reviews/undo
+Idempotency-Key: 550e8400-e29b-41d4-a716-446655440000
+```
+
+If the same key is sent again within 1 hour, Mycel returns the original response without re-executing the operation.
+
+This header is optional but strongly recommended for non-idempotent endpoints: omitting it exposes your implementation to instability caused by network retries or accidental double calls. The simplest approach is to wrap all your POST and PATCH calls with a generated UUID header by default, rather than tracking which endpoints require it.
 
 ### Base
 Hardcode nodeTypes: 
