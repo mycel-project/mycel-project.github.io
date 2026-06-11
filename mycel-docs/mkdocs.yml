@@ -17,5 +17,6 @@ markdown_extensions:
   - pymdownx.superfences
   
 plugins:
+   - search
    - swagger-ui-tag:
        supportedSubmitMethods: []

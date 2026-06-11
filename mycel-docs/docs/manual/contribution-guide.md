@@ -17,3 +17,14 @@ To verify whether a user has the right to access a specific resource (e.g., node
 Every REST endpoint must route through at least one of these ownership-verification functions at the very beginning of any data access or modification lifecycle.
 
 (Note: These functions are not explicitly listed here as they may change; please refer to the endpoint implementations for direct references.)
+
+## Node vs Learning Unit
+
+In Mycel, spores and fragments are represented through two layers of data:
+
+- Node holds the content data: fields, parent_id, template, etc.
+- Learning unit holds the learning data (due date, position, FSRS state...). This allows a single node to have multiple learning units, for example, a cloze note like {{c1::Capital of France}} {{c2::Paris}} generates multiple questions from the same content without duplicating it.
+
+This comes with a cost: in the codebase, the two must be carefully distinguished. When fragment_id or spore_id are passed as arguments, they refer to learning unit ids, not node ids. A node is not itself a fragment or spore: it is a base_for fragment or spore (hence the field in the DB).
+
+This complexity is hidden from clients: the REST API never exposes learning_unit_id. Clients always speak in terms of node_id + slot (int). If slot is not specified, it defaults to 0, allowing clients to ignore multi-spore logic entirely if they choose not to implement it.

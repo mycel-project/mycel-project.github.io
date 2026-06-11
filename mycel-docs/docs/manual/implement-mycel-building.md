@@ -42,8 +42,64 @@ When implementing update logic (for users, nodes or collections), be aware that 
 
 See the API reference for Update User, Update Node and Update Collection for details.
 
-### Rest communication
-#### Idempotency
+### I. Rest communication
+#### 1. Error handling
+Mycel distinguishes four categories of errors. 
+
+- **Network errors** occur when the server cannot be reached at all: connection refused, timeout, DNS failure, and so on. These produce no HTTP response and no body. The recommended approach is to catch them at the transport layer and retry with backoff before surfacing anything to the user.
+- **Authentication errors** (type: "auth") are returned by MycelCloud when a request cannot be authorized. These cover invalid or expired tokens, missing credentials, and subscription issues. They should be handled at the top level of your client, before any business logic runs, typically by notifying the user and prompting them to take action. See [auth error reference](./auth-errors.md).
+- **Domain errors** (type: "domain") represent logically invalid operations like requesting a resource that does not exist, violating a business rule, ... These are expected errors that your services should catch and handle specifically. Each endpoint in api reference documents the domain errors it can produce.
+- **Internal errors** (type: "internal") are unexpected failures. They should not be caught silently. The recommended approach is to surface the raw error to the user and encourage them to report it.
+
+All non-network errors share the same response format:
+```
+HTTP status code
+{"detail": {"type": "...", "code": "...", "message": "..."}}
+```
+
+A basic pattern for handling these layers:
+```Pseudocode
+try:
+    response = call_mycel(...)
+except NetworkError:
+    retry or notify user, server unreachable
+
+if response.status != 200:
+    error = response.body.detail
+	if error.type == "auth":
+		match error.code:
+			"invalid_token"   -> notify user, offer to open settings
+			"token_expired"   -> notify user, offer to open settings
+			"missing_token"   -> notify user, offer to open settings
+			"not_subscribed"  -> notify user, link to mycelcloud.com
+			"service_unavailable" -> notify user
+		return
+
+	if error.type == "internal":
+		log error
+		notify user, suggest reporting the issue
+		return
+
+    // domain falls through
+	if error.type == "domain":
+		pass 
+		let services handle the specific code
+
+handle response.data 
+```
+
+And within a service:
+```Pseudocode
+try:
+    handle_response(response)
+except MyclError as e:
+    if e.code == "NODE_NOT_FOUND":
+        // handle specifically
+    if e.code == "NOT_A_SPORE":
+        // handle specifically
+```
+
+#### 2. Idempotency
 
 Mycel implements server-side idempotency for non-idempotent endpoints. These are marked in the API reference.
 
@@ -114,6 +170,14 @@ If your implementation has a "discard changes" flow when leaving a node with uns
 This option is important for handling long nodes, which can become heavy and cause performance issues on some devices. It provides a way to quickly decompose a node while preserving all content and context: the node is split by heading level.
 
 Implement a previewer so the user can see how the outline will be decomposed is not required but a good idea. If you already have an outline view, it's straightforward: parse the outline with the level selected by the user (via a slider, text field, etc.) and send that level to Mycel when the user confirms. Note that an outline view is not strictly necessary for this feature, but makes for a convenient way to visualize the result.
+
+### Multi-spore support
+
+Mycel optionally supports multiple spores per node. This means a single node can contain several questions based on the same content, for example, a cloze note like {{c1::Capital of France}} {{c2::Paris}} can generate two separate review cards from one piece of content.
+
+If your implementation does not support multi-spore, each node will simply contain one question. Fragments always have exactly one learning unit, so this only applies to spore nodes.
+
+When multiple spores exist on a node, they are identified by a slot parameter on relevant routes such as reschedule or reprioritise. If slot is not provided, it defaults to 0, so implementations that ignore multi-spore will work correctly without any changes.
 
 ### Outline
 
