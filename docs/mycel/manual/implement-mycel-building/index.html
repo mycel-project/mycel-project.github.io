@@ -108,6 +108,46 @@
     
     
     
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
     
   </nav>
   
@@ -464,22 +504,33 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#rest-communication" class="md-nav__link">
+  <a href="#i-rest-communication" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Rest communication
+        I. Rest communication
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Rest communication">
+    <nav class="md-nav" aria-label="I. Rest communication">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#idempotency" class="md-nav__link">
+  <a href="#1-error-handling" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Idempotency
+        1. Error handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-idempotency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Idempotency
       
     </span>
   </a>
@@ -637,6 +688,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#multi-spore-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-spore support
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#outline" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -754,12 +816,62 @@
 <h3 id="update-disclaimer">Update disclaimer</h3>
 <p>When implementing update logic (for users, nodes or collections), be aware that all fields explicitly passed in <code>UserUpdate</code>, <code>NodeUpdate</code> or <code>CollectionUpdate</code>, including fields set to <code>null</code>, will overwrite the existing value. Note that setting a field to <code>null</code> may raise a validation error if the underlying model (User, Node, Collection) does not accept <code>None</code> for that field. <strong>Omit a field entirely to leave it unchanged.</strong></p>
 <p>See the API reference for Update User, Update Node and Update Collection for details.</p>
-<h3 id="rest-communication">Rest communication</h3>
-<h4 id="idempotency">Idempotency</h4>
+<h3 id="i-rest-communication">I. Rest communication</h3>
+<h4 id="1-error-handling">1. Error handling</h4>
+<p>Mycel distinguishes four categories of errors. </p>
+<ul>
+<li><strong>Network errors</strong> occur when the server cannot be reached at all: connection refused, timeout, DNS failure, and so on. These produce no HTTP response and no body. The recommended approach is to catch them at the transport layer and retry with backoff before surfacing anything to the user.</li>
+<li><strong>Authentication errors</strong> (type: "auth") are returned by MycelCloud when a request cannot be authorized. These cover invalid or expired tokens, missing credentials, and subscription issues. They should be handled at the top level of your client, before any business logic runs, typically by notifying the user and prompting them to take action. See <a href="../auth-errors/">auth error reference</a>.</li>
+<li><strong>Domain errors</strong> (type: "domain") represent logically invalid operations like requesting a resource that does not exist, violating a business rule, ... These are expected errors that your services should catch and handle specifically. Each endpoint in api reference documents the domain errors it can produce.</li>
+<li><strong>Internal errors</strong> (type: "internal") are unexpected failures. They should not be caught silently. The recommended approach is to surface the raw error to the user and encourage them to report it.</li>
+</ul>
+<p>All non-network errors share the same response format:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>HTTP status code
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>{&quot;detail&quot;: {&quot;type&quot;: &quot;...&quot;, &quot;code&quot;: &quot;...&quot;, &quot;message&quot;: &quot;...&quot;}}
+</code></pre></div></p>
+<p>A basic pattern for handling these layers:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>try:
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    response = call_mycel(...)
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>except NetworkError:
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    retry or notify user, server unreachable
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>if response.status != 200:
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    error = response.body.detail
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    if error.type == &quot;auth&quot;:
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        match error.code:
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>            &quot;invalid_token&quot;   -&gt; notify user, offer to open settings
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>            &quot;token_expired&quot;   -&gt; notify user, offer to open settings
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>            &quot;missing_token&quot;   -&gt; notify user, offer to open settings
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>            &quot;not_subscribed&quot;  -&gt; notify user, link to mycelcloud.com
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>            &quot;service_unavailable&quot; -&gt; notify user
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        return
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    if error.type == &quot;internal&quot;:
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        log error
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>        notify user, suggest reporting the issue
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>        return
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    // domain falls through
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    if error.type == &quot;domain&quot;:
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>        pass 
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>        let services handle the specific code
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>handle response.data 
+</code></pre></div></p>
+<p>And within a service:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>try:
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    handle_response(response)
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>except MyclError as e:
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    if e.code == &quot;NODE_NOT_FOUND&quot;:
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        // handle specifically
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    if e.code == &quot;NOT_A_SPORE&quot;:
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        // handle specifically
+</code></pre></div></p>
+<h4 id="2-idempotency">2. Idempotency</h4>
 <p>Mycel implements server-side idempotency for non-idempotent endpoints. These are marked in the API reference.</p>
 <p>To benefit from this protection, include an <code>Idempotency-Key</code> header with a unique UUID per user action:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="err">POST /collections/{col_id}/reviews/undo</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="err">Idempotency-Key: 550e8400-e29b-41d4-a716-446655440000</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="err">POST /collections/{col_id}/reviews/undo</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="err">Idempotency-Key: 550e8400-e29b-41d4-a716-446655440000</span>
 </code></pre></div>
 <p>If the same key is sent again within 1 hour, Mycel returns the original response without re-executing the operation.</p>
 <p>This header is optional but strongly recommended for non-idempotent endpoints: omitting it exposes your implementation to instability caused by network retries or accidental double calls. The simplest approach is to wrap all your POST and PATCH calls with a generated UUID header by default, rather than tracking which endpoints require it.</p>
@@ -806,6 +918,10 @@ Recommended behavior:</p>
 <h5 id="split-node">Split node</h5>
 <p>This option is important for handling long nodes, which can become heavy and cause performance issues on some devices. It provides a way to quickly decompose a node while preserving all content and context: the node is split by heading level.</p>
 <p>Implement a previewer so the user can see how the outline will be decomposed is not required but a good idea. If you already have an outline view, it's straightforward: parse the outline with the level selected by the user (via a slider, text field, etc.) and send that level to Mycel when the user confirms. Note that an outline view is not strictly necessary for this feature, but makes for a convenient way to visualize the result.</p>
+<h3 id="multi-spore-support">Multi-spore support</h3>
+<p>Mycel optionally supports multiple spores per node. This means a single node can contain several questions based on the same content, for example, a cloze note like {{c1::Capital of France}} {{c2::Paris}} can generate two separate review cards from one piece of content.</p>
+<p>If your implementation does not support multi-spore, each node will simply contain one question. Fragments always have exactly one learning unit, so this only applies to spore nodes.</p>
+<p>When multiple spores exist on a node, they are identified by a slot parameter on relevant routes such as reschedule or reprioritise. If slot is not provided, it defaults to 0, so implementations that ignore multi-spore will work correctly without any changes.</p>
 <h3 id="outline">Outline</h3>
 <h3 id="rescheduling">Rescheduling</h3>
 <ul>

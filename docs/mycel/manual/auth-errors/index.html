@@ -9,10 +9,6 @@
       
       
       
-        <link rel="prev" href="../implement-mycel/">
-      
-      
-        <link rel="next" href="../../glossary/">
       
       
         
@@ -23,7 +19,7 @@
     
     
       
-        <title>Contribution Guide - Mycel Manual</title>
+        <title>Auth Error Reference - Mycel Manual</title>
       
     
     
@@ -64,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#on-configuration-semantics" class="md-skip">
+        <a href="#auth-error-reference" class="md-skip">
           Skip to content
         </a>
       
@@ -100,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Contribution Guide
+              Auth Error Reference
             
           </span>
         </div>
@@ -220,20 +216,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -254,7 +248,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -325,35 +319,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Contribution Guide
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../contribution-guide/" class="md-nav__link">
         
   
   
@@ -369,57 +338,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#on-configuration-semantics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        On configuration semantics
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#on-resource-ownership-and-safety" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        On resource ownership and safety
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#node-vs-learning-unit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Node vs Learning Unit
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -503,6 +421,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -511,35 +431,108 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#on-configuration-semantics" class="md-nav__link">
+  <a href="#authentication-errors-401" class="md-nav__link">
     <span class="md-ellipsis">
       
-        On configuration semantics
+        Authentication Errors (401)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication Errors (401)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#invalid_token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        invalid_token
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#on-resource-ownership-and-safety" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#token_expired" class="md-nav__link">
     <span class="md-ellipsis">
       
-        On resource ownership and safety
+        token_expired
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#node-vs-learning-unit" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#missing_token" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Node vs Learning Unit
+        missing_token
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subscription-error-402" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Subscription Error (402)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Subscription Error (402)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#not_subscribed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        not_subscribed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#service-error-503" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service Error (503)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Service Error (503)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#service_unavailable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        service_unavailable
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -560,26 +553,36 @@
 
 
 
-  <h1>Contribution Guide</h1>
-
-<p>This guide is a work in progress. For now, it may appear largely empty or incomplete as content is added over time.</p>
-<h2 id="on-configuration-semantics">On configuration semantics</h2>
-<p>Mycel uses two distinct levels of configuration, each with a clear semantic scope:</p>
-<p><strong>User configuration</strong> holds global behavior settings that apply regardless of which collection is activen things like undo age, deletion policy, reconnection frequency, or navigation behavior. These are user preferences about how mycel/implementation works.</p>
-<p><strong>Collection configuration</strong> (<code>CollectionConf</code>, <code>AlgoConf</code>) holds settings scoped to a specific collection: the visual theme, the spaced repetition algorithm parameters, etc. These are intentionally per-collection because a user may want different retention targets or aesthetics across collections.</p>
-<p>When adding a new setting, ask: does this apply to the user's entire experience, or only within a specific collection? That determines where it belongs.</p>
-<h2 id="on-resource-ownership-and-safety">On resource ownership and safety</h2>
-<p>To verify whether a user has the right to access a specific resource (e.g., nodes, reviews), certain functions enforce authorization by querying the repository and filtering by user_id.</p>
-<p>Every REST endpoint must route through at least one of these ownership-verification functions at the very beginning of any data access or modification lifecycle.</p>
-<p>(Note: These functions are not explicitly listed here as they may change; please refer to the endpoint implementations for direct references.)</p>
-<h2 id="node-vs-learning-unit">Node vs Learning Unit</h2>
-<p>In Mycel, spores and fragments are represented through two layers of data:</p>
-<ul>
-<li>Node holds the content data: fields, parent_id, template, etc.</li>
-<li>Learning unit holds the learning data (due date, position, FSRS state...). This allows a single node to have multiple learning units, for example, a cloze note like {{c1::Capital of France}} {{c2::Paris}} generates multiple questions from the same content without duplicating it.</li>
-</ul>
-<p>This comes with a cost: in the codebase, the two must be carefully distinguished. When fragment_id or spore_id are passed as arguments, they refer to learning unit ids, not node ids. A node is not itself a fragment or spore: it is a base_for fragment or spore (hence the field in the DB).</p>
-<p>This complexity is hidden from clients: the REST API never exposes learning_unit_id. Clients always speak in terms of node_id + slot (int). If slot is not specified, it defaults to 0, allowing clients to ignore multi-spore logic entirely if they choose not to implement it.</p>
+<h1 id="auth-error-reference">Auth Error Reference</h1>
+<h2 id="authentication-errors-401">Authentication Errors (401)</h2>
+<h3 id="invalid_token">invalid_token</h3>
+<p>The token provided is not valid. This can happen if the token was copied incorrectly or has been replaced.</p>
+<p>Recommended user message:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Your MycelCloud token is invalid. Please visit mycelcloud.com to generate a new one.
+</code></pre></div></p>
+<h3 id="token_expired">token_expired</h3>
+<p>The token has not been used for too long and has expired.</p>
+<p>Recommended user message:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Your MycelCloud token has expired. Please visit mycelcloud.com to generate a new one.
+</code></pre></div></p>
+<h3 id="missing_token">missing_token</h3>
+<p>No token was found in the configuration. Mycel cannot connect to MycelCloud without one.</p>
+<p>Recommended user message:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>No MycelCloud token is configured. Please visit mycelcloud.com to get your token, then add it to your configuration.
+</code></pre></div></p>
+<p>You may also offer to open the configuration directly so the user can paste it in without leaving your interface.</p>
+<h2 id="subscription-error-402">Subscription Error (402)</h2>
+<h3 id="not_subscribed">not_subscribed</h3>
+<p>The account associated with this token does not have an active subscription.</p>
+<p>Recommended user message:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Your MycelCloud subscription is inactive. Please visit mycelcloud.com to update your subscription.
+</code></pre></div></p>
+<h2 id="service-error-503">Service Error (503)</h2>
+<h3 id="service_unavailable">service_unavailable</h3>
+<p>MycelCloud could not be reached or is temporarily unavailable. This is not an issue with your token or subscription.</p>
+<p>Recommended user message:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>MycelCloud is temporarily unavailable. Please try again in a few moments.
+</code></pre></div></p>
 
 
 
