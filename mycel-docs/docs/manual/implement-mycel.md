@@ -78,20 +78,26 @@ if response.status != 200:
 			"service_unavailable" -> notify user
 		return
 		
-	if error.type == "version":
+	elif error.type == "version":
 		block everything
 		display error.message or custom message to user
 		return
 
-	if error.type == "internal":
+	elif error.type == "internal":
 		log error
 		notify user, suggest reporting the issue
 		return
 
     // domain falls through
-	if error.type == "domain":
+	elif error.type == "domain":
 		pass 
 		let services handle the specific code
+
+	// Fallback - unknown error type
+	else:
+		log error
+		notify user, suggest reporting the issue
+		return
 
 handle response.data 
 ```
