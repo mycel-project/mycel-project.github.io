@@ -1,3 +1,5 @@
+## **This page is in active building and is not complete at the moment.**
+
 # Implement Mycel
 
 This page describes how to create a Mycel implementation in existing tools and applications such as PKM tools, text editors, services, ... (even video games, where utility meets enjoyment!)
