@@ -38,12 +38,6 @@ First, some conditions must be checked by your environment to allow implementing
 - A text/file caching system.
 
 ## Implementation guide
-### Update disclaimer
-
-When implementing update logic (for users, nodes or collections), be aware that all fields explicitly passed in `UserUpdate`, `NodeUpdate` or `CollectionUpdate`, including fields set to `null`, will overwrite the existing value. Note that setting a field to `null` may raise a validation error if the underlying model (User, Node, Collection) does not accept `None` for that field. **Omit a field entirely to leave it unchanged.**
-
-See the API reference for Update User, Update Node and Update Collection for details.
-
 ### I. API communication
 #### 1. Error handling
 Mycel distinguishes five categories of errors. 
@@ -151,10 +145,90 @@ When a behavioral change is introduced within a major, the old behavior is kept 
 
 Each major release is accompanied by migration tooling and documentation to help transition data and configurations. Where possible, migrations are automated via Alembic.
 
-### Base
-Hardcode nodeTypes: 
+### II. Model structuration
+#### 1. General
+##### Update disclaimer
 
-### User
+When implementing update logic (for users, nodes or collections), be aware that all fields explicitly provided in the payload, including fields set to `null`, will overwrite the existing values. Setting a field to `null` will raise a validation error if the underlying model does not accept `None`.
+
+> **To leave a field unchanged, omit it entirely from the payload.** This behavior applies recursively to nested models.
+
+See the API reference for Update User, Update Node and Update Collection for details.
+
+**Example:**
+
+*Initial state*
+
+```json
+{
+  "status": "active",
+  "data": {
+    "title": "Old Title",
+    "source": {
+      "url": "https://mycel-project.com"
+    }
+  }
+}
+```
+
+*Example A*
+
+Updates **only** the title. Since `status` and `source` are omitted from the payload, they remain unchanged.
+
+Payload: 
+
+```json
+{
+  "data": {
+    "title": "New Title"
+  }
+}
+```
+
+Result:
+
+```json
+{
+  "status": "active",
+  "data": {
+    "title": "New Title",
+    "source": {
+      "url": "https://mycel-project.com"
+    }
+  }
+}
+```
+
+*Example B*
+
+Updates the title but also explicitly sets `source` to `null`. Because `source` is included in the payload, its previous value is overwritten.
+
+Payload: 
+
+```json
+{
+  "data": {
+    "title": "New Title",
+    "source": null
+  }
+}
+```
+
+Result:
+
+```json
+{
+  "status": "active",
+  "data": {
+    "title": "New Title",
+    "source": null
+  }
+}
+```
+
+If `source` does not accept `null`, this update will fail with a validation error.
+
+#### 2. User
 #### Configuration
 Mycel exposes its user settings schema dynamically via `GET /schemas/user-settings`. This means implementations never need to hardcode specific field names or values: the schema is the source of truth.
 
@@ -184,13 +258,11 @@ Implementations declare the config version they explicitly support. Fields intro
 
 ##### Using configuration values
 To access a user's current configuration, fetch the user via `GET /users/{user_id}`. The response includes the user config object with all current values, ready to use in your implementation.
+#### 3. Collection
 
-### Node 
+#### 4. Node 
 
-#### Update node
-Renvoyer vers [Update disclaimer](#update-disclaimer) sur les updates partagé avec collection notamment
-
-#### Spore edition
+##### Spore edition
 Unlike fragments, spores require special error handling. When sending updated content to Mycel to be saved, the backend validates that spore content contains at least one cloze field. If not, it returns a NO_CLOZE_FIELD_ERROR and rejects the update. The previously saved state is preserved.
 This prevents users from accidentally deleting all cloze patterns while editing.
 Recommended behavior:
@@ -202,13 +274,13 @@ Recommended behavior:
 
 If your implementation has a "discard changes" flow when leaving a node with unsaved content, it should cover this case naturally since the content remains dirty until a valid save goes through.
 
-#### Fragment edition
-##### Split node
+##### Fragment edition
+###### Split node
 This option is important for handling long nodes, which can become heavy and cause performance issues on some devices. It provides a way to quickly decompose a node while preserving all content and context: the node is split by heading level.
 
 Implement a previewer so the user can see how the outline will be decomposed is not required but a good idea. If you already have an outline view, it's straightforward: parse the outline with the level selected by the user (via a slider, text field, etc.) and send that level to Mycel when the user confirms. Note that an outline view is not strictly necessary for this feature, but makes for a convenient way to visualize the result.
 
-### Multi-spore support
+#### Multi-spore support
 
 Mycel optionally supports multiple spores per node. This means a single node can contain several questions based on the same content, for example, a cloze note like {{c1::Capital of France}} {{c2::Paris}} can generate two separate review cards from one piece of content.
 
