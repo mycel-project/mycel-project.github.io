@@ -22,6 +22,8 @@ This page describes how to create a Mycel implementation in existing tools and a
 
 - While it is possible to develop your implementation using MycelCloud, it is highly recommended to use a [self-hosted](https://mycel-project.com/mycel#self-hosting) instance of Mycel to have full control over the infrastructure and access complete logs.
 
+- Feel free to check the [Mycelium](https://github.com/mycel-project/mycelium) repository to see how certain things are implemented. Some sections in this document will point directly to this repo, but please note that these are just suggestions. There are often other, or even better, ways to handle this depending on your skill level and programming language.
+
 For any question or suggestion, feel free to ask (on Mycel repository, on project's reddit, ...)!
 
 ## Prerequisites
@@ -297,6 +299,10 @@ When multiple spores exist on a node, they are identified by a slot parameter on
 ### Handle Timezones
 
 To ensure your implementation is robust to timezone changes, pass the user's current local timezone offset in minutes with every request that involves time or scheduling.
+
+## Test your implementation
+
+As mentioned, the best way to test your code during development is to work with a self-hosted Mycel instance. If you want to implement automated testing (which is highly recommended!), you can simulate Mycel's API using [mycel-openapi](https://github.com/mycel-project/mycel-openapi).
 
 ## Share your implementation
 
