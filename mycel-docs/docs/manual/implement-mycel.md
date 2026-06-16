@@ -306,8 +306,4 @@ When updating the state or specification of your implementation, please open a n
 
 ## Keep up to date
 
-To stay informed about the latest updates and ensure your implementation remains compatible, follow the Mycel repository: https://github.com/mycel-project/mycel
-
-Mycel follows classical Semantic Versioning (MAJOR.MINOR.PATCH), where versions are interpreted as BREAKING.FEATURE.PATCH once 1.0.0 is reached. Before 1.0.0, the API should be considered unstable and breaking changes may occur in minor or even patch releases.
-
-We recommend keeping your implementation aligned with the latest MINOR version whenever possible, and only updating in response to explicit BREAKING changes when necessary, or critical patches.
+To stay informed about the latest updates and ensure your implementation remains compatible, follow the Mycel repository on github : https://github.com/mycel-project/mycel
