@@ -122,7 +122,9 @@ Idempotency-Key: 550e8400-e29b-41d4-a716-446655440000
 
 If the same key is sent again within 1 hour, Mycel returns the original response without re-executing the operation.
 
-This header is optional but strongly recommended for non-idempotent endpoints: omitting it exposes your implementation to instability caused by network retries or accidental double calls. The simplest approach is to wrap all your POST and PATCH calls with a generated UUID header by default, rather than tracking which endpoints require it.
+This header is optional but strongly recommended for non-idempotent endpoints: omitting it exposes your implementation to instability caused by network retries or accidental double calls. A basic level of protection can be achieved by wrapping all your calls with this idempotency key. However, a better approach is to generate the key at the action level and reuse the exact same key when retrying that action.
+
+In a more general sense, when dealing with user-triggered asynchronous actions, you can prevent spam by temporarily disabling the action's availability or behavior until the operation completes or timeout.
 
 #### 3. Versioning
 Mycel uses semantic versioning (MAJOR.minor.patch). Compatibility across versions is something actively maintained, but errors or inconsistencies may slip through and will be corrected as they are reported.
