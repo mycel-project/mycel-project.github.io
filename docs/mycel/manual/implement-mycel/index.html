@@ -763,6 +763,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#test-your-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test your implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#share-your-implementation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1319,6 +1330,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#test-your-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test your implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#share-your-implementation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1364,9 +1386,9 @@
 
 <h2 id="this-page-is-in-active-building-and-is-not-complete-at-the-moment"><strong>This page is in active building and is not complete at the moment.</strong></h2>
 <h1 id="implement-mycel">Implement Mycel</h1>
-<p>This page describes how to create a Mycel implementation in existing tools and applications such as PKM tools, text editors, services, ... (even video games, where utility meets enjoyment!)</p>
+<p>This page describes how to create a Mycel implementation in existing tools and applications such as PKM tools, text editors, services, ... (even video games, where utility meets enjoyment!).
+Rather than a linear guide, this document outlines essential concepts and implementation details.</p>
 <p><strong>Please note that the Mycel API is not stable at the moment and that things can evolve quickly, introducing frequent breaking changes. If you want to start an implementation now, please keep in mind that it may require significant maintenance effort.</strong></p>
-<p><strong>The API contract is considered stable starting from Mycel 1.0.0. Prior to that, breaking changes may occur at any time.</strong></p>
 <h2 id="before-you-start">Before you start</h2>
 <ul>
 <li>
@@ -1387,6 +1409,9 @@
 <li>
 <p>While it is possible to develop your implementation using MycelCloud, it is highly recommended to use a <a href="https://mycel-project.com/mycel#self-hosting">self-hosted</a> instance of Mycel to have full control over the infrastructure and access complete logs.</p>
 </li>
+<li>
+<p>Feel free to check the <a href="https://github.com/mycel-project/mycelium">Mycelium</a> repository to see how certain things are implemented. Some sections in this document will point directly to this repo, but please note that these are just suggestions. There are often other, or even better, ways to handle this depending on your skill level and programming language.</p>
+</li>
 </ul>
 <p>For any question or suggestion, feel free to ask (on Mycel repository, on project's reddit, ...)!</p>
 <h2 id="prerequisites">Prerequisites</h2>
@@ -1403,6 +1428,7 @@
 <h2 id="implementation-guide">Implementation guide</h2>
 <h3 id="i-api-communication">I. API communication</h3>
 <h4 id="1-error-handling">1. Error handling</h4>
+<p><a href="https://github.com/mycel-project/mycelium/tree/main/lib/data/network">See Mycelium example</a></p>
 <p>Mycel distinguishes five categories of errors. </p>
 <ul>
 <li><strong>Network errors</strong> occur when the server cannot be reached at all: connection refused, timeout, DNS failure, and so on. These produce no HTTP response and no body. The recommended approach is to catch them at the transport layer and retry with backoff before surfacing anything to the user.</li>
@@ -1471,7 +1497,8 @@
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="err">Idempotency-Key: 550e8400-e29b-41d4-a716-446655440000</span>
 </code></pre></div>
 <p>If the same key is sent again within 1 hour, Mycel returns the original response without re-executing the operation.</p>
-<p>This header is optional but strongly recommended for non-idempotent endpoints: omitting it exposes your implementation to instability caused by network retries or accidental double calls. The simplest approach is to wrap all your POST and PATCH calls with a generated UUID header by default, rather than tracking which endpoints require it.</p>
+<p>This header is optional but strongly recommended for non-idempotent endpoints: omitting it exposes your implementation to instability caused by network retries or accidental double calls. A basic level of protection can be achieved by wrapping all your calls with this idempotency key. However, a better approach is to generate the key at the action level and reuse the exact same key when retrying that action.</p>
+<p>In a more general sense, when dealing with user-triggered asynchronous actions, you can prevent spam by temporarily disabling the action's availability or behavior until the operation completes or timeout.</p>
 <h4 id="3-versioning">3. Versioning</h4>
 <p>Mycel uses semantic versioning (MAJOR.minor.patch). Compatibility across versions is something actively maintained, but errors or inconsistencies may slip through and will be corrected as they are reported.</p>
 <h5 id="compatibility-rules">Compatibility rules</h5>
@@ -1569,6 +1596,25 @@
 <p>To access a user's current configuration, fetch the user via <code>GET /users/{user_id}</code>. The response includes the user config object with all current values, ready to use in your implementation.</p>
 <h4 id="3-collection">3. Collection</h4>
 <h4 id="4-node">4. Node</h4>
+<p><a href="https://github.com/mycel-project/mycelium/blob/main/lib/data/models/node.dart">See Mycelium example</a> | <a href="https://api.mycelcloud.com/scalar#models/NodeDetailView">Full NodeDetailView model</a></p>
+<p>It is recommended to implement a node-related model structure that includes:</p>
+<ul>
+<li>
+<p>A Node model based on the <a href="https://github.com/mycel-project/mycel/blob/main/src/schemas/node_detail_view.py">NodeDetailView Model</a> and his superclass <a href="https://github.com/mycel-project/mycel/blob/main/src/schemas/node_view.py">NodeView</a>. Instead of creating two distinct models, combine them into a single model, making all fields required except for those that are optional in NodeView and all fields from NodeDetailView. That way, whether mycel sends a NodeView or a NodeDetailView, your Node model will be ready to handle it, and the cache will be centralized.</p>
+</li>
+<li>
+<p>A <a href="https://github.com/mycel-project/mycel/blob/main/src/schemas/learning_unit_view.py">LearningUnitView</a> model that combines the FragmentView and SporeView models. Note that SporeView inherits from <a href="https://github.com/mycel-project/mycel/blob/main/src/models/spore.py">Spore</a> and FragmentView inherits from <a href="https://github.com/mycel-project/mycel/blob/main/src/models/fragment.py">Fragment</a>. Both the Spore and Fragment models inherit from the <a href="https://github.com/mycel-project/mycel/blob/main/src/models/base_learning_unit.py">BaseLearningUnit</a> model. Some fields are added or removed when building views (for instance, position and priority). All fields that are not optional or nullable in Mycel's code can be set as required in your models.</p>
+</li>
+<li>
+<p>If you have implemented learning units models, you will probably need to add deserialization for the received JSON based on their types (see the "switch" pattern in the Mycelium example).</p>
+</li>
+<li>
+<p>You can also create models for NodeType, NodeData, NodeFields, etc., but it is less necessary.</p>
+</li>
+<li>
+<p>Regarding other Node API endpoints, you can create models for endpoints that return formatted data rather than full nodes—such as the "Get Priorities" or "Create Node Extract" endpoint. But for instance, in Mycelium, the "Get Priorities" response is parsed directly and saved into NodeCache without passing through an additional model.</p>
+</li>
+</ul>
 <h5 id="spore-edition">Spore edition</h5>
 <p>Unlike fragments, spores require special error handling. When sending updated content to Mycel to be saved, the backend validates that spore content contains at least one cloze field. If not, it returns a NO_CLOZE_FIELD_ERROR and rejects the update. The previously saved state is preserved.
 This prevents users from accidentally deleting all cloze patterns while editing.
@@ -1595,6 +1641,8 @@ Recommended behavior:</p>
 </ul>
 <h3 id="handle-timezones">Handle Timezones</h3>
 <p>To ensure your implementation is robust to timezone changes, pass the user's current local timezone offset in minutes with every request that involves time or scheduling.</p>
+<h2 id="test-your-implementation">Test your implementation</h2>
+<p>As mentioned, the best way to test your code during development is to work with a self-hosted Mycel instance. If you want to implement automated testing (which is highly recommended!), you can simulate Mycel's API using <a href="https://github.com/mycel-project/mycel-openapi">mycel-openapi</a>.</p>
 <h2 id="share-your-implementation">Share your implementation</h2>
 <p>If you consider your implementation viable for others to use (even in an unstable state), feel free to showcase it. You can submit a pull request to the <a href="https://github.com/mycel-project/awesome-mycel">Awesome Mycel repository</a> (using the provided template).</p>
 <p>When updating the state or specification of your implementation, please open a new pull request to keep it up to date.</p>
