@@ -306,13 +306,23 @@ If your implementation does not support multi-spore, each node will simply conta
 
 When multiple spores exist on a node, they are identified by a slot parameter on relevant routes such as reschedule or reprioritise. If slot is not provided, it defaults to 0, so implementations that ignore multi-spore will work correctly without any changes.
 
-### Outline
+### III. ...
 
-### Rescheduling
+#### On node Titles and content preview
+
+Every node includes a contentPreview field. This field typically captures the beginning of the node's first NodeField, allowing the frontend to display a quick preview without fetching the entire content payload. For instance, this is particularly useful in the priority slider to quickly inspect the text surrounding a specific priority value.
+
+When rendering a node, you may also want to use the title field from NodeData if it is available. Whenever possible, this title is automatically populated. For example, when creating a node from a web article, Mycel extracts the article's name. However, because the title can remain unset, contentPreview should always serve as the fallback, for instance if you use it in the NodeTree or the priority selector.
+
+The contentPreview is generated dynamically on the server. Therefore, it should not be directly updated by the user, as any manual changes would be overwritten during the next node fetch. But feel free to tweak the preview formatting, or share your thoughts on how we could fine-tune the preview building logic!
+
+#### Outline
+
+#### Rescheduling
 
 - After rescheduling, check whether the rescheduled node is the one currently being reviewed. If so, clear its review state. 
 
-### Handle Timezones
+#### Handle Timezones
 
 To ensure your implementation is robust to timezone changes, pass the user's current local timezone offset in minutes with every request that involves time or scheduling.
 
