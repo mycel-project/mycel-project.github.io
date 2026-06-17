@@ -280,6 +280,14 @@ It is recommended to implement a node-related model structure that includes:
 
 - Regarding other Node API endpoints, you can create models for endpoints that return formatted data rather than full nodes—such as the "Get Priorities" or "Create Node Extract" endpoint. But for instance, in Mycelium, the "Get Priorities" response is parsed directly and saved into NodeCache without passing through an additional model.
 
+##### How to Retrieve NodeFields
+
+Some endpoints return only NodeView models, which do not include the full content of the node (NodeFields). This allows for the fast retrieval of multiple nodes at once. On the other hand, endpoints like GetNode return NodeDetailView models, which include the complete NodeFields payload.
+
+For example, when building a node tree, you don't need these heavy fields. However, as soon as a user opens a specific node, you will need to fetch its NodeDetailView to display the full content.
+
+To avoid fetching the entire node every time it is opened, simply check if NodeFields is already present (not null) in your local model. If it is missing, trigger a fetch for the NodeDetailView; otherwise, safely reuse your cached data.
+
 ##### Spore edition
 Unlike fragments, spores require special error handling. When sending updated content to Mycel to be saved, the backend validates that spore content contains at least one cloze field. If not, it returns a NO_CLOZE_FIELD_ERROR and rejects the update. The previously saved state is preserved.
 This prevents users from accidentally deleting all cloze patterns while editing.
