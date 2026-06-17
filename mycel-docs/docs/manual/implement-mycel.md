@@ -42,6 +42,8 @@ First, some conditions must be checked by your environment to allow implementing
 ## Implementation guide
 ### I. API communication
 #### 1. Error handling
+[See Mycelium example](https://github.com/mycel-project/mycelium/tree/main/lib/data/network)
+
 Mycel distinguishes five categories of errors. 
 
 - **Network errors** occur when the server cannot be reached at all: connection refused, timeout, DNS failure, and so on. These produce no HTTP response and no body. The recommended approach is to catch them at the transport layer and retry with backoff before surfacing anything to the user.
@@ -265,6 +267,19 @@ To access a user's current configuration, fetch the user via `GET /users/{user_i
 #### 3. Collection
 
 #### 4. Node 
+[See Mycelium example](https://github.com/mycel-project/mycelium/blob/main/lib/data/models/node.dart) | [Full NodeDetailView model](https://api.mycelcloud.com/scalar#models/NodeDetailView)
+
+It is recommended to implement a node-related model structure that includes:
+
+- A Node model based on the [NodeDetailView Model](https://github.com/mycel-project/mycel/blob/main/src/schemas/node_detail_view.py) and his superclass [NodeView](https://github.com/mycel-project/mycel/blob/main/src/schemas/node_view.py). Instead of creating two distinct models, combine them into a single model, making all fields required except for those that are optional in NodeView and all fields from NodeDetailView. That way, whether mycel sends a NodeView or a NodeDetailView, your Node model will be ready to handle it, and the cache will be centralized.
+
+- A [LearningUnitView](https://github.com/mycel-project/mycel/blob/main/src/schemas/learning_unit_view.py) model that combines the FragmentView and SporeView models. Note that SporeView inherits from [Spore](https://github.com/mycel-project/mycel/blob/main/src/models/spore.py) and FragmentView inherits from [Fragment](https://github.com/mycel-project/mycel/blob/main/src/models/fragment.py). Both the Spore and Fragment models inherit from the [BaseLearningUnit](https://github.com/mycel-project/mycel/blob/main/src/models/base_learning_unit.py) model. Some fields are added or removed when building views (for instance, position and priority). All fields that are not optional or nullable in Mycel's code can be set as required in your models.
+
+- If you have implemented learning units models, you will probably need to add deserialization for the received JSON based on their types (see the "switch" pattern in the Mycelium example).
+
+- You can also create models for NodeType, NodeData, NodeFields, etc., but it is less necessary.
+
+- Regarding other Node API endpoints, you can create models for endpoints that return formatted data rather than full nodes—such as the "Get Priorities" or "Create Node Extract" endpoint. But for instance, in Mycelium, the "Get Priorities" response is parsed directly and saved into NodeCache without passing through an additional model.
 
 ##### Spore edition
 Unlike fragments, spores require special error handling. When sending updated content to Mycel to be saved, the backend validates that spore content contains at least one cloze field. If not, it returns a NO_CLOZE_FIELD_ERROR and rejects the update. The previously saved state is preserved.
