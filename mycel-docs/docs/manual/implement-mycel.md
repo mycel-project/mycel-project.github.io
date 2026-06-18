@@ -324,6 +324,10 @@ When rendering a node, you may also want to use the title field from NodeData if
 
 The contentPreview is generated dynamically on the server. Therefore, it should not be directly updated by the user, as any manual changes would be overwritten during the next node fetch. But feel free to tweak the preview formatting, or share your thoughts on how we could fine-tune the preview building logic!
 
+#### Priority display
+
+Priority values are computed and rounded by Mycel depending on the number of items in the collection, so implementations do not need to handle rounding themselves. The value can be treated as a plain float, or converted to an integer when the decimal part is set to 0: both approaches are valid. Treating all values as floats is the simplest option and works correctly in all cases.
+
 #### Outline
 
 #### Rescheduling
