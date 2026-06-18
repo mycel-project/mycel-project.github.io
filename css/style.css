@@ -395,7 +395,9 @@ main {
 /* Index */
 
 .main-button-section {
+    display: flex;
     margin-top: 48px;
+    gap: 16px;
 }
 
 .major-points-section {
@@ -480,13 +482,16 @@ h2 {
     width: 480px;
     height: auto;
     border-radius: var(--radius);
-    border: 1px solid var(--border);
     background-color: var(--bg2);
     padding: 16px;
 }
 
 .grid-section h2 {
     color: var(--primary)
+}
+
+.grid-section {
+    text-align: center;
 }
 
 .coming-soon {
@@ -524,7 +529,7 @@ h2 {
     padding-left: calc(50vw - 50%);
     padding-right: calc(50vw - 50%);
     padding-bottom: 64px;
-    margin-top: 104px;
+    margin-top: 80px;
     background-color: var(--primary-soft);
     padding-top: 64px;
 }
@@ -546,6 +551,10 @@ h2 {
     padding: 12px;
 }
 
+.advantages-section .advantages .advantage {
+    text-align: justify;
+}
+
 h3 {
     font-size: 20px;
 }
@@ -561,7 +570,7 @@ h3 {
 }
 
 .cta .cards {
-    margin-top: 32px;
+    margin-top: 64px;
     display: flex;
     gap: 24px;
 }
