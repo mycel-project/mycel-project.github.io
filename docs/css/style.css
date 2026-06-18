@@ -698,10 +698,6 @@ site-navbar {
     display: block;
 }
 
-.nav-cloud {
-    color: var(--accent);
-}
-
 .wordmark {
     font-family: var(--mono);
     font-size: 14px !important;
