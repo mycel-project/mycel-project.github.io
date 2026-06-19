@@ -665,6 +665,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#how-to-retrieve-nodefields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Retrieve NodeFields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#spore-edition" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -725,6 +736,40 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#iii" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        III. ...
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="III. ...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on-node-titles-and-content-preview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        On node Titles and content preview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Priority display
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#outline" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -754,6 +799,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1232,6 +1282,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#how-to-retrieve-nodefields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Retrieve NodeFields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#spore-edition" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1292,6 +1353,40 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#iii" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        III. ...
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="III. ...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on-node-titles-and-content-preview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        On node Titles and content preview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Priority display
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#outline" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1321,6 +1416,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1615,6 +1715,10 @@ Rather than a linear guide, this document outlines essential concepts and implem
 <p>Regarding other Node API endpoints, you can create models for endpoints that return formatted data rather than full nodes—such as the "Get Priorities" or "Create Node Extract" endpoint. But for instance, in Mycelium, the "Get Priorities" response is parsed directly and saved into NodeCache without passing through an additional model.</p>
 </li>
 </ul>
+<h5 id="how-to-retrieve-nodefields">How to Retrieve NodeFields</h5>
+<p>Some endpoints return only NodeView models, which do not include the full content of the node (NodeFields). This allows for the fast retrieval of multiple nodes at once. On the other hand, endpoints like GetNode return NodeDetailView models, which include the complete NodeFields payload.</p>
+<p>For example, when building a node tree, you don't need these heavy fields. However, as soon as a user opens a specific node, you will need to fetch its NodeDetailView to display the full content.</p>
+<p>To avoid fetching the entire node every time it is opened, simply check if NodeFields is already present (not null) in your local model. If it is missing, trigger a fetch for the NodeDetailView; otherwise, safely reuse your cached data.</p>
 <h5 id="spore-edition">Spore edition</h5>
 <p>Unlike fragments, spores require special error handling. When sending updated content to Mycel to be saved, the backend validates that spore content contains at least one cloze field. If not, it returns a NO_CLOZE_FIELD_ERROR and rejects the update. The previously saved state is preserved.
 This prevents users from accidentally deleting all cloze patterns while editing.
@@ -1634,12 +1738,19 @@ Recommended behavior:</p>
 <p>Mycel optionally supports multiple spores per node. This means a single node can contain several questions based on the same content, for example, a cloze note like {{c1::Capital of France}} {{c2::Paris}} can generate two separate review cards from one piece of content.</p>
 <p>If your implementation does not support multi-spore, each node will simply contain one question. Fragments always have exactly one learning unit, so this only applies to spore nodes.</p>
 <p>When multiple spores exist on a node, they are identified by a slot parameter on relevant routes such as reschedule or reprioritise. If slot is not provided, it defaults to 0, so implementations that ignore multi-spore will work correctly without any changes.</p>
-<h3 id="outline">Outline</h3>
-<h3 id="rescheduling">Rescheduling</h3>
+<h3 id="iii">III. ...</h3>
+<h4 id="on-node-titles-and-content-preview">On node Titles and content preview</h4>
+<p>Every node includes a contentPreview field. This field typically captures the beginning of the node's first NodeField, allowing the frontend to display a quick preview without fetching the entire content payload. For instance, this is particularly useful in the priority slider to quickly inspect the text surrounding a specific priority value.</p>
+<p>When rendering a node, you may also want to use the title field from NodeData if it is available. Whenever possible, this title is automatically populated. For example, when creating a node from a web article, Mycel extracts the article's name. However, because the title can remain unset, contentPreview should always serve as the fallback, for instance if you use it in the NodeTree or the priority selector.</p>
+<p>The contentPreview is generated dynamically on the server. Therefore, it should not be directly updated by the user, as any manual changes would be overwritten during the next node fetch. But feel free to tweak the preview formatting, or share your thoughts on how we could fine-tune the preview building logic!</p>
+<h4 id="priority-display">Priority display</h4>
+<p>Priority values are computed and rounded by Mycel depending on the number of items in the collection, so implementations do not need to handle rounding themselves. The value can be treated as a plain float, or converted to an integer when the decimal part is set to 0: both approaches are valid. Treating all values as floats is the simplest option and works correctly in all cases.</p>
+<h4 id="outline">Outline</h4>
+<h4 id="rescheduling">Rescheduling</h4>
 <ul>
 <li>After rescheduling, check whether the rescheduled node is the one currently being reviewed. If so, clear its review state. </li>
 </ul>
-<h3 id="handle-timezones">Handle Timezones</h3>
+<h4 id="handle-timezones">Handle Timezones</h4>
 <p>To ensure your implementation is robust to timezone changes, pass the user's current local timezone offset in minutes with every request that involves time or scheduling.</p>
 <h2 id="test-your-implementation">Test your implementation</h2>
 <p>As mentioned, the best way to test your code during development is to work with a self-hosted Mycel instance. If you want to implement automated testing (which is highly recommended!), you can simulate Mycel's API using <a href="https://github.com/mycel-project/mycel-openapi">mycel-openapi</a>.</p>

@@ -1,29 +1,18 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "FastAPI",
-    "version": "0.1.0"
+    "title": "Mycel API",
+    "description": "\n## Version compatibility\n\nAll requests may include the `X-Mycel-Version` header to indicate the minimum version your implementation requires (e.g. `2.3.0`). If provided, Mycel will verify compatibility and return a `version` error if incompatible.\n\nSee the implementation guide for details.\n        ",
+    "version": "0.2.0"
   },
   "paths": {
-    "/": {
-      "get": {
-        "summary": "Root",
-        "operationId": "root__get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          }
-        }
-      }
-    },
     "/health": {
       "get": {
+        "tags": [
+          "system"
+        ],
         "summary": "Check Reachability",
+        "description": "Checks that Mycel is reachable and running.",
         "operationId": "check_reachability_health_get",
         "responses": {
           "200": {
@@ -39,73 +28,129 @@
     },
     "/version": {
       "get": {
+        "tags": [
+          "system"
+        ],
         "summary": "Version",
+        "description": "Get the current Mycel version.",
         "operationId": "version_version_get",
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/VersionResponse"
+                }
               }
             }
           }
         }
       }
     },
-    "/config/node-types": {
+    "/constants/cloze-regex": {
       "get": {
-        "summary": "Get Node Types",
-        "operationId": "get_node_types_config_node_types_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          }
-        }
-      }
-    },
-    "/config/cloze-regex": {
-      "get": {
-        "summary": "Get Cloze Regex",
-        "operationId": "get_cloze_regex_config_cloze_regex_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          }
-        }
-      }
-    },
-    "/collections/{col_id}/nodes": {
-      "get": {
-        "summary": "Get Nodes",
-        "operationId": "get_nodes_collections__col_id__nodes_get",
-        "parameters": [
-          {
-            "name": "col_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "title": "Col Id"
-            }
-          }
+        "tags": [
+          "system"
         ],
+        "summary": "Get Cloze Regex",
+        "description": "Get cloze regex used to manipulate cloze field of spores.",
+        "operationId": "get_cloze_regex_constants_cloze_regex_get",
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ClozeRegex"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schemas/user-settings": {
+      "get": {
+        "tags": [
+          "system"
+        ],
+        "summary": "Get User Settings Schema",
+        "description": "Returns the user settings schema dynamically.\nImplementations can render a fully dynamic settings UI by parsing field types and metadata\n(category, unit, step, warning, etc.) without hardcoding any specific field names or values.",
+        "operationId": "get_user_settings_schema_schemas_user_settings_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_dict_"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Get User",
+        "operationId": "get_user_users_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_UserView_"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Create User",
+        "description": "Note: This route is only accessible in self-hosted deployments. It is blocked at the infrastructure level in MycelCloud, as users are created internally during account registration.",
+        "operationId": "create_user_users_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_UserView_"
+                }
               }
             }
           },
@@ -121,27 +166,418 @@
           }
         }
       },
+      "patch": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Update User",
+        "operationId": "update_user_users_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_UserView_"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/users/export": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Export User Data",
+        "operationId": "export_user_data_users_export_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_FullExport_"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/users/import": {
       "post": {
-        "summary": "Create Node",
-        "operationId": "create_node_collections__col_id__nodes_post",
+        "tags": [
+          "users"
+        ],
+        "summary": "Import User Data",
+        "operationId": "import_user_data_users_import_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FullExport"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/collections": {
+      "get": {
+        "tags": [
+          "collections"
+        ],
+        "summary": "List Collections",
+        "operationId": "list_collections_collections_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_list_CollectionView__"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "collections"
+        ],
+        "summary": "Create Collection",
+        "operationId": "create_collection_collections_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CollectionCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_CollectionView_"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/collections/{col_id}": {
+      "delete": {
+        "tags": [
+          "collections"
+        ],
+        "summary": "Delete Collection",
+        "operationId": "delete_collection_collections__col_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "col_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Col Id"
             }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
           },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "collections"
+        ],
+        "summary": "Update Collection",
+        "operationId": "update_collection_collections__col_id__patch",
+        "security": [
           {
-            "name": "tz_offset",
-            "in": "query",
-            "required": false,
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
             "schema": {
-              "type": "integer",
-              "default": 0,
-              "title": "Tz Offset"
+              "type": "string",
+              "title": "Col Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CollectionUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_CollectionView_"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{col_id}/nodes": {
+      "get": {
+        "tags": [
+          "nodes"
+        ],
+        "summary": "List Nodes",
+        "operationId": "list_nodes_collections__col_id__nodes_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Col Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_list_NodeView__"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "nodes"
+        ],
+        "summary": "Create Node",
+        "operationId": "create_node_collections__col_id__nodes_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Col Id"
             }
           }
         ],
@@ -175,9 +611,20 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_NodeDetailView_"
+                }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
           },
           "422": {
             "description": "Validation Error",
@@ -194,15 +641,24 @@
     },
     "/collections/{col_id}/nodes/priorities": {
       "get": {
+        "tags": [
+          "learning units"
+        ],
         "summary": "Get Priorities",
+        "description": "Priority is a relative value, meaning that adding or modifying a node invalidates other priorities. This route allows the frontend to efficiently refresh all priorities within a collection.",
         "operationId": "get_priorities_collections__col_id__nodes_priorities_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "col_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Col Id"
             }
           }
@@ -212,9 +668,20 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_list_NodeSlotPriority__"
+                }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
           },
           "422": {
             "description": "Validation Error",
@@ -231,15 +698,24 @@
     },
     "/collections/{col_id}/nodes/deleted": {
       "get": {
+        "tags": [
+          "nodes"
+        ],
         "summary": "Get Deleted Nodes",
+        "description": "Returns all soft-deleted nodes in a collection.",
         "operationId": "get_deleted_nodes_collections__col_id__nodes_deleted_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "col_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Col Id"
             }
           }
@@ -249,9 +725,20 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_list_NodeView__"
+                }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
           },
           "422": {
             "description": "Validation Error",
@@ -268,15 +755,23 @@
     },
     "/collections/{col_id}/nodes/{node_id}": {
       "get": {
-        "summary": "Get Node Metrics",
-        "operationId": "get_node_metrics_collections__col_id__nodes__node_id__get",
+        "tags": [
+          "nodes"
+        ],
+        "summary": "Get Node",
+        "operationId": "get_node_collections__col_id__nodes__node_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "col_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Col Id"
             }
           },
@@ -285,7 +780,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Node Id"
             }
           }
@@ -295,9 +790,20 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_NodeDetailView_"
+                }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
           },
           "422": {
             "description": "Validation Error",
@@ -312,16 +818,24 @@
         }
       },
       "delete": {
+        "tags": [
+          "nodes"
+        ],
         "summary": "Delete Node",
-        "description": "Deletes the node and its entire subtree.",
+        "description": "Soft-deletes the node and its entire subtree. Returns all deleted node ids so the client can update its local state without a full refetch.",
         "operationId": "delete_node_collections__col_id__nodes__node_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "col_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Col Id"
             }
           },
@@ -330,7 +844,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Node Id"
             }
           }
@@ -340,9 +854,20 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_DeleteNodeResponse_"
+                }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
           },
           "422": {
             "description": "Validation Error",
@@ -357,15 +882,24 @@
         }
       },
       "patch": {
+        "tags": [
+          "nodes"
+        ],
         "summary": "Update Node",
+        "description": "Update Node. To update spore/fragment data, use dedicated endpoints (reprioritise, reschedule, ...) or update_slot endpoint.",
         "operationId": "update_node_collections__col_id__nodes__node_id__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "col_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Col Id"
             }
           },
@@ -374,7 +908,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Node Id"
             }
           }
@@ -394,9 +928,20 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_NodeDetailView_"
+                }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
           },
           "422": {
             "description": "Validation Error",
@@ -413,16 +958,24 @@
     },
     "/collections/{col_id}/nodes/{node_id}/root": {
       "get": {
+        "tags": [
+          "nodes"
+        ],
         "summary": "Get Root Node",
-        "description": "For convenience\nGet the highest parent node for the given node_id.\nUseful when the frontend is not using a cache and the node tree is deeply nested.\nAllows quickly reaching the root without having to traverse manually through multiple calls.",
+        "description": "Get the highest parent node for the given node_id.\nUseful when the frontend is not using a cache and the node tree is deeply nested,\nallows reaching the root without traversing multiple calls manually.",
         "operationId": "get_root_node_collections__col_id__nodes__node_id__root_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "col_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Col Id"
             }
           },
@@ -431,7 +984,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Node Id"
             }
           }
@@ -441,9 +994,20 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_NodeDetailView_"
+                }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
           },
           "422": {
             "description": "Validation Error",
@@ -460,15 +1024,23 @@
     },
     "/collections/{col_id}/nodes/{node_id}/outline": {
       "get": {
-        "summary": "Get Outline Node",
-        "operationId": "get_outline_node_collections__col_id__nodes__node_id__outline_get",
+        "tags": [
+          "nodes"
+        ],
+        "summary": "Get Outline",
+        "operationId": "get_outline_collections__col_id__nodes__node_id__outline_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "col_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Col Id"
             }
           },
@@ -477,7 +1049,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Node Id"
             }
           }
@@ -485,67 +1057,22 @@
         "responses": {
           "200": {
             "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiResponse_Outline_"
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/collections/{col_id}/nodes/{node_id}/reschedule": {
-      "post": {
-        "summary": "Reschedule Node",
-        "operationId": "reschedule_node_collections__col_id__nodes__node_id__reschedule_post",
-        "parameters": [
-          {
-            "name": "col_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "title": "Col Id"
-            }
           },
-          {
-            "name": "node_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "title": "Node Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RescheduleNodeRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
           },
           "422": {
             "description": "Validation Error",
@@ -562,16 +1089,24 @@
     },
     "/collections/{col_id}/nodes/{node_id}/restore": {
       "post": {
+        "tags": [
+          "nodes"
+        ],
         "summary": "Restore Nodes",
         "description": "Restore a node, optionally including its parents and/or children.",
         "operationId": "restore_nodes_collections__col_id__nodes__node_id__restore_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "col_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Col Id"
             }
           },
@@ -580,7 +1115,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Node Id"
             }
           }
@@ -600,121 +1135,20 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ApiResponse_list_NodeView__"
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/collections/{col_id}/nodes/{node_id}/extracts": {
-      "post": {
-        "summary": "Create Node Extract",
-        "operationId": "create_node_extract_collections__col_id__nodes__node_id__extracts_post",
-        "parameters": [
-          {
-            "name": "col_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "title": "Col Id"
-            }
           },
-          {
-            "name": "node_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "title": "Node Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NodeExtract"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
           },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/collections/{col_id}/nodes/{node_id}/reprioritise": {
-      "post": {
-        "summary": "Reprioritise Node",
-        "operationId": "reprioritise_node_collections__col_id__nodes__node_id__reprioritise_post",
-        "parameters": [
-          {
-            "name": "col_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "title": "Col Id"
-            }
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
           },
-          {
-            "name": "node_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "title": "Node Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReprioritiseNode"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
           },
           "422": {
             "description": "Validation Error",
@@ -731,15 +1165,23 @@
     },
     "/collections/{col_id}/nodes/{node_id}/remove-links": {
       "post": {
+        "tags": [
+          "nodes"
+        ],
         "summary": "Remove Links",
         "operationId": "remove_links_collections__col_id__nodes__node_id__remove_links_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "col_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Col Id"
             }
           },
@@ -748,7 +1190,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Node Id"
             }
           }
@@ -768,9 +1210,20 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_NodeDetailView_"
+                }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
           },
           "422": {
             "description": "Validation Error",
@@ -785,42 +1238,68 @@
         }
       }
     },
-    "/collections": {
-      "get": {
-        "summary": "Get Collections",
-        "operationId": "get_collections_collections_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
+    "/collections/{col_id}/nodes/{node_id}/extracts": {
+      "post": {
+        "tags": [
+          "nodes"
+        ],
+        "summary": "Create Node Extract",
+        "description": "Note: non-idempotent: see Mycel documentation.",
+        "operationId": "create_node_extract_collections__col_id__nodes__node_id__extracts_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Col Id"
+            }
+          },
+          {
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Node Id"
             }
           }
-        }
-      },
-      "post": {
-        "summary": "Create Collection",
-        "operationId": "create_collection_collections_post",
+        ],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CollectionCreate"
+                "$ref": "#/components/schemas/NodeExtractRequest"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_ExtractResult_"
+                }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
           },
           "422": {
             "description": "Validation Error",
@@ -835,29 +1314,68 @@
         }
       }
     },
-    "/collections/{colId}": {
-      "get": {
-        "summary": "Get Collection Details",
-        "operationId": "get_collection_details_collections__colId__get",
+    "/collections/{col_id}/nodes/{node_id}/split": {
+      "post": {
+        "tags": [
+          "nodes"
+        ],
+        "summary": "Split Node",
+        "description": "Split node by heading level.\nNote: non-idempotent: see Mycel documentation.",
+        "operationId": "split_node_collections__col_id__nodes__node_id__split_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "parameters": [
           {
-            "name": "colId",
+            "name": "col_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "title": "Colid"
+              "type": "string",
+              "title": "Col Id"
+            }
+          },
+          {
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Node Id"
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SplitNodeRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_list_NodeDetailView__"
+                }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
           },
           "422": {
             "description": "Validation Error",
@@ -872,96 +1390,26 @@
         }
       }
     },
-    "/collections/{collection_id}": {
-      "delete": {
-        "summary": "Delete Collection",
-        "operationId": "delete_collection_collections__collection_id__delete",
-        "parameters": [
-          {
-            "name": "collection_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "title": "Collection Id"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Successful Response"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/collections/{col_id}": {
+    "/collections/{col_id}/nodes/{node_id}/slot/{slot}": {
       "patch": {
-        "summary": "Update Collections",
-        "operationId": "update_collections_collections__col_id__patch",
-        "parameters": [
+        "tags": [
+          "learning units"
+        ],
+        "summary": "Update Learning Unit",
+        "description": "Updates learning unit data without modifying global Node attributes.",
+        "operationId": "update_learning_unit_collections__col_id__nodes__node_id__slot__slot__patch",
+        "security": [
           {
-            "name": "col_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "title": "Col Id"
-            }
+            "HTTPBearer": []
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CollectionUpdate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/collections/{col_id}/nodes/{node_id}/spore-review": {
-      "post": {
-        "summary": "Review Spore",
-        "operationId": "review_spore_collections__col_id__nodes__node_id__spore_review_post",
         "parameters": [
           {
             "name": "col_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Col Id"
             }
           },
@@ -970,8 +1418,17 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Node Id"
+            }
+          },
+          {
+            "name": "slot",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Slot"
             }
           }
         ],
@@ -980,7 +1437,22 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ReviewData"
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/FragmentUpdate"
+                  },
+                  {
+                    "$ref": "#/components/schemas/SporeUpdate"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "fragment": "#/components/schemas/FragmentUpdate",
+                    "spore": "#/components/schemas/SporeUpdate"
+                  }
+                },
+                "title": "Data"
               }
             }
           }
@@ -990,9 +1462,20 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_NodeDetailView_"
+                }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
           },
           "422": {
             "description": "Validation Error",
@@ -1007,17 +1490,26 @@
         }
       }
     },
-    "/collections/{col_id}/nodes/{node_id}/fragment-review": {
-      "post": {
-        "summary": "Review Fragment",
-        "operationId": "review_fragment_collections__col_id__nodes__node_id__fragment_review_post",
+    "/collections/{col_id}/nodes/{node_id}/slot/{slot}/reprioritise": {
+      "patch": {
+        "tags": [
+          "learning units"
+        ],
+        "summary": "Reprioritise Learning Unit",
+        "description": "Reprioritise a learning unit.",
+        "operationId": "reprioritise_learning_unit_collections__col_id__nodes__node_id__slot__slot__reprioritise_patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "col_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Col Id"
             }
           },
@@ -1026,8 +1518,17 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Node Id"
+            }
+          },
+          {
+            "name": "slot",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Slot"
             }
           }
         ],
@@ -1036,7 +1537,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ReviewData"
+                "$ref": "#/components/schemas/ReprioritiseRequest"
               }
             }
           }
@@ -1046,9 +1547,20 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_NodeDetailView_"
+                }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
           },
           "422": {
             "description": "Validation Error",
@@ -1063,39 +1575,77 @@
         }
       }
     },
-    "/collections/{col_id}/reviews/calendar": {
-      "get": {
-        "summary": "Get Calendar",
-        "operationId": "get_calendar_collections__col_id__reviews_calendar_get",
+    "/collections/{col_id}/nodes/{node_id}/slot/{slot}/reschedule": {
+      "patch": {
+        "tags": [
+          "learning units"
+        ],
+        "summary": "Reschedule Learning Unit",
+        "description": "Reschedule a learning unit to a specific date.",
+        "operationId": "reschedule_learning_unit_collections__col_id__nodes__node_id__slot__slot__reschedule_patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "col_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Col Id"
             }
           },
           {
-            "name": "tz_offset",
-            "in": "query",
-            "required": false,
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Node Id"
+            }
+          },
+          {
+            "name": "slot",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "integer",
-              "default": 0,
-              "title": "Tz Offset"
+              "title": "Slot"
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RescheduleRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_NodeDetailView_"
+                }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
           },
           "422": {
             "description": "Validation Error",
@@ -1110,29 +1660,77 @@
         }
       }
     },
-    "/collections/{col_id}/reviews/undo": {
-      "post": {
-        "summary": "Undo Review",
-        "operationId": "undo_review_collections__col_id__reviews_undo_post",
+    "/collections/{col_id}/nodes/{node_id}/slot/{slot}/dismiss": {
+      "patch": {
+        "tags": [
+          "learning units"
+        ],
+        "summary": "Dismiss Fragment",
+        "description": "Toggle or explicitly set the dismiss state of a fragment.\nIf no value is provided, the current state is toggled.\nOnly fragments are dismissable.",
+        "operationId": "dismiss_fragment_collections__col_id__nodes__node_id__slot__slot__dismiss_patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "col_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Col Id"
+            }
+          },
+          {
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Node Id"
+            }
+          },
+          {
+            "name": "slot",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Slot"
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DismissRequest",
+                "default": {}
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_NodeDetailView_"
+                }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
           },
           "422": {
             "description": "Validation Error",
@@ -1149,15 +1747,23 @@
     },
     "/collections/{col_id}/reviews/next": {
       "get": {
+        "tags": [
+          "reviews"
+        ],
         "summary": "Get Next Review",
         "operationId": "get_next_review_collections__col_id__reviews_next_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "col_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
+              "type": "string",
               "title": "Col Id"
             }
           },
@@ -1177,9 +1783,20 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_Union_ReviewTarget__NoneType__"
+                }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
           },
           "422": {
             "description": "Validation Error",
@@ -1194,44 +1811,190 @@
         }
       }
     },
-    "/users/me": {
-      "get": {
-        "summary": "Get Current User",
-        "operationId": "get_current_user_users_me_get",
+    "/collections/{col_id}/reviews/undo": {
+      "post": {
+        "tags": [
+          "reviews"
+        ],
+        "summary": "Undo Review",
+        "description": "Undo the last review. Returns the node from the undone review so the client can navigate back to it.\nNote: non-idempotent: see Mycel documentation.",
+        "operationId": "undo_review_collections__col_id__reviews_undo_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Col Id"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_ReviewTarget_"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
         }
       }
     },
-    "/users/me/settings": {
-      "patch": {
-        "summary": "Update User Conf",
-        "operationId": "update_user_conf_users_me_settings_patch",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserConfUpdate"
+    "/collections/{col_id}/reviews/calendar": {
+      "get": {
+        "tags": [
+          "reviews"
+        ],
+        "summary": "Get Calendar",
+        "operationId": "get_calendar_collections__col_id__reviews_calendar_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Col Id"
+            }
+          },
+          {
+            "name": "tz_offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Tz Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_list_DayReviewOverview__"
+                }
               }
             }
           },
-          "required": true
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/collections/{col_id}/nodes/{node_id}/review": {
+      "post": {
+        "tags": [
+          "reviews"
+        ],
+        "summary": "Review Node",
+        "operationId": "review_node_collections__col_id__nodes__node_id__review_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "col_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Col Id"
+            }
+          },
+          {
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Node Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewRequest"
+              }
+            }
+          }
         },
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse_NodeDetailView_"
+                }
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized \u2014 see Mycel implementation guide."
+          },
+          "402": {
+            "description": "Unsubscribed - see Mycel implementation guide."
+          },
+          "503": {
+            "description": "Service unavailable - see Mycel implementation guide."
           },
           "422": {
             "description": "Validation Error",
@@ -1240,22 +2003,6 @@
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
                 }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/users/settings/schema": {
-      "get": {
-        "summary": "User Config Schema",
-        "operationId": "user_config_schema_users_settings_schema_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
               }
             }
           }
@@ -1265,7 +2012,312 @@
   },
   "components": {
     "schemas": {
-      "CollectionCreate": {
+      "AlgoConf": {
+        "properties": {
+          "parameters": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Parameters",
+            "default": [
+              0.212,
+              1.2931,
+              2.3065,
+              8.2956,
+              6.4133,
+              0.8334,
+              3.0194,
+              0.001,
+              1.8722,
+              0.1666,
+              0.796,
+              1.4835,
+              0.0614,
+              0.2629,
+              1.6483,
+              0.6014,
+              1.8729,
+              0.5425,
+              0.0912,
+              0.0658,
+              0.1542
+            ]
+          },
+          "desired_retention": {
+            "type": "number",
+            "title": "Desired Retention",
+            "default": 0.9
+          },
+          "learning_steps": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Learning Steps",
+            "default": [
+              60,
+              600
+            ]
+          },
+          "relearning_steps": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Relearning Steps",
+            "default": [
+              600
+            ]
+          },
+          "maximum_interval": {
+            "type": "integer",
+            "title": "Maximum Interval",
+            "default": 36500
+          },
+          "enable_fuzzing": {
+            "type": "boolean",
+            "title": "Enable Fuzzing",
+            "default": true
+          }
+        },
+        "type": "object",
+        "title": "AlgoConf"
+      },
+      "ApiResponse_CollectionView_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/CollectionView"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "ApiResponse[CollectionView]"
+      },
+      "ApiResponse_DeleteNodeResponse_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/DeleteNodeResponse"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "ApiResponse[Rest._register_routes.<locals>.DeleteNodeResponse]"
+      },
+      "ApiResponse_ExtractResult_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/ExtractResult"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "ApiResponse[ExtractResult]"
+      },
+      "ApiResponse_FullExport_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/FullExport"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "ApiResponse[FullExport]"
+      },
+      "ApiResponse_NodeDetailView_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/NodeDetailView"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "ApiResponse[NodeDetailView]"
+      },
+      "ApiResponse_Outline_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Outline"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "ApiResponse[Outline]"
+      },
+      "ApiResponse_ReviewTarget_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/ReviewTarget"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "ApiResponse[ReviewTarget]"
+      },
+      "ApiResponse_Union_ReviewTarget__NoneType__": {
+        "properties": {
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReviewTarget"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "ApiResponse[Union[ReviewTarget, NoneType]]"
+      },
+      "ApiResponse_UserView_": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/UserView"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "ApiResponse[UserView]"
+      },
+      "ApiResponse_dict_": {
+        "properties": {
+          "data": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "ApiResponse[dict]"
+      },
+      "ApiResponse_list_CollectionView__": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/CollectionView"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "ApiResponse[list[CollectionView]]"
+      },
+      "ApiResponse_list_DayReviewOverview__": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/DayReviewOverview"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "ApiResponse[list[DayReviewOverview]]"
+      },
+      "ApiResponse_list_NodeDetailView__": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/NodeDetailView"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "ApiResponse[list[NodeDetailView]]"
+      },
+      "ApiResponse_list_NodeSlotPriority__": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/NodeSlotPriority"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "ApiResponse[list[NodeSlotPriority]]"
+      },
+      "ApiResponse_list_NodeView__": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/NodeView"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "ApiResponse[list[NodeView]]"
+      },
+      "ClozeRegex": {
+        "properties": {
+          "regex": {
+            "type": "string",
+            "title": "Regex"
+          }
+        },
+        "type": "object",
+        "required": [
+          "regex"
+        ],
+        "title": "ClozeRegex"
+      },
+      "CollectionConf": {
+        "properties": {
+          "theme": {
+            "type": "string",
+            "title": "Theme",
+            "default": "light"
+          }
+        },
+        "type": "object",
+        "title": "CollectionConf"
+      },
+      "CollectionCreateRequest": {
         "properties": {
           "name": {
             "type": "string",
@@ -1276,11 +2328,90 @@
         "required": [
           "name"
         ],
-        "title": "CollectionCreate"
+        "title": "CollectionCreateRequest"
+      },
+      "CollectionExport": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "created_at": {
+            "type": "integer",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "integer",
+            "title": "Updated At"
+          },
+          "conf": {
+            "$ref": "#/components/schemas/CollectionConf"
+          },
+          "algoconf": {
+            "$ref": "#/components/schemas/AlgoConf"
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/components/schemas/Node"
+            },
+            "type": "array",
+            "title": "Nodes",
+            "default": []
+          },
+          "learning_units": {
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/Fragment"
+                },
+                {
+                  "$ref": "#/components/schemas/Spore"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "fragment": "#/components/schemas/Fragment",
+                  "spore": "#/components/schemas/Spore"
+                }
+              }
+            },
+            "type": "array",
+            "title": "Learning Units",
+            "default": []
+          },
+          "reviews": {
+            "items": {
+              "$ref": "#/components/schemas/Review"
+            },
+            "type": "array",
+            "title": "Reviews",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "user_id",
+          "name",
+          "created_at",
+          "updated_at",
+          "conf",
+          "algoconf"
+        ],
+        "title": "CollectionExport"
       },
       "CollectionUpdate": {
         "properties": {
-          "newName": {
+          "name": {
             "anyOf": [
               {
                 "type": "string"
@@ -1289,12 +2420,22 @@
                 "type": "null"
               }
             ],
-            "title": "Newname"
+            "title": "Name"
           },
-          "config": {
+          "conf": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/ConfigUpdate"
+                "$ref": "#/components/schemas/CollectionConf"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "algoconf": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AlgoConf"
               },
               {
                 "type": "null"
@@ -1303,195 +2444,183 @@
           }
         },
         "type": "object",
-        "title": "CollectionUpdate"
+        "title": "CollectionUpdate",
+        "description": "Partial update model for Collection.\n\nOnly include fields that you explicitly want to modify.\nAny field provided in this model including fields set to None will be applied and will overwrite the existing value on the collection.\n\nFields not included in the update will remain unchanged."
       },
-      "ConfigUpdate": {
+      "CollectionView": {
         "properties": {
-          "collection": {
-            "anyOf": [
-              {
-                "additionalProperties": true,
-                "type": "object"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Collection"
-          },
-          "fsrs": {
-            "anyOf": [
-              {
-                "additionalProperties": true,
-                "type": "object"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Fsrs"
-          }
-        },
-        "type": "object",
-        "title": "ConfigUpdate",
-        "description": "API schema used to update configuration sections of a collection.\n\nAttributes:\n    collection: Optional updates for collection configuration.\n    fsrs: Optional updates for FSRS configuration."
-      },
-      "FragmentData": {
-        "properties": {
-          "dismiss": {
-            "type": "boolean",
-            "title": "Dismiss",
-            "default": false
-          }
-        },
-        "type": "object",
-        "title": "FragmentData"
-      },
-      "FragmentReviewData": {
-        "properties": {},
-        "type": "object",
-        "title": "FragmentReviewData"
-      },
-      "HTTPValidationError": {
-        "properties": {
-          "detail": {
-            "items": {
-              "$ref": "#/components/schemas/ValidationError"
-            },
-            "type": "array",
-            "title": "Detail"
-          }
-        },
-        "type": "object",
-        "title": "HTTPValidationError"
-      },
-      "NodeContent": {
-        "properties": {
-          "fields": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "type": "object",
-            "title": "Fields"
-          }
-        },
-        "type": "object",
-        "title": "NodeContent"
-      },
-      "NodeCreateFromText": {
-        "properties": {
-          "type": {
+          "id": {
             "type": "string",
-            "const": "text",
-            "title": "Type"
+            "title": "Id"
           },
-          "content": {
+          "name": {
             "type": "string",
-            "title": "Content"
+            "title": "Name"
+          },
+          "conf": {
+            "$ref": "#/components/schemas/CollectionConf"
+          },
+          "algoconf": {
+            "$ref": "#/components/schemas/AlgoConf"
+          },
+          "created_at": {
+            "type": "integer",
+            "title": "Created At"
           }
         },
         "type": "object",
         "required": [
-          "type",
-          "content"
+          "id",
+          "name",
+          "conf",
+          "algoconf",
+          "created_at"
         ],
-        "title": "NodeCreateFromText"
+        "title": "CollectionView"
       },
-      "NodeCreateFromUrl": {
+      "DayReviewOverview": {
         "properties": {
-          "type": {
+          "date": {
             "type": "string",
-            "const": "url",
-            "title": "Type"
+            "title": "Date"
           },
-          "url": {
-            "type": "string",
-            "title": "Url"
-          }
-        },
-        "type": "object",
-        "required": [
-          "type",
-          "url"
-        ],
-        "title": "NodeCreateFromUrl"
-      },
-      "NodeData": {
-        "properties": {
-          "title": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Title"
-          },
-          "src": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Src"
-          }
-        },
-        "type": "object",
-        "title": "NodeData"
-      },
-      "NodeExtract": {
-        "properties": {
-          "text": {
-            "type": "string",
-            "title": "Text"
-          },
-          "field": {
+          "due_spores": {
             "type": "integer",
-            "title": "Field"
+            "title": "Due Spores",
+            "default": 0
           },
-          "start_index": {
+          "due_fragments": {
             "type": "integer",
-            "title": "Start Index"
+            "title": "Due Fragments",
+            "default": 0
           },
-          "end_index": {
+          "reviewed_spores": {
             "type": "integer",
-            "title": "End Index"
+            "title": "Reviewed Spores",
+            "default": 0
           },
-          "extract_type": {
-            "$ref": "#/components/schemas/NodeType"
-          },
-          "tz_offset": {
+          "reviewed_fragments": {
             "type": "integer",
-            "title": "Tz Offset",
+            "title": "Reviewed Fragments",
             "default": 0
           }
         },
         "type": "object",
         "required": [
-          "text",
-          "field",
-          "start_index",
-          "end_index",
-          "extract_type"
+          "date"
         ],
-        "title": "NodeExtract"
+        "title": "DayReviewOverview",
+        "description": "Not using date object to ease transfer to frontend"
       },
-      "NodeType": {
-        "type": "integer",
-        "enum": [
-          1,
-          2
-        ],
-        "title": "NodeType"
-      },
-      "NodeUpdate": {
+      "DeleteNodeResponse": {
         "properties": {
-          "parent_id": {
+          "deleted_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Deleted Ids"
+          }
+        },
+        "type": "object",
+        "required": [
+          "deleted_ids"
+        ],
+        "title": "DeleteNodeResponse"
+      },
+      "DismissRequest": {
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "type": "object",
+        "title": "DismissRequest"
+      },
+      "EbookRef": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "ebook",
+            "title": "Type",
+            "default": "ebook"
+          },
+          "anchor_start": {
+            "type": "string",
+            "title": "Anchor Start"
+          },
+          "anchor_end": {
+            "type": "string",
+            "title": "Anchor End"
+          },
+          "margin_before": {
+            "type": "integer",
+            "title": "Margin Before",
+            "default": 0
+          },
+          "margin_after": {
+            "type": "integer",
+            "title": "Margin After",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "anchor_start",
+          "anchor_end"
+        ],
+        "title": "EbookRef"
+      },
+      "ExtractResult": {
+        "properties": {
+          "extract_node": {
+            "$ref": "#/components/schemas/NodeDetailView"
+          },
+          "source_node": {
+            "$ref": "#/components/schemas/NodeDetailView"
+          }
+        },
+        "type": "object",
+        "required": [
+          "extract_node",
+          "source_node"
+        ],
+        "title": "ExtractResult"
+      },
+      "Fragment": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "node_id": {
+            "type": "string",
+            "title": "Node Id",
+            "default": ""
+          },
+          "position": {
+            "type": "string",
+            "title": "Position",
+            "default": ""
+          },
+          "due": {
+            "type": "integer",
+            "title": "Due"
+          },
+          "slot": {
+            "type": "integer",
+            "title": "Slot",
+            "default": 0
+          },
+          "last_review": {
             "anyOf": [
               {
                 "type": "integer"
@@ -1500,39 +2629,102 @@
                 "type": "null"
               }
             ],
-            "title": "Parent Id"
-          },
-          "content": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/NodeContent"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "data": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/NodeData"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "title": "Last Review"
           },
           "type": {
+            "type": "string",
+            "const": "fragment",
+            "title": "Type",
+            "default": "fragment"
+          },
+          "dismiss": {
+            "type": "boolean",
+            "title": "Dismiss",
+            "default": false
+          },
+          "ref": {
             "anyOf": [
               {
-                "type": "integer"
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/EbookRef"
+                  },
+                  {
+                    "$ref": "#/components/schemas/VideoRef"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "ebook": "#/components/schemas/EbookRef",
+                    "video": "#/components/schemas/VideoRef"
+                  }
+                }
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Type"
+            "title": "Ref"
+          }
+        },
+        "type": "object",
+        "required": [
+          "due"
+        ],
+        "title": "Fragment"
+      },
+      "FragmentReviewData": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "fragment",
+            "title": "Type",
+            "default": "fragment"
+          }
+        },
+        "type": "object",
+        "title": "FragmentReviewData"
+      },
+      "FragmentTemplate": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
           },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "fields": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Fields"
+          },
+          "kind": {
+            "type": "string",
+            "const": "fragment",
+            "title": "Kind",
+            "default": "fragment"
+          },
+          "render_config": {
+            "type": "string",
+            "title": "Render Config"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "fields",
+          "render_config"
+        ],
+        "title": "FragmentTemplate"
+      },
+      "FragmentUpdate": {
+        "properties": {
           "due": {
             "anyOf": [
               {
@@ -1566,21 +2758,73 @@
             ],
             "title": "Last Review"
           },
-          "type_data": {
+          "type": {
+            "type": "string",
+            "const": "fragment",
+            "title": "Type",
+            "default": "fragment"
+          },
+          "dismiss": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/SporeData"
-              },
-              {
-                "$ref": "#/components/schemas/FragmentData"
+                "type": "boolean"
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Type Data"
+            "title": "Dismiss"
           },
-          "deleted_at": {
+          "ref": {
+            "anyOf": [
+              {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/EbookRef"
+                  },
+                  {
+                    "$ref": "#/components/schemas/VideoRef"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "ebook": "#/components/schemas/EbookRef",
+                    "video": "#/components/schemas/VideoRef"
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ref"
+          }
+        },
+        "type": "object",
+        "title": "FragmentUpdate"
+      },
+      "FragmentView": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "node_id": {
+            "type": "string",
+            "title": "Node Id",
+            "default": ""
+          },
+          "due": {
+            "type": "integer",
+            "title": "Due"
+          },
+          "slot": {
+            "type": "integer",
+            "title": "Slot",
+            "default": 0
+          },
+          "last_review": {
             "anyOf": [
               {
                 "type": "integer"
@@ -1589,15 +2833,44 @@
                 "type": "null"
               }
             ],
-            "title": "Deleted At"
-          }
-        },
-        "type": "object",
-        "title": "NodeUpdate",
-        "description": "Partial update model for Node.\n\nOnly include fields that you explicitly want to modify.\nAny field provided in this model including fields set to None will be applied\nand will overwrite the existing value on the node.\n\nFields not included in the update will remain unchanged."
-      },
-      "ReprioritiseNode": {
-        "properties": {
+            "title": "Last Review"
+          },
+          "type": {
+            "type": "string",
+            "const": "fragment",
+            "title": "Type",
+            "default": "fragment"
+          },
+          "dismiss": {
+            "type": "boolean",
+            "title": "Dismiss",
+            "default": false
+          },
+          "ref": {
+            "anyOf": [
+              {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/EbookRef"
+                  },
+                  {
+                    "$ref": "#/components/schemas/VideoRef"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "ebook": "#/components/schemas/EbookRef",
+                    "video": "#/components/schemas/VideoRef"
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ref"
+          },
           "priority": {
             "type": "number",
             "title": "Priority"
@@ -1605,104 +2878,19 @@
         },
         "type": "object",
         "required": [
+          "due",
           "priority"
         ],
-        "title": "ReprioritiseNode"
+        "title": "FragmentView"
       },
-      "RescheduleNodeRequest": {
+      "FsrsData": {
         "properties": {
-          "date": {
+          "type": {
             "type": "string",
-            "title": "Date"
+            "const": "fsrs",
+            "title": "Type",
+            "default": "fsrs"
           },
-          "tz_offset": {
-            "type": "integer",
-            "title": "Tz Offset"
-          }
-        },
-        "type": "object",
-        "required": [
-          "date",
-          "tz_offset"
-        ],
-        "title": "RescheduleNodeRequest"
-      },
-      "RestoreNodeRequest": {
-        "properties": {
-          "restore_ancestors": {
-            "type": "boolean",
-            "title": "Restore Ancestors",
-            "default": false
-          },
-          "restore_descendants": {
-            "type": "boolean",
-            "title": "Restore Descendants",
-            "default": false
-          }
-        },
-        "type": "object",
-        "title": "RestoreNodeRequest"
-      },
-      "ReviewData": {
-        "properties": {
-          "duration": {
-            "type": "integer",
-            "title": "Duration"
-          },
-          "type_review_data": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/SporeReviewData"
-              },
-              {
-                "$ref": "#/components/schemas/FragmentReviewData"
-              }
-            ],
-            "title": "Type Review Data"
-          },
-          "tz_offset": {
-            "type": "integer",
-            "title": "Tz Offset",
-            "default": 0
-          }
-        },
-        "type": "object",
-        "required": [
-          "duration",
-          "type_review_data"
-        ],
-        "title": "ReviewData"
-      },
-      "SelectionData": {
-        "properties": {
-          "text": {
-            "type": "string",
-            "title": "Text"
-          },
-          "field": {
-            "type": "integer",
-            "title": "Field"
-          },
-          "start_index": {
-            "type": "integer",
-            "title": "Start Index"
-          },
-          "end_index": {
-            "type": "integer",
-            "title": "End Index"
-          }
-        },
-        "type": "object",
-        "required": [
-          "text",
-          "field",
-          "start_index",
-          "end_index"
-        ],
-        "title": "SelectionData"
-      },
-      "SporeData": {
-        "properties": {
           "state": {
             "type": "integer",
             "title": "State",
@@ -1743,10 +2931,1017 @@
           }
         },
         "type": "object",
-        "title": "SporeData"
+        "title": "FsrsData"
+      },
+      "FullExport": {
+        "properties": {
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "exported_at": {
+            "type": "string",
+            "title": "Exported At"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "collections": {
+            "items": {
+              "$ref": "#/components/schemas/CollectionExport"
+            },
+            "type": "array",
+            "title": "Collections"
+          }
+        },
+        "type": "object",
+        "required": [
+          "version",
+          "exported_at",
+          "user",
+          "collections"
+        ],
+        "title": "FullExport"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Node": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "collection_id": {
+            "type": "string",
+            "title": "Collection Id"
+          },
+          "template_id": {
+            "type": "string",
+            "title": "Template Id"
+          },
+          "created_at": {
+            "type": "integer",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "integer",
+            "title": "Updated At"
+          },
+          "base_for": {
+            "$ref": "#/components/schemas/NodeType"
+          },
+          "fields": {
+            "$ref": "#/components/schemas/NodeFields"
+          },
+          "data": {
+            "$ref": "#/components/schemas/NodeData"
+          },
+          "status": {
+            "$ref": "#/components/schemas/NodeStatus",
+            "default": "active"
+          },
+          "deleted_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deleted At"
+          },
+          "parent_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent Id"
+          },
+          "learning_units": {
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/Fragment"
+                },
+                {
+                  "$ref": "#/components/schemas/Spore"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "fragment": "#/components/schemas/Fragment",
+                  "spore": "#/components/schemas/Spore"
+                }
+              }
+            },
+            "type": "array",
+            "title": "Learning Units"
+          }
+        },
+        "type": "object",
+        "required": [
+          "collection_id",
+          "template_id",
+          "base_for",
+          "fields"
+        ],
+        "title": "Node",
+        "description": "Domain model gathering data related to a node and his learning units."
+      },
+      "NodeCreateFromText": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "text",
+            "title": "Type"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          },
+          "tz_offset": {
+            "type": "integer",
+            "title": "Tz Offset",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "content"
+        ],
+        "title": "NodeCreateFromText"
+      },
+      "NodeCreateFromUrl": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "url",
+            "title": "Type"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
+          "tz_offset": {
+            "type": "integer",
+            "title": "Tz Offset",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "url"
+        ],
+        "title": "NodeCreateFromUrl"
+      },
+      "NodeData": {
+        "properties": {
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NodeSource"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "title": "NodeData"
+      },
+      "NodeDetailView": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "collection_id": {
+            "type": "string",
+            "title": "Collection Id"
+          },
+          "template_id": {
+            "type": "string",
+            "title": "Template Id"
+          },
+          "type": {
+            "$ref": "#/components/schemas/NodeType"
+          },
+          "status": {
+            "$ref": "#/components/schemas/NodeStatus"
+          },
+          "updated_at": {
+            "type": "integer",
+            "title": "Updated At"
+          },
+          "created_at": {
+            "type": "integer",
+            "title": "Created At"
+          },
+          "content_preview": {
+            "type": "string",
+            "title": "Content Preview"
+          },
+          "data": {
+            "$ref": "#/components/schemas/NodeData"
+          },
+          "learning_units": {
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/FragmentView"
+                },
+                {
+                  "$ref": "#/components/schemas/SporeView"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "fragment": "#/components/schemas/FragmentView",
+                  "spore": "#/components/schemas/SporeView"
+                }
+              }
+            },
+            "type": "array",
+            "title": "Learning Units"
+          },
+          "parent_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent Id"
+          },
+          "deleted_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deleted At"
+          },
+          "fields": {
+            "$ref": "#/components/schemas/NodeFields"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "collection_id",
+          "template_id",
+          "type",
+          "status",
+          "updated_at",
+          "created_at",
+          "content_preview",
+          "data",
+          "fields"
+        ],
+        "title": "NodeDetailView",
+        "description": "Full view for single node with all content."
+      },
+      "NodeExtractRequest": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "field": {
+            "type": "string",
+            "title": "Field",
+            "default": "content"
+          },
+          "start_index": {
+            "type": "integer",
+            "title": "Start Index"
+          },
+          "end_index": {
+            "type": "integer",
+            "title": "End Index"
+          },
+          "extract_type": {
+            "$ref": "#/components/schemas/NodeType"
+          },
+          "tz_offset": {
+            "type": "integer",
+            "title": "Tz Offset",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "text",
+          "start_index",
+          "end_index",
+          "extract_type"
+        ],
+        "title": "NodeExtractRequest"
+      },
+      "NodeFields": {
+        "additionalProperties": {
+          "type": "string"
+        },
+        "type": "object",
+        "title": "NodeFields"
+      },
+      "NodeSlotPriority": {
+        "properties": {
+          "node_id": {
+            "type": "string",
+            "title": "Node Id"
+          },
+          "slot": {
+            "type": "integer",
+            "title": "Slot"
+          },
+          "priority": {
+            "type": "number",
+            "title": "Priority"
+          }
+        },
+        "type": "object",
+        "required": [
+          "node_id",
+          "slot",
+          "priority"
+        ],
+        "title": "NodeSlotPriority"
+      },
+      "NodeSource": {
+        "properties": {
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          },
+          "md5": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Md5"
+          },
+          "isbn": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Isbn"
+          }
+        },
+        "type": "object",
+        "title": "NodeSource"
+      },
+      "NodeStatus": {
+        "type": "string",
+        "enum": [
+          "active",
+          "suspended"
+        ],
+        "title": "NodeStatus"
+      },
+      "NodeType": {
+        "type": "string",
+        "enum": [
+          "fragment",
+          "spore"
+        ],
+        "title": "NodeType"
+      },
+      "NodeUpdate": {
+        "properties": {
+          "parent_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent Id"
+          },
+          "template_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Template Id"
+          },
+          "fields": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NodeFields"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NodeData"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "status": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NodeStatus"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "deleted_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deleted At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "title": "NodeUpdate",
+        "description": "Partial update model for Node.\n\nOnly include fields that you explicitly want to modify.\nAny field provided in this model including fields set to None will be applied and will overwrite the existing value on the node.\n\nFields not included in the update will remain unchanged."
+      },
+      "NodeView": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "collection_id": {
+            "type": "string",
+            "title": "Collection Id"
+          },
+          "template_id": {
+            "type": "string",
+            "title": "Template Id"
+          },
+          "type": {
+            "$ref": "#/components/schemas/NodeType"
+          },
+          "status": {
+            "$ref": "#/components/schemas/NodeStatus"
+          },
+          "updated_at": {
+            "type": "integer",
+            "title": "Updated At"
+          },
+          "created_at": {
+            "type": "integer",
+            "title": "Created At"
+          },
+          "content_preview": {
+            "type": "string",
+            "title": "Content Preview"
+          },
+          "data": {
+            "$ref": "#/components/schemas/NodeData"
+          },
+          "learning_units": {
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/FragmentView"
+                },
+                {
+                  "$ref": "#/components/schemas/SporeView"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "fragment": "#/components/schemas/FragmentView",
+                  "spore": "#/components/schemas/SporeView"
+                }
+              }
+            },
+            "type": "array",
+            "title": "Learning Units"
+          },
+          "parent_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent Id"
+          },
+          "deleted_at": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deleted At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "collection_id",
+          "template_id",
+          "type",
+          "status",
+          "updated_at",
+          "created_at",
+          "content_preview",
+          "data"
+        ],
+        "title": "NodeView",
+        "description": "Lightweight DTO for list display. Contains a short content preview with light fields to allow front side filtering.\nFor full field rendering, use NodeDetailView."
+      },
+      "Outline": {
+        "properties": {
+          "entries": {
+            "items": {
+              "$ref": "#/components/schemas/OutlineEntry"
+            },
+            "type": "array",
+            "title": "Entries"
+          }
+        },
+        "type": "object",
+        "required": [
+          "entries"
+        ],
+        "title": "Outline"
+      },
+      "OutlineEntry": {
+        "properties": {
+          "level": {
+            "type": "integer",
+            "title": "Level"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset"
+          }
+        },
+        "type": "object",
+        "required": [
+          "level",
+          "title",
+          "offset"
+        ],
+        "title": "OutlineEntry"
+      },
+      "PlaceholderData": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "placeholder",
+            "title": "Type",
+            "default": "placeholder"
+          }
+        },
+        "type": "object",
+        "title": "PlaceholderData",
+        "description": "Placeholder class to allow discriminator in Spore model"
+      },
+      "ReprioritiseRequest": {
+        "properties": {
+          "priority": {
+            "type": "number",
+            "title": "Priority"
+          }
+        },
+        "type": "object",
+        "required": [
+          "priority"
+        ],
+        "title": "ReprioritiseRequest"
+      },
+      "RescheduleRequest": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "title": "Date"
+          },
+          "tz_offset": {
+            "type": "integer",
+            "title": "Tz Offset"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "tz_offset"
+        ],
+        "title": "RescheduleRequest"
+      },
+      "RestoreNodeRequest": {
+        "properties": {
+          "restore_ancestors": {
+            "type": "boolean",
+            "title": "Restore Ancestors",
+            "default": false
+          },
+          "restore_descendants": {
+            "type": "boolean",
+            "title": "Restore Descendants",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "RestoreNodeRequest"
+      },
+      "Review": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "learning_unit_id": {
+            "type": "string",
+            "title": "Learning Unit Id"
+          },
+          "type": {
+            "$ref": "#/components/schemas/NodeType",
+            "default": "fragment"
+          },
+          "reviewed_at": {
+            "type": "integer",
+            "title": "Reviewed At"
+          },
+          "type_review_data": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SporeReviewData"
+              },
+              {
+                "$ref": "#/components/schemas/FragmentReviewData"
+              }
+            ],
+            "title": "Type Review Data",
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "fragment": "#/components/schemas/FragmentReviewData",
+                "spore": "#/components/schemas/SporeReviewData"
+              }
+            }
+          },
+          "duration": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration"
+          },
+          "state_before": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Fragment"
+              },
+              {
+                "$ref": "#/components/schemas/Spore"
+              }
+            ],
+            "title": "State Before",
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "fragment": "#/components/schemas/Fragment",
+                "spore": "#/components/schemas/Spore"
+              }
+            }
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "learning_unit_id",
+          "reviewed_at",
+          "type_review_data",
+          "state_before"
+        ],
+        "title": "Review"
+      },
+      "ReviewRequest": {
+        "properties": {
+          "duration": {
+            "type": "integer",
+            "title": "Duration"
+          },
+          "type_review_data": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SporeReviewData"
+              },
+              {
+                "$ref": "#/components/schemas/FragmentReviewData"
+              }
+            ],
+            "title": "Type Review Data",
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "fragment": "#/components/schemas/FragmentReviewData",
+                "spore": "#/components/schemas/SporeReviewData"
+              }
+            }
+          },
+          "tz_offset": {
+            "type": "integer",
+            "title": "Tz Offset",
+            "default": 0
+          },
+          "slot": {
+            "type": "integer",
+            "title": "Slot",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "duration",
+          "type_review_data"
+        ],
+        "title": "ReviewRequest"
+      },
+      "ReviewTarget": {
+        "properties": {
+          "node": {
+            "$ref": "#/components/schemas/NodeDetailView"
+          },
+          "slot": {
+            "type": "integer",
+            "title": "Slot",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "node"
+        ],
+        "title": "ReviewTarget"
+      },
+      "SelectionData": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "field": {
+            "type": "string",
+            "title": "Field",
+            "default": "content"
+          },
+          "start_index": {
+            "type": "integer",
+            "title": "Start Index"
+          },
+          "end_index": {
+            "type": "integer",
+            "title": "End Index"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text",
+          "start_index",
+          "end_index"
+        ],
+        "title": "SelectionData"
+      },
+      "SplitNodeRequest": {
+        "properties": {
+          "level": {
+            "type": "integer",
+            "title": "Level"
+          },
+          "field": {
+            "type": "string",
+            "title": "Field",
+            "default": "content"
+          },
+          "tz_offset": {
+            "type": "integer",
+            "title": "Tz Offset",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "level"
+        ],
+        "title": "SplitNodeRequest"
+      },
+      "Spore": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "node_id": {
+            "type": "string",
+            "title": "Node Id",
+            "default": ""
+          },
+          "position": {
+            "type": "string",
+            "title": "Position",
+            "default": ""
+          },
+          "due": {
+            "type": "integer",
+            "title": "Due"
+          },
+          "slot": {
+            "type": "integer",
+            "title": "Slot",
+            "default": 0
+          },
+          "last_review": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Review"
+          },
+          "type": {
+            "type": "string",
+            "const": "spore",
+            "title": "Type",
+            "default": "spore"
+          },
+          "learning_data": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/FsrsData"
+              },
+              {
+                "$ref": "#/components/schemas/PlaceholderData"
+              }
+            ],
+            "title": "Learning Data",
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "fsrs": "#/components/schemas/FsrsData",
+                "placeholder": "#/components/schemas/PlaceholderData"
+              }
+            }
+          }
+        },
+        "type": "object",
+        "required": [
+          "due"
+        ],
+        "title": "Spore"
+      },
+      "SporeClozeTemplate": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "fields": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Fields"
+          },
+          "kind": {
+            "type": "string",
+            "const": "spore_cloze",
+            "title": "Kind",
+            "default": "spore_cloze"
+          },
+          "render_config": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              }
+            ],
+            "title": "Render Config"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "fields",
+          "render_config"
+        ],
+        "title": "SporeClozeTemplate"
       },
       "SporeReviewData": {
         "properties": {
+          "type": {
+            "type": "string",
+            "const": "spore",
+            "title": "Type",
+            "default": "spore"
+          },
           "rating": {
             "type": "integer",
             "title": "Rating"
@@ -1758,66 +3953,381 @@
         ],
         "title": "SporeReviewData"
       },
-      "UserConfUpdate": {
+      "SporeStandardTemplate": {
         "properties": {
-          "undo_review_max_age": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Undo Review Max Age"
+          "id": {
+            "type": "string",
+            "title": "Id"
           },
-          "delete_max_age": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Delete Max Age"
+          "name": {
+            "type": "string",
+            "title": "Name"
           },
-          "ping_frequency": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Ping Frequency"
+          "fields": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Fields"
           },
-          "add_extract_to_nav": {
-            "anyOf": [
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Add Extract To Nav"
+          "kind": {
+            "type": "string",
+            "const": "spore_standard",
+            "title": "Kind",
+            "default": "spore_standard"
           },
-          "wait_for_due_time": {
-            "anyOf": [
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Wait For Due Time"
+          "render_config": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                }
+              ]
+            },
+            "type": "object",
+            "title": "Render Config"
           }
         },
         "type": "object",
-        "title": "UserConfUpdate"
+        "required": [
+          "id",
+          "name",
+          "fields",
+          "render_config"
+        ],
+        "title": "SporeStandardTemplate"
+      },
+      "SporeUpdate": {
+        "properties": {
+          "due": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Due"
+          },
+          "position": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Position"
+          },
+          "last_review": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Review"
+          },
+          "type": {
+            "type": "string",
+            "const": "spore",
+            "title": "Type",
+            "default": "spore"
+          },
+          "learning_data": {
+            "anyOf": [
+              {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/FsrsData"
+                  },
+                  {
+                    "$ref": "#/components/schemas/PlaceholderData"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "fsrs": "#/components/schemas/FsrsData",
+                    "placeholder": "#/components/schemas/PlaceholderData"
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Learning Data"
+          }
+        },
+        "type": "object",
+        "title": "SporeUpdate"
+      },
+      "SporeView": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "node_id": {
+            "type": "string",
+            "title": "Node Id",
+            "default": ""
+          },
+          "due": {
+            "type": "integer",
+            "title": "Due"
+          },
+          "slot": {
+            "type": "integer",
+            "title": "Slot",
+            "default": 0
+          },
+          "last_review": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Review"
+          },
+          "type": {
+            "type": "string",
+            "const": "spore",
+            "title": "Type",
+            "default": "spore"
+          },
+          "learning_data": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/FsrsData"
+              },
+              {
+                "$ref": "#/components/schemas/PlaceholderData"
+              }
+            ],
+            "title": "Learning Data",
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "fsrs": "#/components/schemas/FsrsData",
+                "placeholder": "#/components/schemas/PlaceholderData"
+              }
+            }
+          },
+          "priority": {
+            "type": "number",
+            "title": "Priority"
+          }
+        },
+        "type": "object",
+        "required": [
+          "due",
+          "priority"
+        ],
+        "title": "SporeView"
+      },
+      "Templates": {
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/FragmentTemplate"
+            },
+            {
+              "$ref": "#/components/schemas/SporeStandardTemplate"
+            },
+            {
+              "$ref": "#/components/schemas/SporeClozeTemplate"
+            }
+          ],
+          "discriminator": {
+            "propertyName": "kind",
+            "mapping": {
+              "fragment": "#/components/schemas/FragmentTemplate",
+              "spore_cloze": "#/components/schemas/SporeClozeTemplate",
+              "spore_standard": "#/components/schemas/SporeStandardTemplate"
+            }
+          }
+        },
+        "type": "object",
+        "title": "Templates"
+      },
+      "User": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "created_at": {
+            "type": "integer",
+            "title": "Created At"
+          },
+          "conf": {
+            "$ref": "#/components/schemas/UserConf"
+          },
+          "templates": {
+            "$ref": "#/components/schemas/Templates"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "User"
+      },
+      "UserConf": {
+        "properties": {
+          "undo_review_max_age": {
+            "type": "integer",
+            "maximum": 60.0,
+            "minimum": 0.0,
+            "title": "Undo Review Max Age",
+            "description": "Maximum time allowed to undo a review.",
+            "default": 10,
+            "category": "review",
+            "step": 5,
+            "unit": "min"
+          },
+          "delete_max_age": {
+            "type": "integer",
+            "maximum": 90.0,
+            "minimum": 0.0,
+            "title": "Delete Max Age",
+            "description": "Number of days after which deleted nodes are permanently removed.",
+            "default": 30,
+            "category": "review",
+            "step": 1,
+            "unit": "d",
+            "warning": "Changing this value will immediately and permanently delete nodes that have been soft-deleted for longer than the new value."
+          },
+          "add_extract_to_nav": {
+            "type": "boolean",
+            "title": "Add Extract To Nav",
+            "description": "When extracting, insert it into the navigation history for instant access.",
+            "default": true,
+            "category": "review"
+          },
+          "wait_for_due_time": {
+            "type": "boolean",
+            "title": "Wait For Due Time",
+            "description": "If enabled, nodes due later in the day are never surfaced early, only nodes whose due time has already passed are reviewed.",
+            "default": false,
+            "category": "review"
+          },
+          "ping_frequency": {
+            "type": "integer",
+            "maximum": 60.0,
+            "minimum": 1.0,
+            "title": "Ping Frequency",
+            "description": "When disconnected, application will attempt to reconnect to Mycel at this frequency",
+            "default": 3,
+            "category": "network",
+            "step": 1,
+            "unit": "s"
+          }
+        },
+        "type": "object",
+        "title": "UserConf"
+      },
+      "UserCreateRequest": {
+        "properties": {
+          "user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "UserCreateRequest"
+      },
+      "UserUpdate": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "conf": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/UserConf"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "title": "UserUpdate",
+        "description": "Partial update model for User.\n\nOnly include fields that you explicitly want to modify.\nAny field provided in this model including fields set to None will be applied and will overwrite the existing value on the user.\n\nFields not included in the update will remain unchanged."
+      },
+      "UserView": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "conf": {
+            "$ref": "#/components/schemas/UserConf"
+          },
+          "created_at": {
+            "type": "integer",
+            "title": "Created At"
+          },
+          "templates": {
+            "$ref": "#/components/schemas/Templates"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "conf",
+          "created_at",
+          "templates"
+        ],
+        "title": "UserView"
       },
       "ValidationError": {
         "properties": {
@@ -1858,7 +4368,82 @@
           "type"
         ],
         "title": "ValidationError"
+      },
+      "VersionResponse": {
+        "properties": {
+          "version": {
+            "type": "string",
+            "title": "Version"
+          }
+        },
+        "type": "object",
+        "required": [
+          "version"
+        ],
+        "title": "VersionResponse"
+      },
+      "VideoRef": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "video",
+            "title": "Type",
+            "default": "video"
+          },
+          "timestamp_start": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timestamp Start"
+          },
+          "timestamp_end": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timestamp End"
+          }
+        },
+        "type": "object",
+        "title": "VideoRef"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
       }
     }
-  }
+  },
+  "tags": [
+    {
+      "name": "system"
+    },
+    {
+      "name": "users"
+    },
+    {
+      "name": "collections"
+    },
+    {
+      "name": "nodes",
+      "description": "Endpoints relative to nodes. To act on learning unit-specific data, see the dedicated section. Node endpoints here only affect global node attributes, even when the node has a single learning unit (as is the case with fragments)."
+    },
+    {
+      "name": "learning units",
+      "description": "Endpoints relative to a learning unit within a node, targeted using its slot number. Returns the fully updated node.\n\nFor common actions (such as reprioritisation), you can use dedicated endpoints. For more advanced control and precise updates, you should use the Update Learning Unit endpoint.\n\nEndpoint names reflect the target learning unit type when the action is type-specific (e.g. dismiss_fragment rather than dismiss_learning_unit).\n\n*If you don't want to support mutliple-learning-unit nodes, always pass 0 as the slot number.*\n                "
+    },
+    {
+      "name": "reviews"
+    }
+  ]
 }
