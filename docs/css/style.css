@@ -465,7 +465,7 @@ h2 {
     grid-template-columns: repeat(2, 480px);
     justify-content: center;
     align-items: start;
-    gap: 40px;
+    gap: 16px 56px ;
 }
 
 .grid-section .grid > div:nth-child(1) { grid-column: 1; grid-row: 1; }
@@ -475,7 +475,7 @@ h2 {
 
 
 .grid-section .grid > div:nth-child(even) {
-    margin-top: 24px;
+    margin-top: 48px;
 }
 
 .grid-section .grid > div {
