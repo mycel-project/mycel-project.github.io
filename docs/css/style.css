@@ -63,6 +63,14 @@ h1 {
 
 }
 
+.primary {
+    color: var(--primary);
+}
+
+.accent {
+    color: var(--accent);
+}
+
 main {
     flex: 1;
     max-width: 1000px;
