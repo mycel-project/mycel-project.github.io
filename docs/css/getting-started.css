@@ -1,0 +1,18 @@
+section {
+    margin-top: 32px;
+}
+
+h3 {
+    margin-top: 16px;
+}
+
+.tab-question {
+  color: var(--muted, #888);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.connection-example-img {
+    width:100%;
+    margin: 16px 0;
+}

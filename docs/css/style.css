@@ -177,8 +177,13 @@ main {
 .tabs {
     display: flex;
     gap: 8px;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+
+}
+
+.tabs.bar {
     border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
     padding-bottom: 12px;
 }
 
