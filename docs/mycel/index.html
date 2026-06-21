@@ -22,54 +22,12 @@
   <body>
     <site-navbar></site-navbar>
     <main class="page">
-      <h1 class="main-title">Mycel overview</h1>
+      <h1 class="main-title">Mycel Overview</h1>
       <h3>Page in construction...</h3>
-      <section>
-	<h2>The modern learning concern</h2>
-	<p>Learning is great, especially when self-interest driven. Yet there is a problem we all face: forgetting what we would like to retain, when memory does not survive the test of time.</p>
-	<p>Tools have been created to address this. SuperMemo pioneered the field, and many others followed, Anki being one of the most notable. New apps and extensions are regularly being released, which is encouraging. Yet it might seem paradoxical that so many of them, while tackling long-term learning, remain isolated from one another. Most people want to learn, but in different environments, and this fragmentation brings its own set of concerns.</p>
-	<div class="list">
-	  <ol>
-	    <li>
-	      <b>Fragility.</b> Building a learning system inside an app means that system is only as stable as the app itself. If the app is discontinued or no longer maintained, migration becomes painful and years of accumulated learning data may simply be lost.
-	    </li>
-	    <li>
-	      <b>Duplicated effort.</b> Rather than building on a shared foundation, each tool tends to reimplement what already exists elsewhere. This spreads development effort across isolated solutions that could have focused on what makes each of them unique, and more importantly, on pushing the common ground further rather than rebuilding it from scratch each time, a philosophy that open-source communities have long embraced.
-	    </li>
-	    <li>
-	      <b>Scattered foundation.</b> There is no stable, common ground for someone who wants to commit to long-term learning. Anki is a great example of what a solid, open and proven tool looks like, yet this raises a natural question: why not just use Anki?
-	    </li>
-	    <li>
-	      <b>The limits of memorization.</b> Traditional spaced repetition tools excel at retaining atomic knowledge over time. But learning complex topics is fundamentally different. Understanding history, physics, or any field where concepts build on one another requires progressive construction of knowledge. This is a different problem, and one that most traditional tools were not designed to solve. SuperMemo, which pioneered this space, remains largely inaccessible to most learners.
-	    </li>
-	  </ol>
-	</div>
-	<p>These observations are what motivated the creation of a tool that would address them without adding yet another isolated solution to the mix, but rather one that integrates into what already exists.</p>
-      </section>
-      <section>
-	<h2>One backbone to rule them all</h2>
-	<p>Mycel is an open-source Python backend gathering all of this learning-related functionality and exposing it through a standardized REST API.</p>
-	<p>It is built around Markdown, storing content as plain text in an SQLite or PostgreSQL database alongside learning data. It can be self-hosted or accessed through a remote instance.</p>
-	<p><i>Note that it is in a early develoment stage and that things discussed here may not be yet fully implemented.</i></p>
-	<p><br></p>
-	<p>Among other things, it handles:</p>
-	<div class="list">
-	  <ul>
-	    <li><strong>Content ingestion</strong> - resource gathering, parsing and conversion to Markdown</li>
-	    <li><strong>Extraction</strong> - user-driven decomposition of learning material into nodes</li>
-	    <li><strong>Flashcards</strong> - cloze deletion for now, with more types planned</li>
-	    <li><strong>Spaced repetition</strong> - prioritization logic, FSRS algorithm, and custom scheduling</li>
-	    <li><strong>Session logic</strong> - review and learning sessions with undo, reschedule, and more</li>
-	    <li><strong>Markdown operations</strong> - formatting, outlining, splitting</li>
-	    <li><strong>Configuration</strong> - dynamic config across implementations</li>
-	    <li><strong>Import/export</strong> - JSON to and from SQLite or PostgreSQL</li>
-	    <li><strong>Extensibility</strong> - custom algorithms, resource types, templates, and more</li>
-	    <li><strong>Built to last</strong> - long-term versioning and backward compatibility across implementations</li>
-	    <li><strong>REST API</strong> - agnostic to any client</li>
-	  </ul>
-	</div>
-	<p>The goal is to make it as simple as possible for implementations to interact with, while preserving flexibility for those who need it. Markdown is the current content format, but it is not deeply rooted into the architecture, leaving room for other markup languages if needed.</p>
-      </section>
+      <br>
+      <a href="docs/mycel/">
+	<button class="btn btn-primary">Mycel Manual</button>
+      </a>
       <h2 id="self-hosting"></h2> <!-- Bien garder cette ancre comme je pointe vers elle depuis mycelcloud-->
     </main>
     <site-footer></site-footer>
