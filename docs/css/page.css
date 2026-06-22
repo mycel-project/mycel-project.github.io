@@ -17,10 +17,6 @@ section {
 }
 
 #video-overview {
-    scroll-margin-top: 20vh;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
 }
 
 .page .main-title {
