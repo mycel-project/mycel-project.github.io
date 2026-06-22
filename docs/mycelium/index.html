@@ -8,22 +8,63 @@
       document.head.prepend(base);
     </script>
     <link rel="icon" href="assets/full.svg" type="image/svg+xml">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mycelium - Mycel Project</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <script src="js/script.js" defer></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-</head>
-<body>
-  <site-navbar></site-navbar>
-  <main class="page">
-    <h1 class="main-title">Mycelium — Cross-platform App</h1>
-    <h3>Page in construction...</h3>
-    <br>
-    <a href="docs/mycelium/" class="btn btn-primary">Mycelium Manual</a>
-  </main>
-</body>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mycelium - Mycel Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/page.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <script src="js/script.js" defer></script>
+    <script src="js/mycelium.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  </head>
+  <body>
+    <site-navbar></site-navbar>
+    <main class="page">
+      <h1 class="main-title">Mycelium — Cross-platform App</h1>
+      <section class="intro">
+	<a href="docs/mycelium/" class="btn btn-primary btn-manual">
+	  <i class="fa-solid fa-book"></i>
+	  <br>
+	  User Manual
+	</a>
+	<div>
+	  <p>Mycelium is a cross-platform longterm learning application powered by <a href="mycel/index.html">Mycel</a>.<br>It is open-source and acts as a complete client, implementing all main functionalities of Mycel into a single app. It is currently available on Windows, Linux, and Android, and will be available for macOS and iOS soon.</p>
+	  <p><em>Mycel Project and Mycelium are in early development. Visuals shown here may not reflect the current state of the application.</em></p>
+	</div>
+      </section>
+      <section id="download">
+	<div class="download-btns">
+	  <a href="getting-started.html" id="main-download" class="btn btn-primary btn-large">Download Mycelium</a>
+	  <a href="download.html" class="btn btn-outline btn-large">More versions and platforms</a>
+	</div>
+      </section>
+      <section id="install">
+	<h2>Install</h2>
+	<div class="tabs" id="tabs-platform">
+	  <button class="tab-btn" id="plat-btn-windows" onclick="switchPlatformTab(this, 'windows')">Windows</button>
+	  <button class="tab-btn" id="plat-btn-linux" onclick="switchPlatformTab(this, 'linux')">Linux</button>
+	  <button class="tab-btn" id="plat-btn-android" onclick="switchPlatformTab(this, 'android')">Android</button>
+	  <button class="tab-btn" id="plat-btn-mac" onclick="switchPlatformTab(this, 'mac')">macOS (soon)</button>
+	</div>
+	<div id="install-windows" class="tab-content" hidden>
+	  <p>Extract the downloaded archive and run the <code>.exe</code> file inside.</p>
+	</div>
+	<div id="install-linux" class="tab-content" hidden>
+	  <p>Make the downloaded <code>.AppImage</code> executable and run it:</p>
+	  <pre><code>chmod +x mycelium-linux-vX.X.X.AppImage && ./mycelium-linux-vX.X.X.AppImage</code></pre>
+	  <p><em>Replace <code>vX.X.X</code> with the actual version number.</em></p>
+	</div>
+	<div id="install-android" class="tab-content" hidden>
+	  <p>Enable installation from unknown sources in your Android settings, then open the downloaded <code>.apk</code> file and follow instructions.</p>
+	</div>
+	<div id="install-mac" class="tab-content" hidden>
+	  <p><em>macOS support is coming soon.</em></p>
+	</div>
+	<br>
+	<em>Cannot install Mycelium? <a href="mailto:paul-in@mailo.com" class="primary">Reach out to us</a>.</em>
+      </section>
+    </main>
+  </body>
 </html>
