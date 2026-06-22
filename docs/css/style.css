@@ -233,11 +233,11 @@ main {
     color: var(--on-primary);
 }
 
-.btn-primary {
+a.btn-primary, .btn-primary {
     background: var(--primary);
-    color: var(--on-primary);
+    color: var(--on-primary) !important;
 }
-.btn-primary:hover { background: hsl(170, 42%, 30%); }
+a.btn-primary:hover, .btn-primary:hover { background: hsl(170, 42%, 30%); }
 
 
 .btn-lowkey {
