@@ -26,8 +26,7 @@ function updateConnectSection() {
     document.getElementById('connect-' + selectedSetup).hidden = false;
     document.getElementById('trouble-cloud').hidden = selectedSetup !== 'cloud';
     document.getElementById('trouble-self').hidden = selectedSetup !== 'self';
-    document.getElementById('next-cloud').hidden = selectedSetup !== 'cloud';
-    document.getElementById('next-self').hidden = selectedSetup !== 'self';
+    document.getElementById('ts-token').hidden = selectedSetup !== 'cloud';
     updateConnectNote();
 }
 
@@ -40,4 +39,5 @@ function updateClientLabels() {
   document.querySelectorAll('.if-other').forEach(el => el.hidden = selectedClient === 'mycelium');
 }
 
+updateConnectSection();
 updateClientLabels();
