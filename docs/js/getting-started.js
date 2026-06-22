@@ -1,5 +1,13 @@
-let selectedClient = 'mycelium';
-let selectedSetup = 'cloud';
+const urlParams = new URLSearchParams(window.location.search);
+let selectedClient = urlParams.get('client') || 'mycelium';
+let selectedSetup = urlParams.get('setup') || 'cloud';
+
+function updateURL() {
+  const url = new URL(window.location);
+  url.searchParams.set('client', selectedClient);
+  url.searchParams.set('setup', selectedSetup);
+  window.history.replaceState({}, '', url);
+}
 
 function switchClientTab(btn, name) {
   selectedClient = name;
@@ -9,6 +17,7 @@ function switchClientTab(btn, name) {
   document.getElementById('tab-other').hidden = name !== 'other';
   updateConnectNote();
   updateClientLabels();
+  updateURL();
 }
 
 function switchSetupTab(btn, name) {
@@ -19,6 +28,7 @@ function switchSetupTab(btn, name) {
   group.querySelector('#tab-' + name).hidden = false;
   btn.classList.add('active');
   updateConnectSection();
+  updateURL();
 }
 
 function updateConnectSection() {
@@ -39,5 +49,8 @@ function updateClientLabels() {
   document.querySelectorAll('.if-other').forEach(el => el.hidden = selectedClient === 'mycelium');
 }
 
-updateConnectSection();
-updateClientLabels();
+const clientBtn = document.querySelector(`#tabs-client .tab-btn[onclick*="${selectedClient}"]`);
+if (clientBtn) switchClientTab(clientBtn, selectedClient);
+
+const setupBtn = document.querySelector(`#section-setup .tab-btn[onclick*="${selectedSetup}"]`);
+if (setupBtn) switchSetupTab(setupBtn, selectedSetup);

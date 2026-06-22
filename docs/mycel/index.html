@@ -54,7 +54,7 @@
 	<p><em>As a self-hoster, you manage your own updates and backups.</em></p>
       </section>
       <section>
-	<h2>Self-hosting installation</h2>
+	<h2>Self-hosting guide</h2>
 	<p class="tab-question">Which installation method do you want to use? (Git is probably the simplest)</p>
 	<div class="tabs" id="tabs-install">
 	  <button class="tab-btn active" onclick="switchInstallTab(this, 'git')">Git</button>
@@ -92,7 +92,7 @@
 	  <div class="connection-example-img">
 	    <img src="./assets/mycel_url.png" alt="mycel_url_example">
 	  </div>
-	  <h3>Update</h3>
+	  <h3>How to Update</h3>
 	  <p>To update Mycel, run this command from your Mycel folder:</p>
 	  <pre><code>git pull</code></pre>
 	  <p>Then restart Mycel.</p>
@@ -129,9 +129,7 @@
 	<h3>What to expect when updating</h3>
 	<p>Updating within the same major version is generally safe. Your data and configuration won't be silently affected. If a behavioral change is introduced, the old behavior is kept as default and the new one is opt-in, so updating Mycel without updating your client will never break things unexpectedly.</p>
 	<p>Across major versions, migration tooling and documentation are provided to help transition your data and configuration.</p>
-      </section>
-      <section id="self-hosting-troubleshooting">
-	<h2>Self-hosting troubleshooting</h2>
+	<h3 id="self-hosting-troubleshooting">Troubleshooting</h3>
 	<ul class="list">
 	  <li><b>Check that Mycel is running.</b> When entering Mycel's URL in your browser, you should see a welcome message. If not, Mycel may not be running or the port may not be exposed.</li>
 	  <li><b>Check that Mycel is reachable from your client.</b> Make sure both are on the same network, or that your server is accessible from the internet if needed.</li>

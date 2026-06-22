@@ -46,7 +46,7 @@
       </section>
 
       <section id="section-setup">
-        <h2>Setup Mycel</h2>
+        <h2>Set up Mycel</h2>
         <p>Mycel needs a server to run, store and sync your data. You can either use <a href="https://mycelcloud.com" class="primary">MycelCloud</a> (a ready-to-use paid hosted service), or self-host your own instance. You can switch between them using the import/export feature.</p>
         <p class="tab-question">How do you want to run Mycel?</p>
         <div class="tabs">
@@ -65,7 +65,7 @@
 	<p id="connect-other-note" hidden>The steps below are shown from the Mycelium interface, but the logic should be the same from other clients, with minor differences detailed in your client's repository or documentation.</p>
 	
 	<div id="connect-cloud">
-	  <p>Go to the <span class="if-mycelium">API Configuration page of Mycelium</span><span class="if-other">configuration section of your client</span> and paste <code>https://api.mycelcloud.com</code> into the field requesting the Mycel's API URL.</p>
+	  <p>Go to the <span class="if-mycelium">API Configuration page of Mycelium</span><span class="if-other">configuration section of your client</span> and paste <code>https://api.mycelcloud.com</code> into the field requesting the Mycel API URL.</p>
 	  <p>Go to your MycelCloud dashboard from the <a href="https://mycelcloud.com" class="primary">MycelCloud website</a> and copy your token (click "Generate" if needed).</p>
 	  <p>Paste your token into the Token field and validate.</p>
 	  <div class="connection-example-img">
@@ -74,7 +74,7 @@
 	  <p>You should now be connected to Mycel!</p>
 	</div>
 	<div id="connect-self" hidden>
-	  <p>Launch Mycel as described in the <a href="mycel/index.html" class="primary">Mycel documentation</a> and copy the URL shown at Mycel's startup<br><i>It will probably differ from the one shown here.</i></p>
+	  <p>Launch Mycel as described in the <a href="mycel/index.html" class="primary">Mycel documentation</a> and copy the URL shown on Mycel startup<br><i>It will probably differ from the one shown here.</i></p>
 	  <div class="connection-example-img">
 	    <img src="./assets/mycel_url.png" alt="mycel_url_example">
 	  </div>
@@ -85,9 +85,7 @@
 	  </div>
 	  <p>You should now be connected to Mycel!</p>
 	</div>
-      </section>
-      <section id="troubleshooting">
-	<h2>Troubleshooting</h2>
+	<h3>Troubleshooting</h3>
 	<ul class="list">
 	  <li><b>Check that your Mycel URL is correct.</b> It should not have a trailing slash and should be reachable from your browser.</li>
 	  <li><b>Check that your client is properly configured.</b> Refer to your client's documentation for configuration details.</li>
