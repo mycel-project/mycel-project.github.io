@@ -188,7 +188,8 @@ iframe {
     display: flex;
     gap: 8px;
     margin-bottom: 1rem;
-
+    flex-wrap: wrap;
+    justify-content: flex-start;
 }
 
 .tabs.bar {
@@ -265,6 +266,7 @@ a.btn-primary:hover, .btn-primary:hover { background: hsl(170, 42%, 30%); }
 a.btn-large {
     width: 100%;
     font-size: 18px;
+    text-align: center;
 }
 
 .intro {
@@ -996,5 +998,11 @@ site-navbar {
     }
     .download-btns {
 	flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .tabs {
+        justify-content: center;
     }
 }
