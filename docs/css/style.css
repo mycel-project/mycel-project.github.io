@@ -28,6 +28,10 @@
 }
 html {
     scrollbar-gutter: stable;
+    scroll-behavior: smooth;
+}
+[id] {
+    scroll-margin-top: 80px; 
 }
 body {
     background: var(--bg);
@@ -174,6 +178,12 @@ main {
     margin-top: 0.75rem;
 }
 
+iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+}
+
 .tabs {
     display: flex;
     gap: 8px;
@@ -251,6 +261,34 @@ a.btn-primary:hover, .btn-primary:hover { background: hsl(170, 42%, 30%); }
     border: 1px solid var(--primary);
 }
 .btn-outline:hover { background: var(--primary-soft); }
+
+a.btn-large {
+    width: 100%;
+    font-size: 18px;
+}
+
+.intro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+}
+
+a.btn-manual {
+    width: 160px;
+    height: 160px;
+    text-align: center;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+a.btn-manual i {
+    font-size: 36px;
+}
 
 .tab-question {
   color: var(--muted, #888);
@@ -444,11 +482,22 @@ pre code {
 }
 
 /* Index */
+.CTAs {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
 
 .main-button-section {
     display: flex;
     margin-top: 48px;
     gap: 16px;
+}
+
+.CTAs .video-btn {
+    color: var(--primary);
+    font-size: 16px;
+    padding-left: 8px;
 }
 
 .major-points-section {
@@ -831,8 +880,19 @@ site-navbar {
 	margin-bottom: 64px;
     }
 
+    .main-subtitle {
+	text-align: center;
+	width: 100%;
+	max-width: 80vw;
+	margin: 0 auto;
+    }
+
     main {
 	max-width: 90%;
+    }
+
+    .CTAs {
+	align-items: center;
     }
 
     .main-button-section {
@@ -896,4 +956,17 @@ site-navbar {
         display: block;
     }
 
+    .intro {
+        flex-direction: column;
+    }
+    a.btn-manual {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        flex-direction: row;
+        font-size: 16px;
+    }
+    a.btn-manual i {
+        font-size: 24px;
+    }
 }
