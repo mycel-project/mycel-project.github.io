@@ -497,12 +497,32 @@ pre code {
     gap: 16px;
 }
 
-.CTAs .video-btn {
-    color: var(--primary);
-    font-size: 16px;
-    padding-left: 8px;
+.video-thumbnail {
+    width: 500px;
+    max-width: 85vw;
+    display: block;
+    margin: 80px auto;
+    position: relative;
 }
-
+.video-thumbnail img {
+    width: 100%;
+    border-radius: 8px;
+    transition: opacity 0.2s;
+}
+.video-thumbnail:hover img {
+    opacity: 0.85;
+}
+.video-thumbnail::after {
+    content: '▶';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    pointer-events: none;
+}
 .major-points-section {
     display: flex;
     height: 400px;
@@ -542,7 +562,7 @@ h2 {
 }
 
 .grid-section {
-    margin-top: 104px;
+    margin-top: 80px;
 }
 
 .grid-section h3 {
