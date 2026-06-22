@@ -22,11 +22,13 @@ function switchSetupTab(btn, name) {
 }
 
 function updateConnectSection() {
-  document.querySelectorAll('#section-connect > div').forEach(el => el.hidden = true);
-  document.getElementById('connect-' + selectedSetup).hidden = false;
-  document.getElementById('trouble-cloud').hidden = selectedSetup !== 'cloud';
-  document.getElementById('trouble-self').hidden = selectedSetup !== 'self';
-  updateConnectNote();
+    document.querySelectorAll('#section-connect > div').forEach(el => el.hidden = true);
+    document.getElementById('connect-' + selectedSetup).hidden = false;
+    document.getElementById('trouble-cloud').hidden = selectedSetup !== 'cloud';
+    document.getElementById('trouble-self').hidden = selectedSetup !== 'self';
+    document.getElementById('next-cloud').hidden = selectedSetup !== 'cloud';
+    document.getElementById('next-self').hidden = selectedSetup !== 'self';
+    updateConnectNote();
 }
 
 function updateConnectNote() {
