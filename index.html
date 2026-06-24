@@ -11,7 +11,7 @@
     <meta property="og:title" content="Mycel Project - Learning made to last">
     <link rel="stylesheet" href="./css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-    <script src="./js/script.js"></script>
+    <script src="./js/script.js" defer></script>
     <link rel="stylesheet"
 	  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script type="application/ld+json">
@@ -32,13 +32,11 @@
     <main>
       <h1 class="main-title">Learning made to last</h1>
       <p class="main-subtitle">Mycel Project is an open ecosystem for long-term learning: capture, process, and retain knowledge across all your tools.</p>
-      <div class="main-button-section">
-	<a href="download.html">
-          <button class="btn btn-primary main-btn">Download Mycelium</button>
-	</a>
-	<a href="https://github.com/mycel-project/awesome-mycel/tree/main#implementations">
-          <button class="btn btn-lowkey main-btn">More Mycel implementations</button>
-	</a>
+      <div class="CTAs">
+	<div class="main-button-section">
+	  <a href="getting-started.html" class="btn btn-primary main-btn">Get started</a>
+	  <a href="download.html" class="btn btn-lowkey main-btn">Direct Download</a>
+	</div>
       </div>
       <section class="major-points-section">
 	<div class="major-points">
@@ -53,7 +51,7 @@
 	    <h2>
 	      Grows everywhere</h2>
 	    <p>
-	      Built around an open API, Mycel fits wherever you think. Download Mycelium on any platform, or connect Mycel directly into your favorite tools.
+	      Built around an open API, Mycel fits wherever you think. Download <a href="mycelium/index.html" class="primary">Mycelium</a>, a cross-platform app powered by Mycel, or connect Mycel directly into your favorite tools.
 	    </p>
 	  </div>
 	  <div>
@@ -65,8 +63,17 @@
 	  </div>
 	</div>
 	<div class="logo">
-	  <img src="./assets/full.svg" alt="">
+	  <img src="./assets/full.svg" alt="mycel_project_logo">
 	</div>
+      </section>
+      <section id="video-overview">
+	<iframe 
+	  width="560" 
+	  height="315" 
+	  src="https://www.youtube.com/embed/Ma9Sqv1XhHo" 
+	  frameborder="0" 
+	  allowfullscreen>
+	</iframe>
       </section>
       <section class="grid-section">
 	<div class="header">
@@ -129,21 +136,19 @@
       <section class="cta">
 	<h1 class="main-title">Become part of the network</h1>
 	<p class="main-subtitle">
-	    Use Mycel through the implementation of your choice, contribute to the project, or help spread knowledge.
+	    Use Mycel through the client of your choice, contribute to the project, or help spread knowledge.
 	</p>
 	<div class="cards">
 	  <div class="card">
 	    <h2>
 	      Get</h2>
 	    <div class="links">
+	      <a href="getting-started.html">Get Started</a>
 	      <a href="download.html">
-		Download Mycelium
-	      </a>
-	      <a href="mycel/index.html#self-hosting">
-		Self-host Mycel
+		Direct download
 	      </a>
 	      <a href="https://github.com/mycel-project/awesome-mycel/tree/main#implementations">
-		All implementations
+		All Mycel clients
 	      </a>
 	    </div>
 	  </div>
@@ -152,10 +157,10 @@
 	      Contribute</h2>
 	    <div class="links">
 	      <a href="docs/mycel/manual/implement-mycel/">
-		Implement Mycel
+		Create a Mycel client
 	      </a>
 	      <a href="docs/mycel/manual/contribution-guide/">
-		Contribution guide
+		Contribute to Mycel
 	      </a>
 	      <a href="https://github.com/mycel-project">
 		Support Mycel Project

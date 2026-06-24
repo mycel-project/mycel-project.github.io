@@ -11,68 +11,127 @@
     <link rel="icon" type="image/svg+xml" href="./assets/full.svg">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mycel</title>
+    <title>Mycel - Mycel Project</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/page.css">
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
     <script src="js/script.js" defer></script>
+    <script src="js/mycel.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   </head>
   <body>
     <site-navbar></site-navbar>
     <main class="page">
-      <h1 class="main-title">Mycel overview</h1>
-      <h3>Page in construction...</h3>
-      <section>
-	<h2>The modern learning concern</h2>
-	<p>Learning is great, especially when self-interest driven. Yet there is a problem we all face: forgetting what we would like to retain, when memory does not survive the test of time.</p>
-	<p>Tools have been created to address this. SuperMemo pioneered the field, and many others followed, Anki being one of the most notable. New apps and extensions are regularly being released, which is encouraging. Yet it might seem paradoxical that so many of them, while tackling long-term learning, remain isolated from one another. Most people want to learn, but in different environments, and this fragmentation brings its own set of concerns.</p>
-	<div class="list">
-	  <ol>
-	    <li>
-	      <b>Fragility.</b> Building a learning system inside an app means that system is only as stable as the app itself. If the app is discontinued or no longer maintained, migration becomes painful and years of accumulated learning data may simply be lost.
-	    </li>
-	    <li>
-	      <b>Duplicated effort.</b> Rather than building on a shared foundation, each tool tends to reimplement what already exists elsewhere. This spreads development effort across isolated solutions that could have focused on what makes each of them unique, and more importantly, on pushing the common ground further rather than rebuilding it from scratch each time, a philosophy that open-source communities have long embraced.
-	    </li>
-	    <li>
-	      <b>Scattered foundation.</b> There is no stable, common ground for someone who wants to commit to long-term learning. Anki is a great example of what a solid, open and proven tool looks like, yet this raises a natural question: why not just use Anki?
-	    </li>
-	    <li>
-	      <b>The limits of memorization.</b> Traditional spaced repetition tools excel at retaining atomic knowledge over time. But learning complex topics is fundamentally different. Understanding history, physics, or any field where concepts build on one another requires progressive construction of knowledge. This is a different problem, and one that most traditional tools were not designed to solve. SuperMemo, which pioneered this space, remains largely inaccessible to most learners.
-	    </li>
-	  </ol>
+      <h1 class="main-title">Mycel — The root engine</h1>
+      <section class="intro">
+	<a href="docs/mycel/" class="btn btn-primary btn-manual">
+	  <i class="fa-solid fa-book"></i>
+	  <br>
+	  Mycel Manual
+	</a>
+	<div>
+	  <p>Mycel is an open-source Python backend that standardizes long-term learning.<br>It exposes a REST API that any app, plugin, or tool can connect to, handling everything from content ingestion to spaced repetition, so each client can focus on the experience rather than reimplementing the core.</p>
+	  <p>It can be <a href="mycel/index.html#self-hosting">self-hosted</a> or accessed through <a href="https://mycelcloud.com" class="primary" target="_blank">MycelCloud</a>.</p>
 	</div>
-	<p>These observations are what motivated the creation of a tool that would address them without adding yet another isolated solution to the mix, but rather one that integrates into what already exists.</p>
       </section>
       <section>
-	<h2>One backbone to rule them all</h2>
-	<p>Mycel is an open-source Python backend gathering all of this learning-related functionality and exposing it through a standardized REST API.</p>
-	<p>It is built around Markdown, storing content as plain text in an SQLite or PostgreSQL database alongside learning data. It can be self-hosted or accessed through a remote instance.</p>
-	<p><i>Note that it is in a early develoment stage and that things discussed here may not be yet fully implemented.</i></p>
-	<p><br></p>
-	<p>Among other things, it handles:</p>
-	<div class="list">
-	  <ul>
-	    <li><strong>Content ingestion</strong> - resource gathering, parsing and conversion to Markdown</li>
-	    <li><strong>Extraction</strong> - user-driven decomposition of learning material into nodes</li>
-	    <li><strong>Flashcards</strong> - cloze deletion for now, with more types planned</li>
-	    <li><strong>Spaced repetition</strong> - prioritization logic, FSRS algorithm, and custom scheduling</li>
-	    <li><strong>Session logic</strong> - review and learning sessions with undo, reschedule, and more</li>
-	    <li><strong>Markdown operations</strong> - formatting, outlining, splitting</li>
-	    <li><strong>Configuration</strong> - dynamic config across implementations</li>
-	    <li><strong>Import/export</strong> - JSON to and from SQLite or PostgreSQL</li>
-	    <li><strong>Extensibility</strong> - custom algorithms, resource types, templates, and more</li>
-	    <li><strong>Built to last</strong> - long-term versioning and backward compatibility across implementations</li>
-	    <li><strong>REST API</strong> - agnostic to any client</li>
-	  </ul>
-	</div>
-	<p>The goal is to make it as simple as possible for implementations to interact with, while preserving flexibility for those who need it. Markdown is the current content format, but it is not deeply rooted into the architecture, leaving room for other markup languages if needed.</p>
+      	<a href="getting-started.html" class="btn btn-primary btn-large">Start learning with Mycel</a>
       </section>
-      <h2 id="self-hosting"></h2> <!-- Bien garder cette ancre comme je pointe vers elle depuis mycelcloud-->
+
+      <section id="self-hosting">
+	<h2>Self-hosting guide</h2>
+	<h3>Who is self-hosting for?</h3>
+	<p>Self-hosting means running Mycel on your own machine or server. Your data stays entirely local, in a SQLite file on your device. If you'd rather not manage a server, <a href="https://mycelcloud.com" class="primary" target="_blank">MycelCloud</a> is a hosted alternative.</p>
+	<p>Self-hosting is a good fit if you want full control over your data, prefer not to depend on an external service, or simply want to run Mycel for free.</p>
+	<p>Keep in mind that availability depends on how you host Mycel. If you run it on your personal computer, Mycel will only be accessible while that computer is on and from the same network. If you use a remote server (a VPS or dedicated machine), you can make it available from anywhere, but that configuration is outside the scope of this guide.</p>
+	<p><em>As a self-hoster, you manage your own updates and backups.</em></p>
+	<h3>Installation method</h3>
+	<p class="tab-question">Which installation method do you want to use? (Git is probably the simplest)</p>
+	<div class="tabs" id="tabs-install">
+	  <button class="tab-btn active" onclick="switchInstallTab(this, 'git')">Git</button>
+	  <button class="tab-btn" onclick="switchInstallTab(this, 'docker')">Docker</button>
+	  <button class="tab-btn" onclick="switchInstallTab(this, 'nix')">Nix</button>
+	</div>
+
+	<div id="install-git" class="tab-content">
+	  <h3>Requirements</h3>
+	  <p>Make sure <a href="https://www.python.org/" class="primary" target="_blank"><b>Python v3.10+</b></a> and <a href="https://git-scm.com/" class="primary" target="_blank"><b>git</b></a> are installed on your system.</p>
+
+	  <h3>Install</h3>
+	  <p>Clone the repository:</p>
+	  <pre><code>git clone https://github.com/mycel-project/mycel</code></pre>
+	  <p class="tab-question">Then run the setup script for your OS:</p>
+	  <div class="tabs" id="tabs-os">
+	    <button class="tab-btn" id="os-btn-win" onclick="switchOsTab(this, 'win')">Windows</button>
+	    <button class="tab-btn" id="os-btn-unix" onclick="switchOsTab(this, 'unix')">Linux / macOS</button>
+	  </div>
+	  <div id="os-win" class="tab-content">
+	    <pre><code>setup.bat</code></pre>
+	  </div>
+	  <div id="os-unix" class="tab-content" hidden>
+	    <pre><code>chmod +x setup.sh && ./setup.sh</code></pre>
+	  </div>
+	  <p><em>Note: some dependencies may take a while to install depending on your device's architecture.</em></p>
+	  <h3>Run</h3>
+	  <div id="run-win" class="tab-content">
+	    <pre><code>run.bat</code></pre>
+	  </div>
+	  <div id="run-unix" class="tab-content" hidden>
+	    <pre><code>./run.sh</code></pre>
+	  </div>
+	  <p>Mycel will display its URL at startup. You'll need it to <a href="getting-started.html#section-connect" class="primary">connect your client</a>.</p>
+	  <div class="connection-example-img">
+	    <img src="./assets/mycel_url.png" alt="mycel_url_example">
+	  </div>
+	  <h3>How to Update</h3>
+	  <p>To update Mycel, run this command from your Mycel folder:</p>
+	  <pre><code>git pull</code></pre>
+	  <p>Then restart Mycel.</p>
+	  <p>If an update introduces new configuration options, you may need to update your <code>config.json</code> by referring to <code>config.example.json</code>. See also <a href="mycel/index.html#versioning" class="primary">how Mycel handles versions</a>.</p>
+	  <h3>Following a specific version</h3>
+	  <p>By default <code>git pull</code> updates to the latest stable release. If you want to pin Mycel to a specific version, for instance to avoid a breaking change, you can checkout a tag:</p>
+	  <pre><code>git checkout tags/vX.X.X</code></pre>
+	  <p>Prerelease tags follow the format <code>vX.X.X-alpha</code>, <code>vX.X.X-beta</code>, or <code>vX.X.X-rc</code>, optionally suffixed with a number: <code>vX.X.X-alpha.2</code>.</p>
+	  <p><em>Note that pinning a tag means you won't receive further updates until you switch back.</em></p>
+	  <br>
+	  <p>To follow the latest prerelease instead:</p>
+	  <pre><code>git checkout dev</code></pre>
+	  <p><em>Prerelease versions move fast and may be less stable. Not recommended unless you know what you're doing.</em></p>
+	</div>
+	<div id="install-docker" class="tab-content" hidden>
+	  <h3>Requirements</h3>
+	  <p>Make sure <a href="https://www.docker.com/" class="primary" target="_blank"><b>Docker</b></a> is installed on your system.</p>
+	  <h3>Install & Run</h3>
+	  <p><em>Docker instructions coming soon.</em></p>
+	</div>
+	<div id="install-nix" class="tab-content" hidden>
+	  <h3>Requirements</h3>
+	  <p>Make sure <a href="https://nixos.org/" class="primary" target="_blank"><b>Nix</b></a> is installed on your system.</p>
+	  <h3>Install & Run</h3>
+	  <p><em>Nix instructions coming soon.</em></p>
+	</div>
+	<h3>Your data</h3>
+	<p>All your learning data is stored in <code>mycel.db</code> at the root of your Mycel folder.</p>
+	<p><em><b>Back up this file regularly.</b> If it is lost or corrupted, your data cannot be recovered.</em></p>
+	<h3 id="versioning">Versions</h3>
+	<p>Mycel uses <b>semantic versioning</b> (MAJOR.minor.patch). In short: patch updates are safe, minor updates are generally safe, major updates may require migration.</p>
+	<p><em>Before version 1.0.0, things may change faster and more frequently. Breaking changes are more likely during this phase.</em></p>
+
+	<h3>What to expect when updating</h3>
+	<p>Updating within the same major version is generally safe. Your data and configuration won't be silently affected. If a behavioral change is introduced, the old behavior is kept as default and the new one is opt-in, so updating Mycel without updating your client will never break things unexpectedly.</p>
+	<p>Across major versions, migration tooling and documentation are provided to help transition your data and configuration.</p>
+	<h3 id="self-hosting-troubleshooting">Troubleshooting</h3>
+	<ul class="list">
+	  <li><b>Check that Mycel is running.</b> When entering Mycel's URL in your browser, you should see a welcome message. If not, Mycel may not be running or the port may not be exposed.</li>
+	  <li><b>Check that Mycel is reachable from your client.</b> Make sure both are on the same network, or that your server is accessible from the internet if needed.</li>
+	  <li><b>Check your firewall.</b> The port Mycel runs on may be blocked by your firewall or router.</li>
+	  <li><b>Check your Python version.</b> Run <code>python --version</code> or <code>python3 --version</code> and make sure it is 3.10 or above. If using Docker, check the Python version inside the container instead.</li>
+	  <li><b>Check the terminal output.</b> If Mycel crashes at startup, the error message in the terminal is usually the best starting point.</li>
+	</ul>
+	<p>Still stuck? <a href="https://github.com/mycel-project/mycel/issues" class="primary">Open an issue</a> or <a href="mailto:paul-in@mailo.com" class="primary">reach out to us</a>.</p>
+      </section>
     </main>
     <site-footer></site-footer>
-
   </body>
 </html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      const base = document.createElement('base');
+      base.href = (location.hostname === 'localhost' || location.hostname === '127.0.0.1') 
+    ? '/docs/' : '/';
+      document.head.prepend(base);
+    </script>
+    <link rel="icon" href="assets/full.svg" type="image/svg+xml">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Getting Started — Mycel Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/page.css">
+    <link rel="stylesheet" href="css/getting-started.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <script src="js/script.js" defer></script>
+    <script src="js/getting-started.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  </head>
+  <body>
+    <site-navbar></site-navbar>
+    <main class="page">
+      <h1 class="main-title">Getting started</h1>
+      <p>Mycel Project is a learning ecosystem built around <b>Mycel</b> and usable through diverse <b>clients</b>: apps, plugins, and more.</p>
+      <p><em>Mycel Project is in early development. Clients are still few, but the ecosystem is growing.</em></p>
+      <section>
+        <h2>Choose a client</h2>
+	<p>Mycel runs through clients: any tool that implements the Mycel API. Your data lives in Mycel, not in the client, so you can switch or use multiple clients at any time.</p>
+	<br>
+        <p>If you don't have a specific tool in mind, <a href="mycelium/index.html" class="primary"><b>Mycelium</b></a> is the recommended starting point: a cross-platform app that covers the full Mycel workflow.</p>
+        <p>Already using a tool you'd like to use Mycel through? <a href="https://github.com/mycel-project/awesome-mycel" class="primary">Check if a client exists</a> for it. Don't see yours? You can <a href="docs/mycel/manual/implement-mycel/" class="primary">build one</a> or suggest it to the community.</p>
+        <p class="tab-question">Which client do you want to use?</p>
+        <div class="tabs" id="tabs-client">
+          <button class="tab-btn active" onclick="switchClientTab(this, 'mycelium')">Mycelium</button>
+          <button class="tab-btn" onclick="switchClientTab(this, 'other')">Other client</button>
+        </div>
+        <div id="tab-mycelium" class="tab-content">
+          <p>Download and install Mycelium from the <a href="mycelium/index.html?focus=download" class="primary">Mycelium page</a>.</p>
+        </div>
+        <div id="tab-other" class="tab-content" hidden>
+          <p>Find your client on <a href="https://github.com/mycel-project/awesome-mycel" class="primary">Awesome Mycel</a> and follow the installation instructions on its repository.</p>
+        </div>
+      </section>
+
+      <section id="section-setup">
+        <h2>Set up Mycel</h2>
+        <p>Mycel needs a server to run, store and sync your data. You can either use <a href="https://mycelcloud.com" class="primary">MycelCloud</a> (a ready-to-use paid hosted service), or self-host your own instance. You can switch between them using the import/export feature.</p>
+        <p class="tab-question">How do you want to run Mycel?</p>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchSetupTab(this, 'cloud')">MycelCloud</button>
+          <button class="tab-btn" onclick="switchSetupTab(this, 'self')">Self-host</button>
+        </div>
+        <div id="tab-cloud" class="tab-content">
+          <p>Create an account on <a href="https://mycelcloud.com" class="primary">MycelCloud</a>. You can freely test it without payment information for 1 month.</p>
+        </div>
+        <div id="tab-self" class="tab-content" hidden>
+          <p>Follow the <a href="mycel/index.html#self-hosting" class="primary">self-hosting guide</a> to run your own Mycel instance.</p>
+        </div>
+      </section>
+      <section id="section-connect">
+	<h2>Connect your client to Mycel</h2>
+	<p id="connect-other-note" hidden>The steps below are shown from the Mycelium interface, but the logic should be the same from other clients, with minor differences detailed in your client's repository or documentation.</p>
+	
+	<div id="connect-cloud">
+	  <p>Go to the <span class="if-mycelium">API Configuration page of Mycelium</span><span class="if-other">configuration section of your client</span> and paste <code>https://api.mycelcloud.com</code> into the field requesting the Mycel API URL.</p>
+	  <p>Go to your MycelCloud dashboard from the <a href="https://mycelcloud.com" class="primary">MycelCloud website</a> and copy your token (click "Generate" if needed).</p>
+	  <p>Paste your token into the Token field and validate.</p>
+	  <div class="connection-example-img">
+	    <img src="./assets/mycelium_mycelcloud_example.png" alt="mycel_connection_example">
+	  </div>
+	  <p>You should now be connected to Mycel!</p>
+	</div>
+	<div id="connect-self" hidden>
+	  <p>Launch Mycel as described in the <a href="mycel/index.html" class="primary">Mycel documentation</a> and copy the URL shown on Mycel startup<br><i>It will probably differ from the one shown here.</i></p>
+	  <div class="connection-example-img">
+	    <img src="./assets/mycel_url.png" alt="mycel_url_example">
+	  </div>
+	  <p>Go to the <span class="if-mycelium">API Configuration page of Mycelium</span><span class="if-other">configuration section of your client</span> and paste this URL into the field requesting the Mycel URL.</p>
+	  <p>Validate.</p>
+	  <div class="connection-example-img">
+	    <img src="./assets/mycelium_selfhosted_example.png" alt="mycel_connection_example">
+	  </div>
+	  <p>You should now be connected to Mycel!</p>
+	</div>
+	<h3>Troubleshooting</h3>
+	<ul class="list">
+	  <li><b>Check that your Mycel URL is correct.</b> It should not have a trailing slash and should be reachable from your browser.</li>
+	  <li><b>Check that your client is properly configured.</b> Refer to your client's documentation for configuration details.</li>
+	  <li id="ts-token"><b>Check your MycelCloud token.</b> Make sure it is fully copied with no extra spaces.</li>
+	</ul>
+	<p id="trouble-cloud">
+	  <em>Still stuck? Check your client's documentation, or <a href="mailto:paul-in@mailo.com" class="primary">reach out to us</a>.</em>
+	</p>
+	<p id="trouble-self" hidden>
+	  <em>Still stuck? Check the <a href="mycel/index.html#self-hosting-troubleshooting" class="primary">self-hosting troubleshooting section</a>, your client's documentation, or <a href="mailto:paul-in@mailo.com" class="primary">reach out to us</a>.</em>
+	</p>
+      </section>
+      <section>
+	<h2>What's next?</h2>
+	<p>Now you may want to watch the <a href="index.html#video-overview" class="primary">Mycel Project overview</a> to get familiar with the ecosystem, or jump directly into
+	  <span class="if-mycelium">the <a href="mycelium/index.html" class="primary">Mycelium documentation</a></span><span class="if-other">your client's documentation, usually linked from <a href="https://github.com/mycel-project/awesome-mycel" class="primary">Awesome Mycel</a></span>.</p>
+      </section>
+    </main>
+    <site-footer></site-footer>
+  </body>
+</html>
