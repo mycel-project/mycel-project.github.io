@@ -346,6 +346,8 @@ As mentioned, the best way to test your code during development is to work with 
 
 If you consider your implementation viable for others to use (even in an unstable state), feel free to showcase it. You can submit a pull request to the [Awesome Mycel repository](https://github.com/mycel-project/awesome-mycel) (using the provided template).
 
+Consider linking in your README/doc to https://mycel-project.com/ to give user easy access to more context.
+
 When updating the state or specification of your implementation, please open a new pull request to keep it up to date.
 
 ## Keep up to date
