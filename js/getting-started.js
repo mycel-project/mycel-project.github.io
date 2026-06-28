@@ -36,7 +36,7 @@ function updateConnectSection() {
     document.getElementById('connect-' + selectedSetup).hidden = false;
     document.getElementById('trouble-cloud').hidden = selectedSetup !== 'cloud';
     document.getElementById('trouble-self').hidden = selectedSetup !== 'self';
-    document.getElementById('ts-token').hidden = selectedSetup !== 'cloud';
+    document.querySelectorAll('.ts-token').forEach(el => el.hidden = selectedSetup !== 'cloud');
     updateConnectNote();
 }
 
