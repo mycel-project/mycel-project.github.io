@@ -24,7 +24,7 @@ function findAssetForPlatform(assets, platform) {
 }
 
 async function setupDownloadBtn() {
-  const btn = document.getElementById('main-download');
+  const btn = document.getElementById('main-download-span');
   if (!btn) return;
 
   const platform = detectPlatform();
@@ -40,7 +40,7 @@ async function setupDownloadBtn() {
 
     if (asset) {
       btn.href = asset.browser_download_url;
-      btn.textContent = `Download Mycelium for ${platformLabel(platform)} (${stable.tag_name})`;
+      btn.textContent = `Mycelium for ${platformLabel(platform)} (${stable.tag_name})`;
     } else {
       btn.href = 'download.html';
       btn.textContent = `Download Mycelium ${stable.tag_name}`;
