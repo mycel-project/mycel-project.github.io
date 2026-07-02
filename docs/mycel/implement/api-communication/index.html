@@ -9,6 +9,10 @@
       
       
       
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../model-structuration/">
       
       
         
@@ -19,7 +23,7 @@
     
     
       
-        <title>Auth Error Reference - Mycel Manual</title>
+        <title>API Communication - Mycel Manual</title>
       
     
     
@@ -68,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#auth-error-reference" class="md-skip">
+        <a href="#api-communication" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Auth Error Reference
+              API Communication
             
           </span>
         </div>
@@ -204,11 +208,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../implement/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -226,7 +232,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../contribution-guide/" class="md-tabs__link">
+      <a href="../../manual/contribution-guide/" class="md-tabs__link">
         
   
   
@@ -247,7 +253,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../scheduling-algorithms/" class="md-tabs__link">
+        <a href="../../manual/scheduling-algorithms/" class="md-tabs__link">
           
   
   
@@ -373,24 +379,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
@@ -408,7 +419,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -426,7 +437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implement/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -451,10 +462,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../implement/api-communication/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Communication
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -470,6 +508,109 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error handling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#idempotency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Idempotency
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Versioning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Versioning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compatibility-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compatibility rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compatibility-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compatibility check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#breaking-changes-within-a-major" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Breaking changes within a major
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migration-across-majors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migration across majors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -482,7 +623,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implement/model-structuration/" class="md-nav__link">
+      <a href="../model-structuration/" class="md-nav__link">
         
   
   
@@ -510,7 +651,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implement/guides/" class="md-nav__link">
+      <a href="../guides/" class="md-nav__link">
         
   
   
@@ -538,7 +679,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implement/testing-and-sharing/" class="md-nav__link">
+      <a href="../testing-and-sharing/" class="md-nav__link">
         
   
   
@@ -573,7 +714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../contribution-guide/" class="md-nav__link">
+      <a href="../../manual/contribution-guide/" class="md-nav__link">
         
   
   
@@ -650,7 +791,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../scheduling-algorithms/" class="md-nav__link">
+      <a href="../../manual/scheduling-algorithms/" class="md-nav__link">
         
   
   
@@ -759,100 +900,77 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#authentication-errors-401" class="md-nav__link">
+  <a href="#error-handling" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Authentication Errors (401)
+        Error handling
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Authentication Errors (401)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#invalid_token" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        invalid_token
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#token_expired" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        token_expired
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#missing_token" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        missing_token
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#subscription-error-402" class="md-nav__link">
+  <a href="#idempotency" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Subscription Error (402)
+        Idempotency
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Subscription Error (402)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#not_subscribed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        not_subscribed
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#service-error-503" class="md-nav__link">
+  <a href="#versioning" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Service Error (503)
+        Versioning
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Service Error (503)">
+    <nav class="md-nav" aria-label="Versioning">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#service_unavailable" class="md-nav__link">
+  <a href="#compatibility-rules" class="md-nav__link">
     <span class="md-ellipsis">
       
-        service_unavailable
+        Compatibility rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compatibility-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compatibility check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#breaking-changes-within-a-major" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Breaking changes within a major
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migration-across-majors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migration across majors
       
     </span>
   </a>
@@ -884,36 +1002,91 @@
   
 
 
-<h1 id="auth-error-reference">Auth Error Reference</h1>
-<h2 id="authentication-errors-401">Authentication Errors (401)</h2>
-<h3 id="invalid_token">invalid_token</h3>
-<p>The token provided is not valid. This can happen if the token was copied incorrectly or has been replaced.</p>
-<p>Recommended user message:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Your MycelCloud token is invalid. Please visit mycelcloud.com to generate a new one.
+<h1 id="api-communication">API Communication</h1>
+<h2 id="error-handling">Error handling</h2>
+<p><a href="https://github.com/mycel-project/mycelium/tree/main/lib/data/network">See Mycelium example</a></p>
+<p>Mycel distinguishes five categories of errors.</p>
+<ul>
+<li><strong>Network errors</strong> occur when the server cannot be reached at all: connection refused, timeout, DNS failure, and so on. These produce no HTTP response and no body. The recommended approach is to catch them at the transport layer and retry with backoff before surfacing anything to the user.</li>
+<li><strong>Authentication errors</strong> (type: "auth") are returned by MycelCloud when a request cannot be authorized. These cover invalid or expired tokens, missing credentials, and subscription issues. They should be handled at the top level of your client, before any business logic runs, typically by notifying the user and prompting them to take action. See <a href="../../manual/auth-errors/">auth error reference</a>.</li>
+<li><strong>Domain errors</strong> (type: "domain") represent logically invalid operations like requesting a resource that does not exist, violating a business rule, ... These are expected errors that your services should catch and handle specifically. Each endpoint in api reference documents the domain errors it can produce.</li>
+<li><strong>Version errors</strong> (type: "version") indicate that your implementation and the Mycel instance are not compatible. This can happen if Mycel is outdated compared to what your implementation requires, or if the major versions differ. The recommended approach is to block all further calls and display a clear message to the user. See <a href="#versioning">Versioning section</a> for more details.</li>
+<li><strong>Internal errors</strong> (type: "internal") are unexpected failures. They should not be caught silently. The recommended approach is to surface the raw error to the user and encourage them to report it.</li>
+</ul>
+<p>All non-network errors share the same response format:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>HTTP status code
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>{&quot;detail&quot;: {&quot;type&quot;: &quot;...&quot;, &quot;code&quot;: &quot;...&quot;, &quot;message&quot;: &quot;...&quot;}}
 </code></pre></div></p>
-<h3 id="token_expired">token_expired</h3>
-<p>The token has not been used for too long and has expired.</p>
-<p>Recommended user message:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Your MycelCloud token has expired. Please visit mycelcloud.com to generate a new one.
+<p>A basic pattern for handling these layers:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>try:
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    response = call_mycel(...)
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>except NetworkError:
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    retry or notify user, server unreachable
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>if response.status != 200:
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    error = response.body.detail
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    if error.type == &quot;auth&quot;:
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        match error.code:
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>            &quot;invalid_token&quot;   -&gt; notify user, offer to open settings
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>            &quot;token_expired&quot;   -&gt; notify user, offer to open settings
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>            &quot;missing_token&quot;   -&gt; notify user, offer to open settings
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>            &quot;not_subscribed&quot;  -&gt; notify user, link to mycelcloud.com
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>            &quot;service_unavailable&quot; -&gt; notify user
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        return
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    elif error.type == &quot;version&quot;:
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        block everything
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>        display error.message or custom message to user
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>        return
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    elif error.type == &quot;internal&quot;:
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>        log error
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>        notify user, suggest reporting the issue
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>        return
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>    // domain falls through
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>    elif error.type == &quot;domain&quot;:
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>        pass 
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>        let services handle the specific code
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>    // Fallback - unknown error type
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>    else:
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>        log error
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>        notify user, suggest reporting the issue
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>        return
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>handle response.data 
 </code></pre></div></p>
-<h3 id="missing_token">missing_token</h3>
-<p>No token was found in the configuration. Mycel cannot connect to MycelCloud without one.</p>
-<p>Recommended user message:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>No MycelCloud token configured. Please visit mycelcloud.com to get your token, then add it to your configuration.
+<p>And within a service:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>try:
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    handle_response(response)
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>except MyclError as e:
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    if e.code == &quot;NODE_NOT_FOUND&quot;:
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        // handle specifically
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    if e.code == &quot;NOT_A_SPORE&quot;:
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        // handle specifically
 </code></pre></div></p>
-<p>You may also offer to open the configuration directly so the user can paste it in without leaving your interface.</p>
-<h2 id="subscription-error-402">Subscription Error (402)</h2>
-<h3 id="not_subscribed">not_subscribed</h3>
-<p>The account associated with this token does not have an active subscription.</p>
-<p>Recommended user message:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Your MycelCloud subscription is inactive. Please visit mycelcloud.com to update your subscription.
-</code></pre></div></p>
-<h2 id="service-error-503">Service Error (503)</h2>
-<h3 id="service_unavailable">service_unavailable</h3>
-<p>MycelCloud could not be reached or is temporarily unavailable. This is not an issue with your token or subscription.</p>
-<p>Recommended user message:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>MycelCloud is temporarily unavailable. Please try again in a few moments.
-</code></pre></div></p>
+<h2 id="idempotency">Idempotency</h2>
+<p>Mycel implements server-side idempotency for non-idempotent endpoints. These are marked in the API reference.</p>
+<p>To benefit from this protection, include an <code>Idempotency-Key</code> header with a unique UUID per user action:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="err">POST /collections/{col_id}/reviews/undo</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="err">Idempotency-Key: 550e8400-e29b-41d4-a716-446655440000</span>
+</code></pre></div>
+<p>If the same key is sent again within 1 hour, Mycel returns the original response without re-executing the operation.</p>
+<p>This header is optional but strongly recommended for non-idempotent endpoints: omitting it exposes your implementation to instability caused by network retries or accidental double calls. A basic level of protection can be achieved by wrapping all your calls with this idempotency key. However, a better approach is to generate the key at the action level and reuse the exact same key when retrying that action.</p>
+<p>In a more general sense, when dealing with user-triggered asynchronous actions, you can prevent spam by temporarily disabling the action's availability or behavior until the operation completes or timeout.</p>
+<h2 id="versioning">Versioning</h2>
+<p>Mycel uses semantic versioning (MAJOR.minor.patch). Compatibility across versions is something actively maintained, but errors or inconsistencies may slip through and will be corrected as they are reported.</p>
+<h3 id="compatibility-rules">Compatibility rules</h3>
+<p>The rules are simple: the major version must match exactly, and the minor version of the instance must be greater than or equal to the one declared by the implementation. The patch version follows the same logic as the minor. If your implementation declares <code>2.3.0</code> and the Mycel instance runs <code>2.5.1</code>, the request goes through. If the instance runs <code>2.1.0</code>, Mycel returns a version error inviting the user to update their instance. If the major versions differ, Mycel refuses the request entirely, there is no compatibility guarantee across majors.</p>
+<h3 id="compatibility-check">Compatibility check</h3>
+<p>Mycel verifies version compatibility on every request that includes the X-Mycel-Version header. The header should contain the minimum Mycel version the implementation is compatible with, typically the version it was originally built against. If the header is present, Mycel checks that the declared version is compatible with the running instance and returns a version error if not. This is the recommended way for implementations to protect their users against accidental incompatibilities.</p>
+<p>When using MycelCloud, the header is required: requests are automatically routed to the Mycel instance matching the declared major version, as MycelCloud runs multiple major versions in parallel to support implementations that have not yet migrated.</p>
+<p>If you need custom version handling logic, the current Mycel version is available at GET /version and can be used to implement your own compatibility check.</p>
+<h3 id="breaking-changes-within-a-major">Breaking changes within a major</h3>
+<p>When a behavioral change is introduced within a major, the old behavior is kept as the default for core features and the new behavior is opt-in via a parameter. This means updating Mycel without updating your implementation will never silently change how the core of the app works. Minor fixes and non-breaking improvements may however be applied transparently. At the next major version, compatibility parameters accumulated during the previous major are removed and the new behaviors become the defaults.</p>
+<h3 id="migration-across-majors">Migration across majors</h3>
+<p>Each major release is accompanied by migration tooling and documentation to help transition data and configurations. Where possible, migrations are automated via Alembic.</p>
 
 
 

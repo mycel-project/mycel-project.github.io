@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../contribution-guide/">
+        <link rel="prev" href="../model-structuration/">
       
       
-        <link rel="next" href="../../glossary/">
+        <link rel="next" href="../testing-and-sharing/">
       
       
         
@@ -23,7 +23,7 @@
     
     
       
-        <title>Scheduling algorithms - Mycel Manual</title>
+        <title>Implementation Guides - Mycel Manual</title>
       
     
     
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#scheduling-algorithms" class="md-skip">
+        <a href="#implementation-guides" class="md-skip">
           Skip to content
         </a>
       
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Scheduling algorithms
+              Implementation Guides
             
           </span>
         </div>
@@ -208,11 +208,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../implement/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -230,7 +232,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../contribution-guide/" class="md-tabs__link">
+      <a href="../../manual/contribution-guide/" class="md-tabs__link">
         
   
   
@@ -247,13 +249,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../manual/scheduling-algorithms/" class="md-tabs__link">
           
   
   
@@ -379,24 +379,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
@@ -414,7 +419,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -432,7 +437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implement/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -460,7 +465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implement/api-communication/" class="md-nav__link">
+      <a href="../api-communication/" class="md-nav__link">
         
   
   
@@ -488,7 +493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implement/model-structuration/" class="md-nav__link">
+      <a href="../model-structuration/" class="md-nav__link">
         
   
   
@@ -513,10 +518,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../implement/guides/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation Guides
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -532,6 +564,81 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#node-titles-and-content-preview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Node Titles and Content Preview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#priority-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Priority Display
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#outline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Outline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rescheduling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rescheduling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handle-timezones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Handle Timezones
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -544,7 +651,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implement/testing-and-sharing/" class="md-nav__link">
+      <a href="../testing-and-sharing/" class="md-nav__link">
         
   
   
@@ -579,7 +686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../contribution-guide/" class="md-nav__link">
+      <a href="../../manual/contribution-guide/" class="md-nav__link">
         
   
   
@@ -603,29 +710,24 @@
       
   
   
-    
   
   
-  
     
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
             
   
   
@@ -643,7 +745,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -658,37 +760,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Scheduling algorithms
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../manual/scheduling-algorithms/" class="md-nav__link">
         
   
   
@@ -704,70 +779,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#mycel-v012" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Mycel v0.1.2
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mycel-v011" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Mycel v0.1.1
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mycel-v010" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Mycel v0.1.0
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mycel-v004" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Mycel v0.0.4
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -861,10 +872,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#mycel-v012" class="md-nav__link">
+  <a href="#node-titles-and-content-preview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mycel v0.1.2
+        Node Titles and Content Preview
       
     </span>
   </a>
@@ -872,10 +883,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mycel-v011" class="md-nav__link">
+  <a href="#priority-display" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mycel v0.1.1
+        Priority Display
       
     </span>
   </a>
@@ -883,10 +894,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mycel-v010" class="md-nav__link">
+  <a href="#outline" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mycel v0.1.0
+        Outline
       
     </span>
   </a>
@@ -894,10 +905,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mycel-v004" class="md-nav__link">
+  <a href="#rescheduling" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mycel v0.0.4
+        Rescheduling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handle-timezones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Handle Timezones
       
     </span>
   </a>
@@ -924,53 +946,20 @@
   
 
 
-<h1 id="scheduling-algorithms">Scheduling algorithms</h1>
-<p>This section describe the fundamental logic behind the schedulding logic regarding every type of node.
-Each version documents changes only. Omitted behavior is unchanged from the prior version.</p>
-<p>If no additional explanation is provided for a specific component, it means the implementation and its docstring are considered sufficiently self-explanatory.</p>
-<h2 id="mycel-v012"><a href="https://github.com/mycel-project/mycel/releases/tag/v0.1.2">Mycel v0.1.2</a></h2>
+<h1 id="implementation-guides">Implementation Guides</h1>
+<h2 id="node-titles-and-content-preview">Node Titles and Content Preview</h2>
+<p>Every node includes a contentPreview field. This field typically captures the beginning of the node's first NodeField, allowing the frontend to display a quick preview without fetching the entire content payload. For instance, this is particularly useful in the priority slider to quickly inspect the text surrounding a specific priority value.</p>
+<p>When rendering a node, you may also want to use the title field from NodeData if it is available. Whenever possible, this title is automatically populated. For example, when creating a node from a web article, Mycel extracts the article's name. However, because the title can remain unset, contentPreview should always serve as the fallback, for instance if you use it in the NodeTree or the priority selector.</p>
+<p>The contentPreview is generated dynamically on the server. Therefore, it should not be directly updated by the user, as any manual changes would be overwritten during the next node fetch. But feel free to tweak the preview formatting, or share your thoughts on how we could fine-tune the preview building logic!</p>
+<h2 id="priority-display">Priority Display</h2>
+<p>Priority values are computed and rounded by Mycel depending on the number of items in the collection, so implementations do not need to handle rounding themselves. The value can be treated as a plain float, or converted to an integer when the decimal part is set to 0: both approaches are valid. Treating all values as floats is the simplest option and works correctly in all cases.</p>
+<h2 id="outline">Outline</h2>
+<h2 id="rescheduling">Rescheduling</h2>
 <ul>
-<li>When splitting a node, the due date of created fragments is set to the next day. This way, newly created fragments are scheduled for a first review soon, since they have not been studied yet.</li>
+<li>After rescheduling, check whether the rescheduled node is the one currently being reviewed. If so, clear its review state.</li>
 </ul>
-<h2 id="mycel-v011"><a href="https://github.com/mycel-project/mycel/releases/tag/v0.1.1">Mycel v0.1.1</a></h2>
-<p>Introduce two pools for the current day's reviews: nodes whose due time has already passed, and nodes due later in the day. This prevents a freshly-reviewed spore from immediately resurfacing just because it falls within the current day. When the first pool is non-empty, the second is ignored and the normal priority and fragment/spore ratio apply. When the first pool is empty, nodes from the second pool are surfaced early so the session is never left empty this behavior is togglable in configuration.</p>
-<h2 id="mycel-v010"><a href="https://github.com/mycel-project/mycel/releases/tag/v0.1.0">Mycel v0.1.0</a></h2>
-<p>This update introduces a dedicated scheduling logic for fragments to reduce review accumulation.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">compute_fragment_next_interval</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">rep_index</span><span class="p">,</span> <span class="n">rep_mult</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">depth_midpoint</span><span class="o">=</span><span class="mf">4.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="sd">    Computes the interval in days before the next review of a fragment.</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="sd">    Deeper fragments grow faster toward long intervals (exponential growth),</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="sd">    while shallow fragments stay closer to a linear, regular review pace.</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="sd">    The transition between linear and exponential behavior is controlled by depth_midpoint.</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="sd">    depth: depth in the node tree (0 = root, 1 = first child, ...)</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="sd">    rep_index: repetition index (0 = creation, 1 = first review, ...)</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="sd">    rep_mult: how aggressively intervals grow for deep fragments</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="sd">    depth_midpoint: nesting level at which growth is halfway between linear and exponential</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="sd">    returns interval in days (capped at 365).</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="n">initial</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">depth</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span> <span class="c1"># initial value at creation clamped to avoid too long intervals between creation and first review</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="n">exp_weight</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">depth</span> <span class="o">/</span> <span class="n">depth_midpoint</span><span class="p">)</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="n">interval</span> <span class="o">=</span> <span class="n">initial</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rep_index</span><span class="p">):</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        <span class="n">additive_step</span> <span class="o">=</span> <span class="n">initial</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>        <span class="n">multiplicative_step</span> <span class="o">=</span> <span class="n">interval</span> <span class="o">*</span> <span class="p">(</span><span class="n">rep_mult</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>        <span class="n">step</span> <span class="o">=</span> <span class="n">additive_step</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">exp_weight</span><span class="p">)</span> <span class="o">+</span> <span class="n">multiplicative_step</span> <span class="o">*</span> <span class="n">exp_weight</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>        <span class="n">interval</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">interval</span> <span class="o">+</span> <span class="n">step</span><span class="p">,</span> <span class="mi">365</span><span class="p">))</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>    <span class="k">return</span> <span class="n">interval</span>
-</code></pre></div>
-<h2 id="mycel-v004"><a href="https://github.com/mycel-project/mycel/releases/tag/v0.0.4">Mycel v0.0.4</a></h2>
-<ul>
-<li>When creating a node (whether by importing or extracting), the first review is scheduled for the next day.</li>
-<li>Fragments are scheduled on each encounter to the day matching their total repetition count (1st encounter → next day, 2nd encounter → 2 days, etc.). This is problematic as extracted fragments accumulate quickly and bloat review sessions.</li>
-<li>Spores strictly follow the unmodified FSRS algorithm.</li>
-<li>Priority only determines the order in which elements are presented within a review session.</li>
-<li>We respect a spore/fragment ratio of 1/4 when possible.</li>
-<li>When there are overdue nodes, Mycel uses a "day sweep" approach: it processes missed review days chronologically, one day at a time.</li>
-</ul>
-<p>See more details directly into the code</p>
+<h2 id="handle-timezones">Handle Timezones</h2>
+<p>To ensure your implementation is robust to timezone changes, pass the user's current local timezone offset in minutes with every request that involves time or scheduling.</p>
 
 
 
