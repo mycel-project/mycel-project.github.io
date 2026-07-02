@@ -661,7 +661,7 @@ h2 {
     padding: 12px;
 }
 
-.advantages-section .advantages .advantage {
+.advantages-section .advantages .advantage p {
     text-align: justify;
 }
 
@@ -834,11 +834,15 @@ site-navbar {
 }
 
 .download-btns a:first-child {
-    flex: 2.4;
+    flex: 1;
 }
 
 .download-btns a:last-child {
     flex: 1;
+}
+
+.more-mycelium {
+    margin-bottom: 16px;
 }
 
 .connection-example-img img {

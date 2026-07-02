@@ -36,22 +36,23 @@
       </section>
       <section id="download">
 	<div class="download-btns">
-	  <a href="getting-started.html" id="main-download" class="btn btn-primary btn-large">Download Mycelium</a>
-	  <a href="download.html" class="btn btn-lowkey btn-large">More versions and platforms</a>
+	  <a href="getting-started.html" class="btn btn-primary btn-large" id="main-download"><i class="fas fa-download" style="padding-right: 8px;"></i><span id="main-download-span">Download Mycelium</span></a>
+	  <a href="https://app.mycel-project.com" class="btn btn-outline btn-large"><i class="fas fa-globe" style="padding-right: 8px;"></i> Launch Web App</a>
 	</div>
       </section>
       <section id="install">
 	<h2>Install</h2>
+	<div class="more-mycelium">See <a href="download.html">all Mycelium versions and platforms</a>.</div>
 	<div class="tabs" id="tabs-platform">
 	  <button class="tab-btn" id="plat-btn-windows" onclick="switchPlatformTab(this, 'windows')">Windows</button>
-	  <button class="tab-btn" id="plat-btn-linux" onclick="switchPlatformTab(this, 'linux')">Linux</button>
+	  <button class="tab-btn active" id="plat-btn-linux" onclick="switchPlatformTab(this, 'linux')">Linux</button>
 	  <button class="tab-btn" id="plat-btn-android" onclick="switchPlatformTab(this, 'android')">Android</button>
 	  <button class="tab-btn" id="plat-btn-mac" onclick="switchPlatformTab(this, 'mac')">macOS (soon)</button>
 	</div>
 	<div id="install-windows" class="tab-content" hidden>
 	  <p>Extract the downloaded archive and run the <code>.exe</code> file inside.</p>
 	</div>
-	<div id="install-linux" class="tab-content" hidden>
+	<div id="install-linux" class="tab-content">
 	  <p>Make the downloaded <code>.AppImage</code> executable and run it:</p>
 	  <pre><code>chmod +x mycelium-linux-vX.X.X.AppImage && ./mycelium-linux-vX.X.X.AppImage</code></pre>
 	  <p><em>Replace <code>vX.X.X</code> with the actual version number.</em></p>
