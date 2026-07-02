@@ -1,13 +1,25 @@
 site_name: Mycel Manual
-theme: material
+theme:
+  name: material
+  features:
+    - navigation.tabs
+  palette:
+    primary: teal
 nav:
   - Overview: index.md
-  - Manual:
+  - Implement Mycel:
+    - Overview: implement/index.md
+    - API Communication: implement/api-communication.md
+    - Model Structuration: implement/model-structuration.md
+    - Implementation Guides: implement/guides.md
+    - Testing and Sharing: implement/testing-and-sharing.md
+  - Contribution Guide: manual/contribution-guide.md
+  - Learning Principles:
     - Scheduling algorithms: manual/scheduling-algorithms.md
-    - Implement Mycel: manual/implement-mycel.md
-    - Contribution Guide: manual/contribution-guide.md
   - Glossary: glossary.md
   - API Reference: api/index.md
+repo_url: https://github.com/mycel-project/mycel
+repo_name: mycel-project/mycel
 extra:
   homepage: https://mycel-project.com/
 
