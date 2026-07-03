@@ -25,6 +25,16 @@ ID, [configuration](../configuration.md), and template settings, gathered in a U
 	[Scalar](https://api.mycelcloud.com/scalar#tag/users/GET/users) - 
 	[Swagger](../../reference/api.md)
 
+## Update
+
+To update user data (name, config, ...), use:
+
+??? abstract "PATCH /users"
+    [Scalar](https://api.mycelcloud.com/scalar#tag/users/PATCH/users) - 
+    [Swagger](../../reference/api.md)
+
+See [Update Resources Page](./update.md) for more details.
+
 ---
 
 Once the user is fetched, you're ready to pull their collections.

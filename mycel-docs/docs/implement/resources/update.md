@@ -1,4 +1,4 @@
-### Update disclaimer
+# Update resources
 
 When implementing update logic (for users, nodes or collections), be aware that all fields explicitly provided in the payload, including fields set to `null`, will overwrite the existing values. Setting a field to `null` will raise a validation error if the underlying model does not accept `None`.
 

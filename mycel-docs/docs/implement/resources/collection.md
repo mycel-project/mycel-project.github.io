@@ -6,11 +6,11 @@ A "Default" collection is automatically created for each user. If you
 want your client to support collection creation and deletion:
 
 ??? abstract "POST /collections"
-    [Scalar](https://api.mycelcloud.com/scalar#tag/collections/POST/collections) | 
+    [Scalar](https://api.mycelcloud.com/scalar#tag/collections/POST/collections) - 
     [Swagger](../../reference/api.md)
 
 ??? abstract "DELETE /collections/{col_id}"
-    [Scalar](https://api.mycelcloud.com/scalar#tag/collections/DELETE/collections/{col_id}) | 
+    [Scalar](https://api.mycelcloud.com/scalar#tag/collections/DELETE/collections/{col_id}) - 
     [Swagger](../../reference/api.md)
 
 ## Fetch
@@ -19,7 +19,7 @@ want your client to support collection creation and deletion:
 To get all collections owned by the user, list them with:
 
 ??? abstract "GET /collections"
-    [Scalar](https://api.mycelcloud.com/scalar#tag/collections/GET/collections) | 
+    [Scalar](https://api.mycelcloud.com/scalar#tag/collections/GET/collections) - 
     [Swagger](../../reference/api.md)
 
 It returns a list of CollectionView.
@@ -36,8 +36,10 @@ most subsequent queries.
 To update a collection (name, settings, ...), use:
 
 ??? abstract "PATCH /collections/{col_id}"
-    [Scalar](https://api.mycelcloud.com/scalar#tag/collections/PATCH/collections/{col_id}) | 
+    [Scalar](https://api.mycelcloud.com/scalar#tag/collections/PATCH/collections/{col_id}) - 
     [Swagger](../../reference/api.md)
+
+See [Update Resources Page](./update.md) for more details.
 
 ---
 
