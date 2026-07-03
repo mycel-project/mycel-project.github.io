@@ -12,6 +12,7 @@ function platformLabel(name) {
     if (n.endsWith('.exe') || n.includes('windows')) return 'Windows';
     if (n.endsWith('.dmg') || n.includes('macos') || n.includes('mac')) return 'macOS';
     if (n.endsWith('.deb') || n.includes('linux')) return 'Linux';
+    if (n.includes('web')) return 'Web';
     if (n.endsWith('.appimage')) return 'Linux (AppImage)';
     return name;
 }
