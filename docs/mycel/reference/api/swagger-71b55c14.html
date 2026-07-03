@@ -4,18 +4,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Swagger UI</title>
-  <link rel="stylesheet" type="text/css" href="../assets/stylesheets/swagger-ui.css" />
+  <link rel="stylesheet" type="text/css" href="../../assets/stylesheets/swagger-ui.css" />
   
 </head>
 
 <body style="overflow:hidden;">
   <div id="swagger-ui"></div>
-  <script src="../assets/javascripts/swagger-ui-bundle.js" charset="UTF-8"> </script>
-  <script src="../assets/javascripts/swagger-ui-standalone-preset.js" charset="UTF-8"> </script>
+  <script src="../../assets/javascripts/swagger-ui-bundle.js" charset="UTF-8"> </script>
+  <script src="../../assets/javascripts/swagger-ui-standalone-preset.js" charset="UTF-8"> </script>
   <script>
     window.onload = function () {
       
-        var url = "openapi.json";
+        var url = "../openapi.json";
         
       
       window.ui = SwaggerUIBundle({
@@ -29,7 +29,7 @@
         url,
         
         
-        "oauth2RedirectUrl": new URL("../assets/swagger-ui/oauth2-redirect.html",window.location.href).href,
+        "oauth2RedirectUrl": new URL("../../assets/swagger-ui/oauth2-redirect.html",window.location.href).href,
         
         "validatorUrl": "none",
         
@@ -61,7 +61,7 @@
     }
 
     const resize_ob = new ResizeObserver(function(entries) {
-      parent.update_swagger_ui_iframe_height("f669431a");
+      parent.update_swagger_ui_iframe_height("71b55c14");
     });
 
     // start observing for resizing
