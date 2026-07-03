@@ -1,0 +1,18 @@
+.badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.1rem 0.5rem;
+  border-radius: 1rem;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+.badge-required {
+  background-color: var(--md-typeset-color, hsl(38, 68%, 48%));
+  color: white;
+  background-color: hsl(38, 68%, 48%);
+}
+.badge-optional {
+  background-color:#757575;
+  color: white;
+}

@@ -1,5 +1,3 @@
-This guide is a work in progress. For now, it may appear largely empty or incomplete as content is added over time.
-
 ## On configuration semantics
 
 Mycel uses two distinct levels of configuration, each with a clear semantic scope:

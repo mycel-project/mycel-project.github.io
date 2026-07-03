@@ -22,32 +22,59 @@ theme:
         name: Switch to light mode
 nav:
   - Overview: index.md
+  - Learning with Mycel:
+    - Overview: learning/index.md
+    - Algorithms & mechanics:
+      - Scheduling algorithms: learning/scheduling-algorithms.md
   - Implement Mycel:
-    - Overview: implement/index.md
+    - Implement Mycel: implement/index.md
     - Prerequisites: implement/prerequisites.md
-    - API Communication: implement/api-communication.md
-    - Model Structuration: implement/model-structuration.md
+    - API Communication:
+      - Setup & Basics: implement/api-communication/setup.md
+      - Error Handling: implement/api-communication/error-handling.md
+      - Idempotency: implement/api-communication/idempotency.md
+    - Resources:
+      - Overview & Architecture: implement/resources/overview.md
+      - User: implement/resources/user.md
+      - Collection: implement/resources/collection.md
+      - Node:
+        - Fundations: implement/resources/node/fundation.md
+        - Modeling Node: implement/resources/node/modeling.md
+        - Fetch Node: implement/resources/node/fetch.md
+        - Edit Node: implement/resources/node/edit.md
+        - Special Operations: implement/resources/node/special-operations.md
+        - Multi-spore Support: implement/resources/node/multi-spore.md
+      - Review: implement/resources/review.md
+      - Update resources: implement/resources/update.md
+    - Configuration: implement/configuration.md
     - Implementation Guides: implement/guides.md
-    - Versioning: implement/versioning.md
     - Testing and Sharing: implement/testing-and-sharing.md
-  - Contribution Guide: manual/contribution-guide.md
-  - Learning Principles:
-    - Scheduling algorithms: manual/scheduling-algorithms.md
-  - Glossary: glossary.md
-  - API Reference: api/index.md
+  - Contribution Guide:
+    - Overview: contribute/index.md
+    - How to contribute: contribute/how.md
+    - Architecture notes: contribute/architecture.md
+  - Reference:
+    - Versioning: reference/versioning.md
+    - Glossary: reference/glossary.md
+    - API Reference: reference/api.md
 repo_url: https://github.com/mycel-project/mycel
 repo_name: mycel-project/mycel
 edit_uri: https://github.com/mycel-project/mycel-project.github.io/edit/main/mycel-docs/docs/
 extra:
   homepage: https://mycel-project.com/
+  mermaid:
+    theme: default
 
 markdown_extensions:
   - attr_list
   - md_in_html
-  - attr_list
   - pymdownx.highlight:
       anchor_linenums: true
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_div_format
   - admonition
   - pymdownx.details
   - pymdownx.emoji:
@@ -58,3 +85,7 @@ plugins:
    - search
    - swagger-ui-tag:
        supportedSubmitMethods: []
+extra_javascript:
+  - https://unpkg.com/mermaid@10/dist/mermaid.min.js
+extra_css:
+  - assets/css/extra.css

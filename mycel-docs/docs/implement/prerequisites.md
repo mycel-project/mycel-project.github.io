@@ -25,7 +25,7 @@ into working code.
   source of inspiration or reusable code.
 - Prefer a [self-hosted](https://mycel-project.com/mycel#self-hosting) 
   instance over MycelCloud for full control over infrastructure and logs.
-- Refer to the [API Reference](../api/index.md) whenever you're unsure 
+- Refer to the [API Reference](../reference/api.md) whenever you're unsure 
   or need more detail — it's a great resource for specific technical 
   details. We recommend using the Scalar version.
 
