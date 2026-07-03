@@ -310,7 +310,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../reference/versioning/" class="md-tabs__link">
+        <a href="../../../reference/api/" class="md-tabs__link">
           
   
   
@@ -774,6 +774,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Error Handling
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -790,6 +808,64 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types of Errors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handle-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Handle Errors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Handle Errors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initial-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initial Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1572,6 +1648,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../reference/api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../reference/versioning/" class="md-nav__link">
         
   
@@ -1621,34 +1725,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../reference/api/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    API Reference
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1676,6 +1752,53 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types of Errors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handle-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Handle Errors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Handle Errors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initial-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initial Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1700,68 +1823,115 @@
 
 
 <h1 id="error-handling">Error Handling</h1>
+<h2 id="types-of-errors">Types of Errors</h2>
 <p>Mycel distinguishes five categories of errors.</p>
-<ul>
-<li><strong>Network errors</strong> occur when the server cannot be reached at all: connection refused, timeout, DNS failure, and so on. These produce no HTTP response and no body. The recommended approach is to catch them at the transport layer and retry with backoff before surfacing anything to the user.</li>
-<li><strong>Authentication errors</strong> (type: "auth") are returned by MycelCloud when a request cannot be authorized. These cover invalid or expired tokens, missing credentials, and subscription issues. They should be handled at the top level of your client, before any business logic runs, typically by notifying the user and prompting them to take action. See <a href="../../../manual/auth-errors/">auth error reference</a>.</li>
-<li><strong>Domain errors</strong> (type: "domain") represent logically invalid operations like requesting a resource that does not exist, violating a business rule, ... These are expected errors that your services should catch and handle specifically. Each endpoint in the <a href="../../../reference/api/">API reference</a> documents the domain errors it can produce.</li>
-<li><strong>Version errors</strong> (type: "version") indicate that your implementation and the Mycel instance are not compatible. This can happen if Mycel is outdated compared to what your implementation requires, or if the major versions differ. The recommended approach is to block all further calls and display a clear message to the user. See <a href="../../../reference/versioning/">Versioning section</a> for more details.</li>
-<li><strong>Internal errors</strong> (type: "internal") are unexpected failures. They should not be caught silently. The recommended approach is to surface the raw error to the user and encourage them to report it.</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Recommended handling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Network errors</strong></td>
+<td>Occur when the server cannot be reached at all (connection refused, timeout, DNS failure, etc.). These produce no HTTP response and no body.</td>
+<td>Catch at the transport layer and retry with backoff before surfacing anything to the user.</td>
+</tr>
+<tr>
+<td><strong>Version errors</strong> (<code>type: "version"</code>)</td>
+<td>Indicate that your implementation and the Mycel instance are not compatible (outdated instance or major version mismatch).</td>
+<td>Block all further calls and display a clear message to the user. See the <a href="../../../reference/versioning/">Versioning section</a>.</td>
+</tr>
+<tr>
+<td><strong>Authentication errors</strong> (<code>type: "auth"</code>)</td>
+<td>Returned when a request cannot be authorized (invalid/expired token, missing credentials, subscription issues).</td>
+<td>Handle at the top level before business logic runs; notify the user and prompt corrective action. See <a href="../../../manual/auth-errors/">auth error reference</a>.</td>
+</tr>
+<tr>
+<td><strong>Domain errors</strong> (<code>type: "domain"</code>)</td>
+<td>Logically invalid operations (missing resources, business rule violations, etc.). These are expected errors.</td>
+<td>Handle specifically in services. Each endpoint documents its possible domain errors in the <a href="../../../reference/api/">API reference</a>.</td>
+</tr>
+<tr>
+<td><strong>Internal errors</strong> (<code>type: "internal"</code>)</td>
+<td>Unexpected server failures.</td>
+<td>Do not swallow silently. Surface the error and encourage reporting.</td>
+</tr>
+</tbody>
+</table>
+<p>Network errors are raised by the transport layer and are not part of the Mycel response format. Their format varies depending on the HTTP request system you use.</p>
 <p>All non-network errors share the same response format:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>HTTP status code
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>{&quot;detail&quot;: {&quot;type&quot;: &quot;...&quot;, &quot;code&quot;: &quot;...&quot;, &quot;message&quot;: &quot;...&quot;}}
 </code></pre></div>
-<p>A basic pattern for handling these layers:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>try:
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    response = call_mycel(...)
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>except NetworkError:
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    retry or notify user, server unreachable
+<h2 id="handle-errors">Handle Errors</h2>
+<p><strong class="badge badge-required">Highly Recommended</strong></p>
+<p>A common pattern is to wrap every API call through a shared handler that checks the response status and reacts accordingly:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a># Called automatically on every request 
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>handle_response(response):
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    if response.status == 200:
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        return Success(response.data)
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>if response.status != 200:
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    error = response.body.detail
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    if error.type == &quot;auth&quot;:
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        match error.code:
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>            &quot;invalid_token&quot;   -&gt; notify user, offer to open settings
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>            &quot;token_expired&quot;   -&gt; notify user, offer to open settings
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>            &quot;missing_token&quot;   -&gt; notify user, offer to open settings
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>            &quot;not_subscribed&quot;  -&gt; notify user, link to mycelcloud.com
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>            &quot;service_unavailable&quot; -&gt; notify user
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        return
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    elif error.type == &quot;version&quot;:
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        block everything
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>        display error.message or custom message to user
-<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>        return
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    error = response.body.detail
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    if error.type == &quot;version&quot;:
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        block everything
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        display error.message or custom message to user
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    elif error.type == &quot;auth&quot;:
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        display error.message
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    elif error.type == &quot;internal&quot;:
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        log error
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>        notify user, suggest reporting the issue
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    elif error.type == &quot;domain&quot;:
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>        pass  # not handled here — passed down to the service layer
 <a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>
-<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    elif error.type == &quot;internal&quot;:
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    else:
 <a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>        log error
 <a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>        notify user, suggest reporting the issue
-<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>        return
-<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>
-<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>    # domain falls through
-<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>    elif error.type == &quot;domain&quot;:
-<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>        pass
-<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>        let services handle the specific code
-<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>
-<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>    # Fallback - unknown error type
-<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>    else:
-<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>        log error
-<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>        notify user, suggest reporting the issue
-<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>        return
-<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>
-<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>handle response.data
-</code></pre></div>
-<p>And within a service:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>try:
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    handle_response(response)
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>except MycelError as e:
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    if e.code == &quot;NODE_NOT_FOUND&quot;:
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        # handle specifically
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    if e.code == &quot;NOT_A_SPORE&quot;:
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        # handle specifically
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>    # Regardless of the branch above, the error always flows back to the caller
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>    return Error(error)
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a># Top-level call wrapper
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>request_api(request):
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>    try:
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>        response = send(request)
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>    except NetworkError:
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>        retry or notify user, server unreachable
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>        return Error(type: &quot;network&quot;) # handled here directly — no HTTP response to parse
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>    return handle_response(response)
 </code></pre></div>
 <p>See the <a href="https://github.com/mycel-project/mycelium/tree/main/lib/data/network">Mycelium implementation</a> as a concrete reference.</p>
+<div class="admonition example">
+<p class="admonition-title">Handle domain errors once they are propagated to the service layer</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a># Within a service — only domain errors need explicit handling here,
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a># since everything else was already handled generically above
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>result = request_api(...)
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>if result is Error and result.type == &quot;domain&quot;:
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    match result.code:
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        &quot;NODE_NOT_FOUND&quot; -&gt; handle specifically
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        &quot;NOT_A_SPORE&quot;    -&gt; handle specifically
+</code></pre></div>
+<p>See the <a href="../../../reference/api/">API reference</a> to see the domain errors you may encounter for each endpoint. You don’t need to handle all of them — you may simply display the error information to the user, although this is less user-friendly and effective. When implementing an endpoint, consider which errors are worth handling for your specific use case.</p>
+</div>
+<h3 id="initial-errors">Initial Errors</h3>
+<p>When the user configures their <a href="../setup/#api-base-url">API Base URL</a> 
+or <a href="../setup/#mycelcloud-token">MycelCloud token</a>, you may want to 
+send a simple <code>GET /health</code> request to confirm everything is set up correctly.</p>
+<p>If an error occurs, display <code>error.message</code> near fields to guide the user — 
+showing it persistently (rather than as a brief toast) makes it 
+clearer for them, since they're actively watching for feedback on this 
+specific action. For <strong>Network Errors</strong> specifically, avoid retrying 
+silently as you might elsewhere — inform the user directly instead, 
+e.g. "Can't reach Mycel at $API_BASE_URL".</p>
 
 
 

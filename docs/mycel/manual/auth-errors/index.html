@@ -304,7 +304,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../reference/versioning/" class="md-tabs__link">
+        <a href="../../reference/api/" class="md-tabs__link">
           
   
   
@@ -1549,6 +1549,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../reference/api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../reference/versioning/" class="md-nav__link">
         
   
@@ -1585,34 +1613,6 @@
     
   
     Glossary
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../reference/api/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    API Reference
   
 
     
@@ -1791,33 +1791,34 @@
 
 
 <h1 id="auth-error-reference">Auth Error Reference</h1>
+<p>This page lists the authentication errors MycelCloud can send, along with what each one means and a recommended message to display to the user. </p>
 <h2 id="authentication-errors-401">Authentication Errors (401)</h2>
 <h3 id="invalid_token">invalid_token</h3>
 <p>The token provided is not valid. This can happen if the token was copied incorrectly or has been replaced.</p>
-<p>Recommended user message:
+<p>Message:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Your MycelCloud token is invalid. Please visit mycelcloud.com to generate a new one.
 </code></pre></div></p>
 <h3 id="token_expired">token_expired</h3>
 <p>The token has not been used for too long and has expired.</p>
-<p>Recommended user message:
+<p>Message:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Your MycelCloud token has expired. Please visit mycelcloud.com to generate a new one.
 </code></pre></div></p>
 <h3 id="missing_token">missing_token</h3>
 <p>No token was found in the configuration. Mycel cannot connect to MycelCloud without one.</p>
-<p>Recommended user message:
+<p>Message:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>No MycelCloud token configured. Please visit mycelcloud.com to get your token, then add it to your configuration.
 </code></pre></div></p>
 <p>You may also offer to open the configuration directly so the user can paste it in without leaving your interface.</p>
 <h2 id="subscription-error-402">Subscription Error (402)</h2>
 <h3 id="not_subscribed">not_subscribed</h3>
 <p>The account associated with this token does not have an active subscription.</p>
-<p>Recommended user message:
+<p>Message:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Your MycelCloud subscription is inactive. Please visit mycelcloud.com to update your subscription.
 </code></pre></div></p>
 <h2 id="service-error-503">Service Error (503)</h2>
 <h3 id="service_unavailable">service_unavailable</h3>
 <p>MycelCloud could not be reached or is temporarily unavailable. This is not an issue with your token or subscription.</p>
-<p>Recommended user message:
+<p>Message:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>MycelCloud is temporarily unavailable. Please try again in a few moments.
 </code></pre></div></p>
 
