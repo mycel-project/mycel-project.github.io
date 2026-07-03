@@ -54,9 +54,9 @@ nav:
     - How to contribute: contribute/how.md
     - Architecture notes: contribute/architecture.md
   - Reference:
+    - API Reference: reference/api.md
     - Versioning: reference/versioning.md
     - Glossary: reference/glossary.md
-    - API Reference: reference/api.md
 repo_url: https://github.com/mycel-project/mycel
 repo_name: mycel-project/mycel
 edit_uri: https://github.com/mycel-project/mycel-project.github.io/edit/main/mycel-docs/docs/

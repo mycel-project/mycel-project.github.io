@@ -22,16 +22,7 @@ Provide a dedicated field to allow this, and ensure it persists across restarts.
 
 ### MycelCloud Token
 
-To allow communication with MycelCloud, a token field should be
-provided — without it, users on MycelCloud won't be able to
-use your client at all.
-
-Tell your user to visit https://mycelcloud.com to obtain their token
-and paste it into the dedicated field. Make sure to trim it on your end.
-
-You'll then just have to pass the token in every request to Mycel —
-it will automatically authenticate the user from it. Add
-`{"Authorization": "Bearer $token"}` to the header.
+To enable communication with MycelCloud, provide a field for users to enter their authentication token. Include this token in the `Authorization` header of every request as `Bearer $token`. MycelCloud will automatically authenticate the user based on this token.
 
 !!! tip "No need to conditionally send the token"
     MycelCloud requires the token to function, but if the user is
@@ -82,13 +73,9 @@ endpoints follow a different format, detailed in the
 [API reference](../../reference/api.md).
 
 ## Initiate communication
+**Required**{: .badge .badge-required}
 
-To check if Mycel is reachable, you may want to use the system
-endpoint `GET /health`. It will return `200` if reachable.
+To check if Mycel is reachable, you can use the GET /health endpoint. It should return 200 when everything is working as expected, but if not, let’s see what errors you may encounter in the next section!
 
-!!! tip "Any endpoint works"
-    The same version and connectivity checks run on every request, so
-    you could just as well use any other endpoint instead of `/health`
-    — it's simply a convenient, lightweight default for this purpose.
-
-If there's no problem, you're ready to reach the user's data!
+!!! note "Most endpoint works"
+	The same version and connectivity checks are performed on every request that requires an authentication token, so you could just as well use any other endpoint instead of /health — it’s simply a convenient, lightweight default for this purpose.
