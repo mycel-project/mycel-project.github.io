@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../prerequisites/">
       
       
         <link rel="next" href="../model-structuration/">
@@ -59,6 +59,8 @@
   
   
     
+    
+      
     
     
     
@@ -114,7 +116,33 @@
     </div>
     
       
+        <form class="md-header__option" data-md-component="palette">
+  
     
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
     
@@ -218,6 +246,8 @@
           
   
   
+    
+  
   Implement Mycel
 
         </a>
@@ -256,6 +286,8 @@
         <a href="../../manual/scheduling-algorithms/" class="md-tabs__link">
           
   
+  
+    
   
   Learning Principles
 
@@ -385,6 +417,24 @@
   
     
     
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
     
     
       
@@ -401,8 +451,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -416,8 +467,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
@@ -431,20 +488,22 @@
           <ul class="md-nav__list" data-md-scrollfix>
             
               
+            
+              
                 
   
   
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../prerequisites/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Overview
+    Prerequisites
   
 
     
@@ -525,6 +584,84 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#setup-communication-with-mycel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup communication with Mycel
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setup communication with Mycel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api-base-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API Base URL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API Base URL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mycelcloud-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MycelCloud Token
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version compatibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-response-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request &amp; Response Format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initiate-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initiate communication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#error-handling" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -543,67 +680,6 @@
       
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#versioning" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Versioning
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Versioning">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#compatibility-rules" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Compatibility rules
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#compatibility-check" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Compatibility check
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#breaking-changes-within-a-major" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Breaking changes within a major
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#migration-across-majors" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Migration across majors
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -659,6 +735,34 @@
     
   
     Implementation Guides
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../versioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Versioning
   
 
     
@@ -741,6 +845,10 @@
   
   
     
+    
+      
+        
+      
     
     
     
@@ -900,6 +1008,84 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#setup-communication-with-mycel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup communication with Mycel
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setup communication with Mycel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api-base-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API Base URL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API Base URL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mycelcloud-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MycelCloud Token
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version compatibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-response-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request &amp; Response Format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initiate-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initiate communication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#error-handling" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -921,67 +1107,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#versioning" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Versioning
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Versioning">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#compatibility-rules" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Compatibility rules
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#compatibility-check" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Compatibility check
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#breaking-changes-within-a-major" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Breaking changes within a major
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#migration-across-majors" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Migration across majors
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -999,18 +1124,105 @@
 
 
   
+    <a href="https://github.com/mycel-project/mycel-project.github.io/edit/main/mycel-docs/docs/implement/api-communication.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
   
 
 
 <h1 id="api-communication">API Communication</h1>
+<!-- !!! note "Where to start" -->
+<!--     If you're just getting started, read **Setup & Authentication**  -->
+<!--     first — the rest of this page (versioning, error handling,  -->
+<!--     idempotency) can be read in any order or used as reference later. -->
+
+<h2 id="setup-communication-with-mycel">Setup communication with Mycel</h2>
+<p>Mycel exposes a <a href="../../api/">REST API</a> that you'll want to reach 
+to communicate with it.</p>
+<h3 id="api-base-url">API Base URL</h3>
+<p>Since Mycel can be self-hosted or reached through MycelCloud, your 
+client needs a way for the user to set and modify this base URL — this 
+is the URL your client will send requests to. For example: 
+<code>http://192.168.1.10:8000</code> (self-hosted) or <code>https://api.mycelcloud.com</code> 
+(MycelCloud).</p>
+<p>Provide a dedicated field to allow this, and ensure it persists across restarts.</p>
+<div class="admonition tip">
+<p class="admonition-title">URL sanitization</p>
+<p>Users can easily make mistakes when entering a URL. It's a good 
+idea to sanitize and standardize it: add <code>http://</code> or <code>https://</code> 
+if missing, trim whitespace, remove a trailing <code>/</code>, and so on.</p>
+</div>
+<h4 id="mycelcloud-token">MycelCloud Token</h4>
+<p>To allow communication with MycelCloud, a token field should be 
+provided — without it, users on MycelCloud won't be able to 
+use your client at all.</p>
+<p>Tell your user to visit https://mycelcloud.com to obtain their token 
+and paste it into the dedicated field. Make sure to trim it on your end.</p>
+<p>You'll then just have to pass the token in every request to Mycel — 
+it will automatically authenticate the user from it. Add 
+<code>{"Authorization": "Bearer $token"}</code> to the header.</p>
+<div class="admonition tip">
+<p class="admonition-title">No need to conditionally send the token</p>
+<p>MycelCloud requires the token to function, but if the user is 
+self-hosting Mycel, sending a token anyway won't cause an error. 
+So there's no need to distinguish the two cases — you can always 
+send whatever token the user has entered, even if empty.</p>
+</div>
+<details class="example">
+<summary>UI suggestion</summary>
+<p>You could offer a toggle between two sections: one requesting the 
+API base URL (self-hosted), the other requesting the token 
+(MycelCloud) — though any UI pattern works, as long as users can 
+easily provide the right one. In MycelCloud mode, the base URL can 
+simply be hardcoded to <code>https://api.mycelcloud.com</code> — no need to 
+expose it to the user.</p>
+<div class="grid" markdown>
+<p><img alt="" src="../../assets/mycelcloud_config.png" /></p>
+<p><img alt="" src="../../assets/selfhost_config.png" /></p>
+</div>
+</details>
+<h3 id="version-compatibility">Version compatibility</h3>
+<p>All requests may include the <code>X-Mycel-Version</code> header to indicate the 
+minimum Mycel version your implementation requires (e.g. <code>2.3.0</code>). If 
+provided, Mycel will verify compatibility and return a <code>version</code> 
+<a href="#error-handling">error</a> if incompatible — see <a href="../versioning/">Versioning</a> 
+for the full compatibility rules.</p>
+<details class="note">
+<summary>Custom compatibility rules</summary>
+<p>This header is not required — you can choose not to send it. 
+However, omitting any kind of version check comes with risks: your 
+client may silently break against incompatible Mycel versions. If you 
+want to apply custom compatibility rules beyond what Mycel checks, use 
+the <code>GET /version</code> endpoint and implement your own logic in your client.</p>
+</details>
+<h3 id="request-response-format">Request &amp; Response Format</h3>
+<p>Mycel follows the standard REST conventions described in the 
+<a href="../../api/">API reference</a>.
+All API calls are relative to this base URL — e.g. <code>POST {base_url}/collections/{col_id}/reviews/undo</code>.</p>
+<p>Domain endpoints always return the same response format, wrapping the 
+result in a <code>data</code> field: <code>{"data": &lt;response&gt;}</code>, while system 
+endpoints follow a different format, detailed in the 
+<a href="../../api/">API reference</a>.</p>
+<h3 id="initiate-communication">Initiate communication</h3>
+<p>To check if Mycel is reachable, you may want to use the system 
+endpoint <code>GET /health</code>. It will return <code>200</code> if reachable.</p>
+<div class="admonition tip">
+<p class="admonition-title">Any endpoint works</p>
+<p>The same version and connectivity checks run on every request, so 
+you could just as well use any other endpoint instead of <code>/health</code> 
+— it's simply a convenient, lightweight default for this purpose.</p>
+</div>
+<p>If there's no problem, you're ready to reach the user's data!</p>
 <h2 id="error-handling">Error handling</h2>
 <p><a href="https://github.com/mycel-project/mycelium/tree/main/lib/data/network">See Mycelium example</a></p>
 <p>Mycel distinguishes five categories of errors.</p>
 <ul>
 <li><strong>Network errors</strong> occur when the server cannot be reached at all: connection refused, timeout, DNS failure, and so on. These produce no HTTP response and no body. The recommended approach is to catch them at the transport layer and retry with backoff before surfacing anything to the user.</li>
 <li><strong>Authentication errors</strong> (type: "auth") are returned by MycelCloud when a request cannot be authorized. These cover invalid or expired tokens, missing credentials, and subscription issues. They should be handled at the top level of your client, before any business logic runs, typically by notifying the user and prompting them to take action. See <a href="../../manual/auth-errors/">auth error reference</a>.</li>
-<li><strong>Domain errors</strong> (type: "domain") represent logically invalid operations like requesting a resource that does not exist, violating a business rule, ... These are expected errors that your services should catch and handle specifically. Each endpoint in api reference documents the domain errors it can produce.</li>
-<li><strong>Version errors</strong> (type: "version") indicate that your implementation and the Mycel instance are not compatible. This can happen if Mycel is outdated compared to what your implementation requires, or if the major versions differ. The recommended approach is to block all further calls and display a clear message to the user. See <a href="#versioning">Versioning section</a> for more details.</li>
+<li><strong>Domain errors</strong> (type: "domain") represent logically invalid operations like requesting a resource that does not exist, violating a business rule, ... These are expected errors that your services should catch and handle specifically. Each endpoint in API reference documents the domain errors it can produce.</li>
+<li><strong>Version errors</strong> (type: "version") indicate that your implementation and the Mycel instance are not compatible. This can happen if Mycel is outdated compared to what your implementation requires, or if the major versions differ. The recommended approach is to block all further calls and display a clear message to the user. See <a href="../versioning/">Versioning section</a> for more details.</li>
 <li><strong>Internal errors</strong> (type: "internal") are unexpected failures. They should not be caught silently. The recommended approach is to surface the raw error to the user and encourage them to report it.</li>
 </ul>
 <p>All non-network errors share the same response format:
@@ -1044,12 +1256,12 @@
 <a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>        notify user, suggest reporting the issue
 <a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>        return
 <a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>
-<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>    // domain falls through
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>    # domain falls through
 <a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>    elif error.type == &quot;domain&quot;:
 <a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>        pass 
 <a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>        let services handle the specific code
 <a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>
-<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>    // Fallback - unknown error type
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>    # Fallback - unknown error type
 <a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>    else:
 <a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>        log error
 <a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>        notify user, suggest reporting the issue
@@ -1060,33 +1272,33 @@
 <p>And within a service:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>try:
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    handle_response(response)
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>except MyclError as e:
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>except MycelError as e:
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    if e.code == &quot;NODE_NOT_FOUND&quot;:
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        // handle specifically
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        # handle specifically
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    if e.code == &quot;NOT_A_SPORE&quot;:
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        // handle specifically
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        # handle specifically
 </code></pre></div></p>
 <h2 id="idempotency">Idempotency</h2>
-<p>Mycel implements server-side idempotency for non-idempotent endpoints. These are marked in the API reference.</p>
-<p>To benefit from this protection, include an <code>Idempotency-Key</code> header with a unique UUID per user action:</p>
+<p>Mycel implements server-side idempotency for non-idempotent endpoints, 
+marked as such in the API reference. Using this protection is optional 
+but recommended.</p>
+<p>To benefit from this protection, include an <code>Idempotency-Key</code> header 
+with a unique UUID per user action:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="err">POST /collections/{col_id}/reviews/undo</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="err">Idempotency-Key: 550e8400-e29b-41d4-a716-446655440000</span>
 </code></pre></div>
-<p>If the same key is sent again within 1 hour, Mycel returns the original response without re-executing the operation.</p>
-<p>This header is optional but strongly recommended for non-idempotent endpoints: omitting it exposes your implementation to instability caused by network retries or accidental double calls. A basic level of protection can be achieved by wrapping all your calls with this idempotency key. However, a better approach is to generate the key at the action level and reuse the exact same key when retrying that action.</p>
-<p>In a more general sense, when dealing with user-triggered asynchronous actions, you can prevent spam by temporarily disabling the action's availability or behavior until the operation completes or timeout.</p>
-<h2 id="versioning">Versioning</h2>
-<p>Mycel uses semantic versioning (MAJOR.minor.patch). Compatibility across versions is something actively maintained, but errors or inconsistencies may slip through and will be corrected as they are reported.</p>
-<h3 id="compatibility-rules">Compatibility rules</h3>
-<p>The rules are simple: the major version must match exactly, and the minor version of the instance must be greater than or equal to the one declared by the implementation. The patch version follows the same logic as the minor. If your implementation declares <code>2.3.0</code> and the Mycel instance runs <code>2.5.1</code>, the request goes through. If the instance runs <code>2.1.0</code>, Mycel returns a version error inviting the user to update their instance. If the major versions differ, Mycel refuses the request entirely, there is no compatibility guarantee across majors.</p>
-<h3 id="compatibility-check">Compatibility check</h3>
-<p>Mycel verifies version compatibility on every request that includes the X-Mycel-Version header. The header should contain the minimum Mycel version the implementation is compatible with, typically the version it was originally built against. If the header is present, Mycel checks that the declared version is compatible with the running instance and returns a version error if not. This is the recommended way for implementations to protect their users against accidental incompatibilities.</p>
-<p>When using MycelCloud, the header is required: requests are automatically routed to the Mycel instance matching the declared major version, as MycelCloud runs multiple major versions in parallel to support implementations that have not yet migrated.</p>
-<p>If you need custom version handling logic, the current Mycel version is available at GET /version and can be used to implement your own compatibility check.</p>
-<h3 id="breaking-changes-within-a-major">Breaking changes within a major</h3>
-<p>When a behavioral change is introduced within a major, the old behavior is kept as the default for core features and the new behavior is opt-in via a parameter. This means updating Mycel without updating your implementation will never silently change how the core of the app works. Minor fixes and non-breaking improvements may however be applied transparently. At the next major version, compatibility parameters accumulated during the previous major are removed and the new behaviors become the defaults.</p>
-<h3 id="migration-across-majors">Migration across majors</h3>
-<p>Each major release is accompanied by migration tooling and documentation to help transition data and configurations. Where possible, migrations are automated via Alembic.</p>
+<p>If the same key is sent again within 1 hour, Mycel returns the 
+original response without re-executing the operation.</p>
+<p>This header is optional but strongly recommended for non-idempotent 
+endpoints — omitting it exposes your client to instability from 
+network retries or accidental double calls. For best results, generate 
+the key at the action level and reuse it on retries, rather than 
+generating a new key per call.</p>
+<div class="admonition tip">
+<p class="admonition-title">Bonus: preventing spam client-side</p>
+<p>Beyond idempotency keys, you can also prevent spam by temporarily 
+disabling a user-triggered action until it completes or times out.</p>
+</div>
 
 
 
@@ -1110,6 +1322,46 @@
       </main>
       
         <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../prerequisites/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Prerequisites">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Prerequisites
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../model-structuration/" class="md-footer__link md-footer__link--next" aria-label="Next: Model Structuration">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Model Structuration
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -1136,7 +1388,7 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.footer", "navigation.indexes", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
