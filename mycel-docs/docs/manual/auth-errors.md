@@ -28,7 +28,7 @@ No token was found in the configuration. Mycel cannot connect to MycelCloud with
 
 Message:
 ```
-No MycelCloud token configured. Please visit mycelcloud.com to get your token, then add it to your configuration.
+No MycelCloud token configured. Please visit mycelcloud.com to get your token, then enter it in the dedicated field.
 ```
 
 You may also offer to open the configuration directly so the user can paste it in without leaving your interface.

@@ -77,5 +77,5 @@ endpoints follow a different format, detailed in the
 
 To check if Mycel is reachable, you can use the GET /health endpoint. It should return 200 when everything is working as expected, but if not, let’s see what errors you may encounter in the next section!
 
-!!! note "Most endpoint works"
-	The same version and connectivity checks are performed on every request that requires an authentication token, so you could just as well use any other endpoint instead of /health — it’s simply a convenient, lightweight default for this purpose.
+!!! example "Display Mycel version"
+    After validating the connection, you can fetch the Mycel instance version using `GET /version` and display it in the connection configuration page.
