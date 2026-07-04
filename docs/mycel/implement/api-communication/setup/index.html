@@ -1930,9 +1930,9 @@ endpoints follow a different format, detailed in the
 <h2 id="initiate-communication">Initiate communication</h2>
 <p><strong class="badge badge-required">Required</strong></p>
 <p>To check if Mycel is reachable, you can use the GET /health endpoint. It should return 200 when everything is working as expected, but if not, let’s see what errors you may encounter in the next section!</p>
-<div class="admonition note">
-<p class="admonition-title">Most endpoint works</p>
-<p>The same version and connectivity checks are performed on every request that requires an authentication token, so you could just as well use any other endpoint instead of /health — it’s simply a convenient, lightweight default for this purpose.</p>
+<div class="admonition example">
+<p class="admonition-title">Display Mycel version</p>
+<p>After validating the connection, you can fetch the Mycel instance version using <code>GET /version</code> and display it in the connection configuration page.</p>
 </div>
 
 
