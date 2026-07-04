@@ -40,12 +40,26 @@
 
       <section id="self-hosting">
 	<h2>Self-hosting guide</h2>
-	<h3>Who is self-hosting for?</h3>
+	<ul class="list">
+	  <li>
+	    <a href="mycel/index.html#who">Who is self-hosting for?</a>
+	  </li>
+	  <li>
+	    <a href="mycel/index.html#install">Installation</a>
+	  </li>
+	  <li>
+	    <a href="mycel/index.html#maintenance">Maintenance</a>
+	  </li>
+	  <li>
+	    <a href="mycel/index.html#https">Enable HTTPS (to use with WebApps)</a>
+	  </li>
+	</ul>
+	<h3 id="who">Who is self-hosting for?</h3>
 	<p>Self-hosting means running Mycel on your own machine or server. Your data stays entirely local, in a SQLite file on your device. If you'd rather not manage a server, <a href="https://mycelcloud.com" class="primary" target="_blank">MycelCloud</a> is a hosted alternative.</p>
 	<p>Self-hosting is a good fit if you want full control over your data, prefer not to depend on an external service, or simply want to run Mycel for free.</p>
 	<p>Keep in mind that availability depends on how you host Mycel. If you run it on your personal computer, Mycel will only be accessible while that computer is on and from the same network. If you use a remote server (a VPS or dedicated machine), you can make it available from anywhere, but that configuration is outside the scope of this guide.</p>
 	<p><em>As a self-hoster, you manage your own updates and backups.</em></p>
-	<h3>Installation method</h3>
+	<h3 id="install">Installation</h3>
 	<p class="tab-question">Which installation method do you want to use? (Git is probably the simplest)</p>
 	<div class="tabs" id="tabs-install">
 	  <button class="tab-btn active" onclick="switchInstallTab(this, 'git')">Git</button>
@@ -54,10 +68,9 @@
 	</div>
 
 	<div id="install-git" class="tab-content">
-	  <h3>Requirements</h3>
+	  <h4>Requirements</h4>
 	  <p>Make sure <a href="https://www.python.org/" class="primary" target="_blank"><b>Python v3.10+</b></a> and <a href="https://git-scm.com/" class="primary" target="_blank"><b>git</b></a> are installed on your system.</p>
-
-	  <h3>Install</h3>
+	  <h4>Install</h4>
 	  <p>Clone the repository:</p>
 	  <pre><code>git clone https://github.com/mycel-project/mycel</code></pre>
 	  <p class="tab-question">Then run the setup script for your OS:</p>
@@ -72,7 +85,7 @@
 	    <pre><code>chmod +x setup.sh && ./setup.sh</code></pre>
 	  </div>
 	  <p><em>Note: some dependencies may take a while to install depending on your device's architecture.</em></p>
-	  <h3>Run</h3>
+	  <h4>Run</h4>
 	  <div id="run-win" class="tab-content">
 	    <pre><code>run.bat</code></pre>
 	  </div>
@@ -83,12 +96,12 @@
 	  <div class="connection-example-img">
 	    <img src="./assets/mycel_url.png" alt="mycel_url_example">
 	  </div>
-	  <h3>How to Update</h3>
+	  <h4>How to Update</h4>
 	  <p>To update Mycel, run this command from your Mycel folder:</p>
 	  <pre><code>git pull</code></pre>
 	  <p>Then restart Mycel.</p>
 	  <p>If an update introduces new configuration options, you may need to update your <code>config.json</code> by referring to <code>config.example.json</code>. See also <a href="mycel/index.html#versioning" class="primary">how Mycel handles versions</a>.</p>
-	  <h3>Following a specific version</h3>
+	  <h4>Following a specific version</h4>
 	  <p>By default <code>git pull</code> updates to the latest stable release. If you want to pin Mycel to a specific version, for instance to avoid a breaking change, you can checkout a tag:</p>
 	  <pre><code>git checkout tags/vX.X.X</code></pre>
 	  <p>Prerelease tags follow the format <code>vX.X.X-alpha</code>, <code>vX.X.X-beta</code>, or <code>vX.X.X-rc</code>, optionally suffixed with a number: <code>vX.X.X-alpha.2</code>.</p>
@@ -99,28 +112,18 @@
 	  <p><em>Prerelease versions move fast and may be less stable. Not recommended unless you know what you're doing.</em></p>
 	</div>
 	<div id="install-docker" class="tab-content" hidden>
-	  <h3>Requirements</h3>
+	  <h4>Requirements</h4>
 	  <p>Make sure <a href="https://www.docker.com/" class="primary" target="_blank"><b>Docker</b></a> is installed on your system.</p>
-	  <h3>Install & Run</h3>
+	  <h4>Install & Run</h4>
 	  <p><em>Docker instructions coming soon.</em></p>
 	</div>
 	<div id="install-nix" class="tab-content" hidden>
-	  <h3>Requirements</h3>
+	  <h4>Requirements</h4>
 	  <p>Make sure <a href="https://nixos.org/" class="primary" target="_blank"><b>Nix</b></a> is installed on your system.</p>
-	  <h3>Install & Run</h3>
+	  <h4>Install & Run</h4>
 	  <p><em>Nix instructions coming soon.</em></p>
 	</div>
-	<h3>Your data</h3>
-	<p>All your learning data is stored in <code>mycel.db</code> at the root of your Mycel folder.</p>
-	<p><em><b>Back up this file regularly.</b> If it is lost or corrupted, your data cannot be recovered.</em></p>
-	<h3 id="versioning">Versions</h3>
-	<p>Mycel uses <b>semantic versioning</b> (MAJOR.minor.patch). In short: patch updates are safe, minor updates are generally safe, major updates may require migration.</p>
-	<p><em>Before version 1.0.0, things may change faster and more frequently. Breaking changes are more likely during this phase.</em></p>
-
-	<h3>What to expect when updating</h3>
-	<p>Updating within the same major version is generally safe. Your data and configuration won't be silently affected. If a behavioral change is introduced, the old behavior is kept as default and the new one is opt-in, so updating Mycel without updating your client will never break things unexpectedly.</p>
-	<p>Across major versions, migration tooling and documentation are provided to help transition your data and configuration.</p>
-	<h3 id="self-hosting-troubleshooting">Troubleshooting</h3>
+		<h4 id="self-hosting-troubleshooting">Troubleshooting</h4>
 	<ul class="list">
 	  <li><b>Check that Mycel is running.</b> When entering Mycel's URL in your browser, you should see a welcome message. If not, Mycel may not be running or the port may not be exposed.</li>
 	  <li><b>Check that Mycel is reachable from your client.</b> Make sure both are on the same network, or that your server is accessible from the internet if needed.</li>
@@ -129,6 +132,20 @@
 	  <li><b>Check the terminal output.</b> If Mycel crashes at startup, the error message in the terminal is usually the best starting point.</li>
 	</ul>
 	<p>Still stuck? <a href="https://github.com/mycel-project/mycel/issues" class="primary">Open an issue</a> or <a href="mailto:paul-in@mailo.com" class="primary">reach out to us</a>.</p>
+	<h3 id="maintenance">Maintenance</h3>
+	<h4>Your data</h4>
+	<p>All your learning data is stored in <code>mycel.db</code> at the root of your Mycel folder.</p>
+	<p><em><b>Back up this file regularly.</b> If it is lost or corrupted, your data cannot be recovered.</em></p>
+	<h4 id="versioning">Versionning</h4>
+	<p>Mycel uses <b>semantic versioning</b> (MAJOR.minor.patch). In short: patch updates are safe, minor updates are generally safe, major updates may require migration. See more in <a href="docs/mycel/reference/versioning/">docs</a>.</p>
+	<h5>What to expect when updating</h5>
+	<p>Updating within the same major version is generally safe. Your data and configuration won't be silently affected. If a behavioral change is introduced, the old behavior is kept as default and the new one is opt-in, so updating Mycel without updating your client will never break things unexpectedly.</p>
+	<p>Across major versions, migration tooling and documentation are provided to help transition your data and configuration.</p>
+	<h3 id="https">Enable HTTPS (to use with WebApps)</h3>
+	<p>Some platforms refuse to call APIs served over HTTP when the page itself is loaded over HTTPS — this is known as <b>mixed content</b>, and most browsers block it by default. To work around this, you'll need to expose Mycel over an HTTPS address.</p>
+	<p>The quickest way to do this without creating an account is Cloudflare's <a href="https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/trycloudflare/" class="primary" target="_blank">Quick Tunnels</a>. Make sure <a href="https://github.com/cloudflare/cloudflared" class="primary" target="_blank"><b>cloudflared</b></a> is installed and your Mycel instance is running, then run:</p>
+	<pre><code>cloudflared tunnel --url http://localhost:YOUR_MYCEL_INSTANCE_PORT</code></pre>
+	<p>This prints a random HTTPS address on <code>trycloudflare.com</code>. Provide that address to your client to use Mycel over HTTPS.</p>
       </section>
     </main>
     <site-footer></site-footer>
