@@ -61,4 +61,4 @@ The API never exposes learning unit IDs directly: you always work with `node_id`
 
 ---
 
-Now let's see how to implement that in practice.
+Now let's see how to implement that.

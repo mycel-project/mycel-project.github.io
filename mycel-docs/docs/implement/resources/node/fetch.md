@@ -2,10 +2,6 @@
 
 This section assumes you've already set up a unified Node model as described in [Modeling Node](modeling.md) — the fetch pattern below relies on being able to check whether `NodeFields` is already populated.
 
-## NodeView vs NodeDetailView
-
-Some endpoints return only `NodeView` models, which do **not** include the full content of the node (`NodeFields`). This allows fast retrieval of multiple nodes at once. Endpoints like `GetNode` return `NodeDetailView` models, which include the complete `NodeFields` payload.
-
 ## Cache pattern
 
 To avoid fetching the entire node every time it is opened:
