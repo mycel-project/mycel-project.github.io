@@ -98,9 +98,13 @@
 	  </div>
 	  <h4>How to Update</h4>
 	  <p>To update Mycel, run this command from your Mycel folder:</p>
-	  <pre><code>git pull</code></pre>
-	  <p>Then restart Mycel.</p>
-	  <p>If an update introduces new configuration options, you may need to update your <code>config.json</code> by referring to <code>config.example.json</code>. See also <a href="mycel/index.html#versioning" class="primary">how Mycel handles versions</a>.</p>
+	  <div id="update-win" class="tab-content" hidden>
+	    <pre><code>update.bat</code></pre>
+	  </div>
+	  <div id="update-unix" class="tab-content" hidden>
+	    <pre><code>chmod +x update.sh && ./update.sh</code></pre>
+	  </div>
+	  <p>This pulls the latest changes, installs any new dependencies, and adds missing configuration options to your <code>config.json</code> based on <code>config.example.json</code> (existing values are never overwritten, and a backup of your previous <code>config.json</code> is saved as <code>config.json.bak</code> in case something goes wrong). Then restart Mycel.</p>
 	  <h4>Following a specific version</h4>
 	  <p>By default <code>git pull</code> updates to the latest stable release. If you want to pin Mycel to a specific version, for instance to avoid a breaking change, you can checkout a tag:</p>
 	  <pre><code>git checkout tags/vX.X.X</code></pre>

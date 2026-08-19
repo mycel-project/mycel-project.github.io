@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1767,7 +1767,22 @@
 
 
 <h1 id="overview-architecture">Overview &amp; Architecture</h1>
+<p>Here is some suggestions of architecture that you may want to implement.</p>
 <h2 id="caching">Caching</h2>
+<p>When fetching resources like collections or nodes, cache them locally to avoid unnecessary network calls.</p>
+<p>Use a <strong>cache-aside</strong> pattern with two kinds of functions:</p>
+<ul>
+<li><strong><code>load*</code></strong> — always fetches from the API and (re)populates the cache. Use when you explicitly need fresh data (initial load, manual refresh).</li>
+<li><strong><code>get*</code></strong> — reads from the cache if present, no freshness check; falls back to the API on a miss. Use everywhere else.</li>
+</ul>
+<p>Freshness is thus an explicit choice by the caller, not something the cache manages on its own.</p>
+<p><strong>Rules:</strong></p>
+<ol>
+<li><strong>Single write path.</strong> Only mutate the cache as a direct consequence of a confirmed API response, through one dedicated method (e.g. <code>updateCache</code>).</li>
+<li><strong>Invalidate on mutation.</strong> Every <code>create</code>/<code>update</code>/<code>delete</code>/<code>rename</code> must update or evict the corresponding entry right after a successful response.</li>
+<li><strong>Invalidate on context change.</strong> Clear the cache on user or collection switch.</li>
+<li><strong>Assumes single-writer.</strong> This works as long as the current client is the only one modifying a resource at a time. If concurrent edits (other devices, collaborators) become possible, <code>get*</code> can silently serve stale data — if this becomes a problem, consider more advanced options like TTLs, ETags, or push-based invalidation.</li>
+</ol>
 
 
 
@@ -1860,7 +1875,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.footer", "navigation.indexes", "content.action.edit"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
       

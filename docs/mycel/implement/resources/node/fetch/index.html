@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1159,17 +1159,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#nodeview-vs-nodedetailview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        NodeView vs NodeDetailView
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#cache-pattern" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1755,17 +1744,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#nodeview-vs-nodedetailview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        NodeView vs NodeDetailView
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#cache-pattern" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1814,8 +1792,6 @@
 
 <h1 id="fetch-node">Fetch Node</h1>
 <p>This section assumes you've already set up a unified Node model as described in <a href="../modeling/">Modeling Node</a> — the fetch pattern below relies on being able to check whether <code>NodeFields</code> is already populated.</p>
-<h2 id="nodeview-vs-nodedetailview">NodeView vs NodeDetailView</h2>
-<p>Some endpoints return only <code>NodeView</code> models, which do <strong>not</strong> include the full content of the node (<code>NodeFields</code>). This allows fast retrieval of multiple nodes at once. Endpoints like <code>GetNode</code> return <code>NodeDetailView</code> models, which include the complete <code>NodeFields</code> payload.</p>
 <h2 id="cache-pattern">Cache pattern</h2>
 <p>To avoid fetching the entire node every time it is opened:</p>
 <ol>
@@ -1920,7 +1896,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.footer", "navigation.indexes", "content.action.edit"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
       
