@@ -1,5 +1,9 @@
 # User
 
+## UserView model
+
+See the [UserView Model](https://github.com/mycel-project/mycel/blob/main/src/schemas/user_view.py). 
+
 ## Create 
 
 Whether self-hosted or on MycelCloud, your client never needs to 

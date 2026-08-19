@@ -1,5 +1,9 @@
 # Collection
 
+## CollectionView model
+
+See the [CollectionView Model](https://github.com/mycel-project/mycel/blob/main/src/schemas/collection_view.py). 
+
 ## Create and Delete
 
 A "Default" collection is automatically created for each user. If you 
