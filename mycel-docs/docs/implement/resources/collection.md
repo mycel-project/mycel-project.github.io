@@ -1,5 +1,7 @@
 # Collection
 
+In Mycel a Collection is the largest unit for grouping nodes. Each Collection can have its own configuration. Many users may only need a single Collection.
+
 ## CollectionView model
 
 See the [CollectionView Model](https://github.com/mycel-project/mycel/blob/main/src/schemas/collection_view.py). 

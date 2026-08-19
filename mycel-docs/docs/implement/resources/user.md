@@ -1,5 +1,7 @@
 # User
 
+In Mycel, a user represents a unique learner with their own configuration and data, and can have multiple collections.
+
 ## UserView model
 
 See the [UserView Model](https://github.com/mycel-project/mycel/blob/main/src/schemas/user_view.py). 
