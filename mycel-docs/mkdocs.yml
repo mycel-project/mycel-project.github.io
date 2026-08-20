@@ -49,6 +49,7 @@ nav:
     - Features:
       - Overview: implement/features/overview.md
       - Node Tree: implement/features/node-tree.md
+      - Importing Resources: implement/features/importing-resources.md
     - Configuration: implement/configuration.md
     - Implementation Guides: implement/guides.md
     - Testing and Sharing: implement/testing-and-sharing.md
