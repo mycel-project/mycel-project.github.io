@@ -46,6 +46,9 @@ nav:
         - Multi-spore Support: implement/resources/node/multi-spore.md
       - Review: implement/resources/review.md
       - Update resources: implement/resources/update.md
+    - Features:
+      - Overview: implement/features/overview.md
+      - Node Tree: implement/features/node-tree.md
     - Configuration: implement/configuration.md
     - Implementation Guides: implement/guides.md
     - Testing and Sharing: implement/testing-and-sharing.md
