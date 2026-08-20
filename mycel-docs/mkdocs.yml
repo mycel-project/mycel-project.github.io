@@ -38,7 +38,7 @@ nav:
       - User: implement/resources/user.md
       - Collection: implement/resources/collection.md
       - Node:
-        - Fundations: implement/resources/node/fundation.md
+        - Foundations: implement/resources/node/foundations.md
         - Modeling Node: implement/resources/node/modeling.md
         - Fetch Node: implement/resources/node/fetch.md
         - Edit Node: implement/resources/node/edit.md

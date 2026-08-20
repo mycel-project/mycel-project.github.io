@@ -1,4 +1,4 @@
-# Fundations
+# Foundations
 
 **Required**{: .badge .badge-required} 
 
