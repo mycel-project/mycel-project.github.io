@@ -44,6 +44,7 @@ nav:
         - Edit Node: implement/resources/node/edit.md
         - Special Operations: implement/resources/node/special-operations.md
         - Multi-spore Support: implement/resources/node/multi-spore.md
+        - Node Formats: implement/resources/node/node-formats.md
       - Review: implement/resources/review.md
       - Update resources: implement/resources/update.md
     - Features:
