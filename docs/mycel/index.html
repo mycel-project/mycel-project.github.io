@@ -79,18 +79,18 @@
 	    <button class="tab-btn" id="os-btn-unix" onclick="switchOsTab(this, 'unix')">Linux / macOS</button>
 	  </div>
 	  <div id="os-win" class="tab-content">
-	    <pre><code>setup.bat</code></pre>
+	    <pre><code>mycel.bat setup</code></pre>
 	  </div>
 	  <div id="os-unix" class="tab-content" hidden>
-	    <pre><code>chmod +x setup.sh && ./setup.sh</code></pre>
+	    <pre><code>./mycel.sh setup</code></pre>
 	  </div>
 	  <p><em>Note: some dependencies may take a while to install depending on your device's architecture.</em></p>
 	  <h4>Run</h4>
 	  <div id="run-win" class="tab-content">
-	    <pre><code>run.bat</code></pre>
+	    <pre><code>mycel.bat run</code></pre>
 	  </div>
 	  <div id="run-unix" class="tab-content" hidden>
-	    <pre><code>./run.sh</code></pre>
+	    <pre><code>./mycel.sh run</code></pre>
 	  </div>
 	  <p>Mycel will display its URL at startup. You'll need it to <a href="getting-started.html#section-connect" class="primary">connect your client</a>.</p>
 	  <div class="connection-example-img">
@@ -99,10 +99,10 @@
 	  <h4>How to Update</h4>
 	  <p>To update Mycel, run this command from your Mycel folder:</p>
 	  <div id="update-win" class="tab-content" hidden>
-	    <pre><code>update.bat</code></pre>
+	    <pre><code>mycel.bat update</code></pre>
 	  </div>
 	  <div id="update-unix" class="tab-content" hidden>
-	    <pre><code>chmod +x update.sh && ./update.sh</code></pre>
+	    <pre><code>./mycel.sh update</code></pre>
 	  </div>
 	  <p>This pulls the latest changes, installs any new dependencies, and adds missing configuration options to your <code>config.json</code> based on <code>config.example.json</code> (existing values are never overwritten, and a backup of your previous <code>config.json</code> is saved as <code>config.json.bak</code> in case something goes wrong). Then restart Mycel.</p>
 	  <h4>Following a specific version</h4>
